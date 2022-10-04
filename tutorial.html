@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Julia Tutorial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="tutorial_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tutorial_files/libs/quarto-html/quarto.js"></script>
+<script src="tutorial_files/libs/quarto-html/popper.min.js"></script>
+<script src="tutorial_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="tutorial_files/libs/quarto-html/anchor.min.js"></script>
+<link href="tutorial_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tutorial_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="tutorial_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="tutorial_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="tutorial_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#show" id="toc-show" class="nav-link active" data-scroll-target="#show">Show</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Julia Tutorial</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="show" class="level2">
+<h2 class="anchored" data-anchor-id="show">Show</h2>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"tutorial"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  Activating new project at `~/Documents/GitHub/Julia-for-SciML/tutorial`</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DifferentialEquations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>    Updating registry at `~/.julia/registries/General`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>    Updating git-repo `https://github.com/JuliaRegistries/General.git`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Resolving package versions...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed SIMDDualNumbers ────────────────── v0.1.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed TriangularSolve ────────────────── v0.1.14
+   Installed Polyester ──────────────────────── v0.6.15
+   Installed Static ─────────────────────────── v0.7.7
+   Installed NonlinearSolve ─────────────────── v0.3.22
+   Installed ArrayInterfaceOffsetArrays ─────── v0.1.6</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed SLEEFPirates ───────────────────── v0.6.35
+   Installed DifferentialEquations ──────────── v7.4.0
+   Installed FiniteDiff ─────────────────────── v2.15.0
+   Installed BoundaryValueDiffEq ────────────── v2.9.0
+   Installed StaticArrays ───────────────────── v1.5.8
+   Installed SteadyStateDiffEq ──────────────── v1.9.0
+   Installed Tricks ─────────────────────────── v0.1.6
+   Installed KrylovKit ──────────────────────── v0.5.4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed ArnoldiMethod ──────────────────── v0.2.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed DiffEqBase ─────────────────────── v6.105.0
+   Installed CpuId ──────────────────────────── v0.3.1
+   Installed ArrayInterfaceGPUArrays ────────── v0.2.2
+   Installed BandedMatrices ─────────────────── v0.17.6
+   Installed DiffEqNoiseProcess ─────────────── v5.13.0
+   Installed SciMLBase ──────────────────────── v1.59.3
+   Installed LinearSolve ────────────────────── v1.26.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed StaticArraysCore ───────────────── v1.4.0
+   Installed ThreadingUtilities ─────────────── v0.5.0
+   Installed ManualMemory ───────────────────── v0.1.8
+   Installed LevyArea ───────────────────────── v1.0.0
+   Installed SnoopPrecompile ────────────────── v1.0.1
+   Installed JumpProcesses ──────────────────── v9.2.0
+   Installed OrdinaryDiffEq ─────────────────── v6.27.2
+   Installed Graphs ─────────────────────────── v1.7.4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed BitTwiddlingConvenienceFunctions ─ v0.1.4
+   Installed Compat ─────────────────────────── v4.2.0
+   Installed ArrayLayouts ───────────────────── v0.8.11
+   Installed GenericSchur ───────────────────── v0.5.3
+   Installed LayoutPointers ─────────────────── v0.1.10
+   Installed DiffResults ────────────────────── v1.1.0
+   Installed Sundials ───────────────────────── v4.10.1
+   Installed StochasticDiffEq ───────────────── v6.54.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Inflate ────────────────────────── v0.1.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed DiffEqCallbacks ────────────────── v2.24.1
+   Installed Setfield ───────────────────────── v1.1.1
+   Installed PolyesterWeave ─────────────────── v0.1.10
+   Installed LineSearches ───────────────────── v7.2.0
+   Installed DelayDiffEq ────────────────────── v5.38.0
+   Installed ChainRulesCore ─────────────────── v1.15.6
+   Installed LoopVectorization ──────────────── v0.12.128
+   Installed FastLapackInterface ────────────── v1.2.7</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed ArrayInterfaceStaticArrays ─────── v0.1.4
+   Installed PreallocationTools ─────────────── v0.4.4
+   Installed CloseOpenIntervals ─────────────── v0.1.10
+   Installed KLU ────────────────────────────── v0.3.0
+   Installed DocStringExtensions ────────────── v0.9.1
+   Installed StrideArraysCore ───────────────── v0.3.15
+   Installed ExponentialUtilities ───────────── v1.19.0
+   Installed Krylov ─────────────────────────── v0.8.4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed CPUSummary ─────────────────────── v0.1.27
+   Installed VertexSafeGraphs ───────────────── v0.2.0
+   Installed Tables ─────────────────────────── v1.9.0
+   Installed VectorizationBase ──────────────── v0.21.49
+   Installed DataAPI ────────────────────────── v1.11.0
+   Installed HostCPUFeatures ────────────────── v0.1.8
+   Installed PoissonRandom ──────────────────── v0.4.1
+   Installed Optim ──────────────────────────── v1.7.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed RecursiveFactorization ─────────── v0.2.12
+   Installed FastBroadcast ──────────────────── v0.2.1
+   Installed SparseDiffTools ────────────────── v1.26.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Distributions ──────────────────── v0.25.75</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>    Updating `~/Documents/GitHub/Julia-for-SciML/tutorial/Project.toml`
+  [0c46a032] + DifferentialEquations v7.4.0
+    Updating `~/Documents/GitHub/Julia-for-SciML/tutorial/Manifest.toml`
+  [79e6a3ab] + Adapt v3.4.0
+  [ec485272] + ArnoldiMethod v0.2.0
+  [4fba245c] + ArrayInterface v6.0.23
+  [30b0a656] + ArrayInterfaceCore v0.1.20
+  [6ba088a2] + ArrayInterfaceGPUArrays v0.2.2
+  [015c0d05] + ArrayInterfaceOffsetArrays v0.1.6
+  [b0d46f97] + ArrayInterfaceStaticArrays v0.1.4
+  [dd5226c6] + ArrayInterfaceStaticArraysCore v0.1.0
+  [4c555306] + ArrayLayouts v0.8.11
+  [aae01518] + BandedMatrices v0.17.6
+  [62783981] + BitTwiddlingConvenienceFunctions v0.1.4
+  [764a87c0] + BoundaryValueDiffEq v2.9.0
+  [fa961155] + CEnum v0.4.2
+  [2a0fbf3d] + CPUSummary v0.1.27
+  [49dc2e85] + Calculus v0.5.1
+  [d360d2e6] + ChainRulesCore v1.15.6
+  [9e997f8a] + ChangesOfVariables v0.1.4
+  [fb6a15b2] + CloseOpenIntervals v0.1.10
+  [38540f10] + CommonSolve v0.2.1
+  [bbf7d656] + CommonSubexpressions v0.3.0
+  [34da2185] + Compat v4.2.0
+  [187b0558] + ConstructionBase v1.4.1
+  [adafc99b] + CpuId v0.3.1
+  [9a962f9c] + DataAPI v1.11.0
+  [864edb3b] + DataStructures v0.18.13
+  [e2d170a0] + DataValueInterfaces v1.0.0
+  [bcd4f6db] + DelayDiffEq v5.38.0
+  [b429d917] + DensityInterface v0.4.0
+  [2b5f629d] + DiffEqBase v6.105.0
+  [459566f4] + DiffEqCallbacks v2.24.1
+  [77a26b50] + DiffEqNoiseProcess v5.13.0
+  [163ba53b] + DiffResults v1.1.0
+  [b552c78f] + DiffRules v1.11.1
+  [0c46a032] + DifferentialEquations v7.4.0
+  [b4f34e82] + Distances v0.10.7
+  [31c24e10] + Distributions v0.25.75
+  [ffbed154] + DocStringExtensions v0.9.1
+  [fa6b7ba4] + DualNumbers v0.6.8
+  [d4d017d3] + ExponentialUtilities v1.19.0
+  [7034ab61] + FastBroadcast v0.2.1
+  [9aa1b823] + FastClosures v0.3.2
+  [29a986be] + FastLapackInterface v1.2.7
+  [1a297f60] + FillArrays v0.13.4
+  [6a86dc24] + FiniteDiff v2.15.0
+  [f6369f11] + ForwardDiff v0.10.32
+  [069b7b12] + FunctionWrappers v1.1.2
+  [77dc65aa] + FunctionWrappersWrappers v0.1.1
+  [46192b85] + GPUArraysCore v0.1.2
+  [c145ed77] + GenericSchur v0.5.3
+  [86223c79] + Graphs v1.7.4
+  [3e5b6fbb] + HostCPUFeatures v0.1.8
+  [34004b35] + HypergeometricFunctions v0.3.11
+  [615f187c] + IfElse v0.1.1
+  [d25df0c9] + Inflate v0.1.3
+  [3587e190] + InverseFunctions v0.1.7
+  [92d709cd] + IrrationalConstants v0.1.1
+  [42fd0dbc] + IterativeSolvers v0.9.2
+  [82899510] + IteratorInterfaceExtensions v1.0.0
+  [692b3bcd] + JLLWrappers v1.4.1
+  [ccbc3e58] + JumpProcesses v9.2.0
+⌅ [ef3ab10e] + KLU v0.3.0
+  [ba0b0d4f] + Krylov v0.8.4
+  [0b1a1467] + KrylovKit v0.5.4
+  [10f19ff3] + LayoutPointers v0.1.10
+  [2d8b4e74] + LevyArea v1.0.0
+  [d3d80556] + LineSearches v7.2.0
+  [7ed4a6bd] + LinearSolve v1.26.0
+  [2ab3a3ac] + LogExpFunctions v0.3.18
+  [bdcacae8] + LoopVectorization v0.12.128
+  [1914dd2f] + MacroTools v0.5.9
+  [d125e4d3] + ManualMemory v0.1.8
+  [e1d29d7a] + Missings v1.0.2
+  [46d2c3a1] + MuladdMacro v0.2.2
+  [d41bc354] + NLSolversBase v7.8.2
+  [2774e3e8] + NLsolve v4.5.1
+  [77ba4419] + NaNMath v1.0.1
+  [8913a72c] + NonlinearSolve v0.3.22
+  [6fe1bfb0] + OffsetArrays v1.12.7
+  [429524aa] + Optim v1.7.3
+  [bac558e1] + OrderedCollections v1.4.1
+  [1dea7af3] + OrdinaryDiffEq v6.27.2
+  [90014a1f] + PDMats v0.11.16
+  [d96e819e] + Parameters v0.12.3
+  [e409e4f3] + PoissonRandom v0.4.1
+  [f517fe37] + Polyester v0.6.15
+  [1d0040c9] + PolyesterWeave v0.1.10
+  [85a6dd25] + PositiveFactorizations v0.2.4
+  [d236fae5] + PreallocationTools v0.4.4
+  [21216c6a] + Preferences v1.3.0
+  [1fd47b50] + QuadGK v2.5.0
+  [74087812] + Random123 v1.6.0
+  [e6cf234a] + RandomNumbers v1.5.3
+  [3cdcf5f2] + RecipesBase v1.2.1
+  [731186ca] + RecursiveArrayTools v2.32.0
+  [f2c3362d] + RecursiveFactorization v0.2.12
+  [189a3867] + Reexport v1.2.2
+  [ae029012] + Requires v1.3.0
+  [ae5879a3] + ResettableStacks v1.1.1
+  [79098fc4] + Rmath v0.7.0
+  [3cdde19b] + SIMDDualNumbers v0.1.1
+  [94e857df] + SIMDTypes v0.1.0
+  [476501e8] + SLEEFPirates v0.6.35
+  [0bca4576] + SciMLBase v1.59.3
+  [efcf1570] + Setfield v1.1.1
+  [699a6c99] + SimpleTraits v0.9.4
+  [66db9d55] + SnoopPrecompile v1.0.1
+  [a2af1166] + SortingAlgorithms v1.0.1
+  [47a9eef4] + SparseDiffTools v1.26.2
+  [276daf66] + SpecialFunctions v2.1.7
+  [aedffcd0] + Static v0.7.7
+  [90137ffa] + StaticArrays v1.5.8
+  [1e83bf80] + StaticArraysCore v1.4.0
+  [82ae8749] + StatsAPI v1.5.0
+  [2913bbd2] + StatsBase v0.33.21
+  [4c63d2b9] + StatsFuns v1.0.1
+  [9672c7b4] + SteadyStateDiffEq v1.9.0
+  [789caeaf] + StochasticDiffEq v6.54.0
+  [7792a7ef] + StrideArraysCore v0.3.15
+  [c3572dad] + Sundials v4.10.1
+  [3783bdb8] + TableTraits v1.0.1
+  [bd369af6] + Tables v1.9.0
+  [8290d209] + ThreadingUtilities v0.5.0
+  [a2a6695c] + TreeViews v0.3.0
+  [d5829a12] + TriangularSolve v0.1.14
+  [410a4b4d] + Tricks v0.1.6
+  [3a884ed6] + UnPack v1.0.2
+  [3d5dd08c] + VectorizationBase v0.21.49
+  [19fa3120] + VertexSafeGraphs v0.2.0
+  [700de1a5] + ZygoteRules v0.2.2
+  [efe28fd5] + OpenSpecFun_jll v0.5.5+0
+  [f50d1b31] + Rmath_jll v0.3.0+0
+  [fb77eaff] + Sundials_jll v5.2.1+0
+  [0dad84c5] + ArgTools v1.1.1
+  [56f22d72] + Artifacts
+  [2a0f44e3] + Base64
+  [ade2ca70] + Dates
+  [8ba89e20] + Distributed
+  [f43a241f] + Downloads v1.6.0
+  [7b1f6079] + FileWatching
+  [9fa8497b] + Future
+  [b77e0a4c] + InteractiveUtils
+  [b27032c2] + LibCURL v0.6.3
+  [76f85450] + LibGit2
+  [8f399da3] + Libdl
+  [37e2e46d] + LinearAlgebra
+  [56ddb016] + Logging
+  [d6f4376e] + Markdown
+  [a63ad114] + Mmap
+  [ca575930] + NetworkOptions v1.2.0
+  [44cfe95a] + Pkg v1.8.0
+  [de0858da] + Printf
+  [3fa0cd96] + REPL
+  [9a3f8284] + Random
+  [ea8e919c] + SHA v0.7.0
+  [9e88b42a] + Serialization
+  [1a1011a3] + SharedArrays
+  [6462fe0b] + Sockets
+  [2f01184e] + SparseArrays
+  [10745b16] + Statistics
+  [4607b0f0] + SuiteSparse
+  [fa267f1f] + TOML v1.0.0
+  [a4e569a6] + Tar v1.10.0
+  [8dfed614] + Test
+  [cf7118a7] + UUIDs
+  [4ec0a83e] + Unicode
+  [e66e0078] + CompilerSupportLibraries_jll v0.5.2+0
+  [deac9b47] + LibCURL_jll v7.84.0+0
+  [29816b5a] + LibSSH2_jll v1.10.2+0
+  [c8ffd9c3] + MbedTLS_jll v2.28.0+0
+  [14a3606d] + MozillaCACerts_jll v2022.2.1
+  [4536629a] + OpenBLAS_jll v0.3.20+0
+  [05823500] + OpenLibm_jll v0.8.1+0
+  [bea87d4a] + SuiteSparse_jll v5.10.1+0
+  [83775a58] + Zlib_jll v1.2.12+3
+  [8e850b90] + libblastrampoline_jll v5.1.1+0
+  [8e850ede] + nghttp2_jll v1.48.0+0
+  [3f19e933] + p7zip_jll v17.4.0+0
+        Info Packages marked with ⌅ have new versions available but cannot be upgraded. To see why use `status --outdated -m`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Precompiling project...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SnoopPrecompile</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PoissonRandom</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MuladdMacro</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Compat</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PositiveFactorizations</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CpuId</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SIMDTypes
+  ✓ Parameters</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Inflate
+  ✓ DocStringExtensions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Tricks</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataAPI
+  ✓ GenericSchur</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FastClosures</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Static</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TreeViews</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StaticArraysCore
+  ✓ KrylovKit</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IterativeSolvers
+  ✓ FastLapackInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ManualMemory</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceGPUArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Krylov</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SuiteSparse_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SimpleTraits</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Distances</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Missings</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Tables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BitTwiddlingConvenienceFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ChainRulesCore
+  ✓ ExponentialUtilities</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffResults
+  ✓ CPUSummary</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceStaticArraysCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataStructures</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ThreadingUtilities</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Setfield</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ KLU</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Sundials_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ChangesOfVariables
+  ✓ HostCPUFeatures</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SortingAlgorithms</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayLayouts</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ QuadGK
+  ✓ CloseOpenIntervals
+  ✓ ArrayInterfaceOffsetArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PolyesterWeave</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LogExpFunctions
+  ✓ RecursiveArrayTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StatsBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StaticArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BandedMatrices</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceStaticArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ResettableStacks</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SpecialFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FiniteDiff</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LevyArea</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SciMLBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DualNumbers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffRules</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArnoldiMethod</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LayoutPointers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ HypergeometricFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StrideArraysCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StatsFuns</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ForwardDiff</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Polyester</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Graphs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PreallocationTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NLSolversBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ VertexSafeGraphs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FastBroadcast</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Distributions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SparseDiffTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LineSearches</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NLsolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Optim</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ VectorizationBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SLEEFPirates</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SIMDDualNumbers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LoopVectorization</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TriangularSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RecursiveFactorization</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NonlinearSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LinearSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffEqBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffEqCallbacks</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffEqNoiseProcess</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JumpProcesses</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BoundaryValueDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SteadyStateDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Sundials</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OrdinaryDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DelayDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StochasticDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DifferentialEquations
+  97 dependencies successfully precompiled in 195 seconds. 43 already precompiled.</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
