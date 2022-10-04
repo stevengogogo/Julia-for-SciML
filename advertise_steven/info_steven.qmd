@@ -16,10 +16,9 @@ Steven Shao-Ting Chiu is currently a Ph.D. student in the Department of Electric
 
 ## Background and Objectives
 
-Julia (https://julialang.org/) is a generic programming language designed for high performance computing, and an open source project under MIT license. Julia language is aimed to solve the "two language problem" that typical occurs in scientific computing. Julia is dynamically typed like scripting language such as Python, and can be compiled to native machine code. Besides, composablility via multiple dispatch makes Julia works well on the integration across packages. The SciML (https://sciml.ai/) is an open source software for scientific machine learning based on Julia language, that combines machine learning and scientific computing together by integrating numerous standalone packages.
+Julia (https://julialang.org/) is a generic programming language designed for high-performance computing and an open-source project under an MIT license. Julia language is aimed to solve the "two language problem" that typically occurs in scientific computing. Julia is dynamically typed like scripting language such as Python and can be compiled into native machine code. Besides, composablility via multiple dispatch makes Julia works well on the integration across packages. SciML (https://sciml.ai/) is open-source software for scientific machine learning based on the Julia language that combines machine learning and scientific computing by integrating numerous standalone packages.
 
 This worhshop aims to introduce the potentials of the Scientific Machine Learning Field with Julia programming language. 
-
 
 ![Julia](julia-logo-color.png){width=30%} 
 ![SciML Framework](julia_sciml.png){width=20%}
