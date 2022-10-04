@@ -5,6 +5,8 @@ author: "Steven Shao-Ting Chiu"
 affiliation: "Department of Electrical Engineering"
 ---
 
+![](profile_steven_1.jpeg){width=30%}
+
 ## Presenter
 
 - Steven Shao-Ting Chiu - Ph.D. Student, Department of Electrical Engineering
