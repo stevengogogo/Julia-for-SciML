@@ -45,9 +45,3 @@ Both sessions will include presentations and hands-on sessions. Prior knowledge 
 |30 min|Hands-on session with SciML application|
 : Schedule (Total: 2hrs)
 
-
-::: {.content-hidden when-format="pdf"}
-
-## Biography
-
-Steven Shao-Ting Chiu is currently a Ph.D. student in the Department of Electrical Engineering at Texas A&M University. He holds a Bachelor of Science in Electrical Engineering and a Master of Science in Bioinformatics at National Taiwan University, completed in 2018 and 2021 separately. In 2021, he was an intern at Pumas-AI, Inc., and implemented Scientific Machine Learning tools for the application of pharmaceutics and personalized medicine.
