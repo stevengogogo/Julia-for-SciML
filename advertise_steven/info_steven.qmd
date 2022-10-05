@@ -1,6 +1,11 @@
 ---
 title: "TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning"
 date: "2022/10/20"
+format: 
+    pdf:
+        table-of-contents: false 
+    html:
+        table-of-contents: false
 author: "Steven Shao-Ting Chiu"
 affiliation: "Department of Electrical Engineering"
 ---
@@ -9,18 +14,20 @@ affiliation: "Department of Electrical Engineering"
 
 ## Presenter
 
-- Steven Shao-Ting Chiu - Ph.D. Student, Department of Electrical Engineering
-
-## Biography
-
-Steven Shao-Ting Chiu is currently a Ph.D. student in the Department of Electrical Engineering at Texas A&M University. He holds a Bachelor of Science in Electrical Engineering and a Master of Science in Bioinformatics at National Taiwan University, completed in 2018 and 2021 separately. In 2021, he was an intern at Pumas-AI, Inc., and implemented Scientific Machine Learning tools for the application of pharmaceutics and personalized medicine. 
+- Steven Shao-Ting Chiu (https://stevengogogo.github.io/Resume.io/) --- Ph.D. Student, Department of Electrical Engineering
+- Advisor: Dr. Ulisses Braga-Neto
+ 
 
 
 ## Background and Objectives
 
-Julia (https://julialang.org/) is a generic programming language designed for high-performance computing and an open-source project under an MIT license. Julia language is aimed to solve the "two language problem" that typically occurs in scientific computing. Julia is dynamically typed like scripting language such as Python and can be compiled into native machine code. Besides, composablility via multiple dispatch makes Julia works well on the integration across packages. SciML (https://sciml.ai/) is open-source software for scientific machine learning based on the Julia language that combines machine learning and scientific computing by integrating numerous standalone packages.
+Julia (https://julialang.org/) is a generic programming language designed for high-performance computing. It solves the "two language problem" that typically occurs in scientific computing. Julia is dynamically typed like scripting language such as Python and can be compiled into native machine code. Besides, composablility via multiple dispatches makes Julia works well on the integration across packages. SciML (https://sciml.ai/) is an open-source software for scientific machine learning based on the Julia language that combines machine learning and scientific computing by integrating numerous standalone packages. Notebly, Julia is an open-source project under an MIT license.
 
-This worhshop aims to introduce the potentials of the Scientific Machine Learning Field with Julia programming language. 
+This worhshop aims to introduce the potential of the Scientific Machine Learning field with Julia programming language. First, we will give an introductory overview of the Julia programming language and explore the Julia SciML ecosystem as an example of its application.
+
+Both sessions will include presentations and hands-on sessions. Prior knowledge of Python is recommended, and participants are encouraged to bring their own laptops.
+
+
 
 ![Julia](julia-logo-color.png){width=30%} 
 ![SciML Framework](julia_sciml.png){width=20%}
@@ -31,9 +38,64 @@ This worhshop aims to introduce the potentials of the Scientific Machine Learnin
 
 |Time|Content|
 |---|---|
-|20 min|Introduction to the Julia Programming Language|
-|20 min|Introduction to Julia SciML Ecosystem|
+|25 min|Introduction to the Julia Programming Language|
+|25 min|The Julia SciML Ecosystem|
 |10 min|Break|
-|20 min|Hands-on session with nerual differential equation|
-|20 min|Hands-on session with SciML application|
-: Schedule
+|30 min|Hands-on session with nerual differential equation|
+|30 min|Hands-on session with SciML application|
+: Schedule (Total: 2hrs)
+
+
+::: {.content-hidden when-format="pdf"}
+
+## Biography
+
+Steven Shao-Ting Chiu is currently a Ph.D. student in the Department of Electrical Engineering at Texas A&M University. He holds a Bachelor of Science in Electrical Engineering and a Master of Science in Bioinformatics at National Taiwan University, completed in 2018 and 2021 separately. In 2021, he was an intern at Pumas-AI, Inc., and implemented Scientific Machine Learning tools for the application of pharmaceutics and personalized medicine.
+
+::: {.callout-note}
+## Comments adds-on
+
+### Advertisement
+
+- [ ] Revise personal webiste
+
+- [x] add two sentences about applications and actually will be down (objectives)
+
+- [ ] How to use SciML
+- [x] Participants are encouraged to bring their own laptop
+- julia installation
+- [ ] a short session about how to install julia (recommended)
+    - where to downlaod
+    - how to install libraries
+    - run on their own computers
+
+
+- [ ] hands-on
+    - make sure its possible to run on CPU
+    - make sure audience to isntall julia
+
+- [ ] check the code is runnable
+    - [ ] advertising first
+- [ ] registration
+    - [ ] when the workshop closes, we can send emails to all audience
+- [ ] prior knowlege to Python is recommended.
+- [ ] Check the colab
+- [ ] write installation for local laptop
+
+
+### Tips for presentation
+
+- [ ] Practice for 15min
+- Pace myself
+    - [ ] Prepare for the questions
+    - [ ] Don't put too much information
+    - Like teaching a class
+    - Interuption is anticipated
+    - Like a teaching a class, not like conference
+- Pay more time on the difficult part
+- Workshop: the question will come in the middle
+- Encourage audience to put questions in the middle
+:::
+
+
+:::
