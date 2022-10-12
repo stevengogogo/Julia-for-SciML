@@ -12,14 +12,21 @@ book:
   page-footer: "TAMIDS Workshop Series, Steven Chiu (Oct. 25th 2022)"
   chapters:
     - index.qmd
-
+    - part: index_julia-intro.qmd
+      chapters:
+        - julia-basics.ipynb
+    - part: index_sciml-intro.qmd
+      chapters:
+        - infectious_model.ipynb
+  appendices:
+    - resources.qmd
 
 bibliography: ref.bib
 
 format:
   html:
     theme: 
-      light: flatly
+      light: default
       dark: darkly
   
 

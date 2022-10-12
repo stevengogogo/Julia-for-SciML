@@ -1,3 +1,10 @@
+## Session Info.
+
+- Place: Blocker 220, Texas A&M University ([Map](https://www.google.com/maps/place/Blocker+Bldg,+College+Station,+TX+77840/@30.6194797,-96.344322,17z/data=!3m1!4b1!4m5!3m4!1s0x86468396697a6c2d:0x947f545ba84db9e2!8m2!3d30.6194797!4d-96.3421333))
+- Time: 10:00 am - 12:00 pm. October 25, 2022
+
+(*Latest information is on [TAMIDS page](https://sciml.tamids.tamu.edu/2022/10/12/tamids-sciml-lab-tutorial-julia-sciml/)*)
+
 ## Presenter
 
 - [Steven Shao-Ting Chiu](https://github.com/stevengogogo) --- Ph.D. Student, Department of Electrical Engineering, Texas A&M University
