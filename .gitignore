@@ -1,0 +1,20 @@
+*.DS_Store
+/.quarto/
+doc/_book/
+doc/.quarto/
+.ipynb_checkpoints
+_extensions/
+*_files/
+_book/
+hw/*.html
+*/.quarto/
+*.html
+*.log
+hw/.gitignore
+index.tex
+*.tex 
+*.aug
+_site/
+*_freeze/
+# We usually ignore Manifest.toml because it is configured by local machine
+*Manifest.toml 
