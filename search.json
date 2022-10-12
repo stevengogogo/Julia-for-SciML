@@ -2,30 +2,30 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning",
+    "title": "Session Info",
     "section": "",
-    "text": "Place: Blocker 220, Texas A&M University (Map)\nTime: 10:00 am - 12:00 pm. October 25, 2022\n\n(Latest information is on TAMIDS page)"
+    "text": "Place: Blocker 220, Texas A&M University (Map)\nTime: 10:00 am - 12:00 pm. October 25, 2022\n(Latest information is on TAMIDS page)"
   },
   {
     "objectID": "index.html#presenter",
     "href": "index.html#presenter",
-    "title": "TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning",
-    "section": "0.2 Presenter",
-    "text": "0.2 Presenter\n\nSteven Shao-Ting Chiu — Ph.D. Student, Department of Electrical Engineering, Texas A&M University\nAdvisor: Dr. Ulisses Braga-Neto"
+    "title": "Session Info",
+    "section": "Presenter",
+    "text": "Presenter\n\nSteven Shao-Ting Chiu — Ph.D. Student, Department of Electrical Engineering, Texas A&M University\nAdvisor: Dr. Ulisses Braga-Neto"
   },
   {
     "objectID": "index.html#background-and-objectives",
     "href": "index.html#background-and-objectives",
-    "title": "TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning",
-    "section": "0.3 Background and Objectives",
-    "text": "0.3 Background and Objectives\nJulia (https://julialang.org/) is a generic programming language designed for high-performance computing. It solves the “two language problem” that typically occurs in scientific computing. Julia is dynamically typed like scripting language such as Python and can be compiled into native machine code. Besides, composablility via multiple dispatches makes Julia works well on the integration across packages. SciML (https://sciml.ai/) is an open-source software for scientific machine learning based on the Julia language that combines machine learning and scientific computing by integrating numerous standalone packages. Notebly, Julia is an open-source project under an MIT license.\nThis worhshop aims to introduce the potential of the Scientific Machine Learning field with Julia programming language. First, we will give an introductory overview of the Julia programming language and explore the Julia SciML ecosystem as an example of its application.\nBoth sessions will include presentations and hands-on sessions. Prior knowledge of Python is recommended, and participants are encouraged to bring their own laptops."
+    "title": "Session Info",
+    "section": "Background and Objectives",
+    "text": "Background and Objectives\nJulia (https://julialang.org/) is a generic programming language designed for high-performance computing. It solves the “two language problem” that typically occurs in scientific computing. Julia is dynamically typed like scripting language such as Python and can be compiled into native machine code. Besides, composablility via multiple dispatches makes Julia works well on the integration across packages. SciML (https://sciml.ai/) is an open-source software for scientific machine learning based on the Julia language that combines machine learning and scientific computing by integrating numerous standalone packages. Notebly, Julia is an open-source project under an MIT license.\nThis worhshop aims to introduce the potential of the Scientific Machine Learning field with Julia programming language. First, we will give an introductory overview of the Julia programming language and explore the Julia SciML ecosystem as an example of its application.\nBoth sessions will include presentations and hands-on sessions. Prior knowledge of Python is recommended, and participants are encouraged to bring their own laptops."
   },
   {
     "objectID": "index.html#schedule",
     "href": "index.html#schedule",
-    "title": "TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning",
-    "section": "0.4 Schedule",
-    "text": "0.4 Schedule\n\nSchedule (Total: 2hrs)\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with nerual differential equation\n\n\n30 min\nHands-on session with SciML application"
+    "title": "Session Info",
+    "section": "Schedule",
+    "text": "Schedule\n\nSchedule (Total: 2hrs)\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with nerual differential equation\n\n\n30 min\nHands-on session with SciML application"
   },
   {
     "objectID": "index_julia-intro.html",
@@ -37,7 +37,7 @@
   {
     "objectID": "infectious_model.html",
     "href": "infectious_model.html",
-    "title": "3  Example: Infectious Model",
+    "title": "Example: Infectious Model",
     "section": "",
     "text": "x = 1 + 1\n\n2"
   }
