@@ -1,4 +1,5 @@
-name: Build Jupyter Notebooks
+# https://github.com/sosiristseng/template-juliabook/tree/main/.github
+name: Test Jupyter Notebooks
 
 on:
   push:
