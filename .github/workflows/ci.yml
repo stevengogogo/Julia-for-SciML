@@ -1,0 +1,61 @@
+# https://github.com/sosiristseng/template-juliabook/tree/main/.github
+name: Test Jupyter Notebooks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JULIA_NUM_THREADS: 2
+  PYTHON_VER: '3.10'
+  JULIA_VER: '1.8.2'
+  JULIA_CACHE: '1'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Python ${{ env.PYTHON_VER }}
+        uses: actions/setup-python@v4
+        id: cp310
+        with:
+          python-version: ${{ env.PYTHON_VER }}
+          cache: 'pip'
+      - name: Install Python dependencies
+        run: |
+          pip install -U pip wheel setuptools
+          pip install -r requirements.txt
+      - name: Setup Julia ${{ env.JULIA_VER }}
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ env.JULIA_VER }}
+      - name: Cache Julia deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.julia
+          key: ${{ runner.os }}-julia-${{ env.JULIA_CACHE }}-${{ hashFiles('**/Manifest.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-julia-${{ env.JULIA_CACHE }}-
+      - name: Install Julia deps
+        env:
+          PYTHON: ${{ steps.cp310.outputs.python-path }}
+        run: |
+          julia --color=yes --project="" -e 'import Pkg; Pkg.add(["PyCall", "IJulia"]); Pkg.build(["PyCall", "IJulia"])'
+          julia --color=yes --project=@. -e 'import Pkg; Pkg.instantiate()'
+      - name: Run Notebooks
+        run: |
+          parallel -j2 jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=600 --execute --inplace {} ::: hands-on/*.ipynb
+      - name: Deploy at hands-on branch 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: hands-on # The branch the action should deploy to.
+          folder: hands-on # The folder the action should deploy.
+          clean: true

@@ -18,3 +18,4 @@ _site/
 *_freeze/
 # We usually ignore Manifest.toml because it is configured by local machine
 *Manifest.toml 
+*site_libs
