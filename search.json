@@ -28,6 +28,13 @@
     "text": "Schedule\n\nSchedule (Total: 2hrs)\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with nerual differential equation\n\n\n30 min\nHands-on session with SciML application"
   },
   {
+    "objectID": "julia_basics.html",
+    "href": "julia_basics.html",
+    "title": "Julia Basics",
+    "section": "",
+    "text": "using Pkg"
+  },
+  {
     "objectID": "index_julia-intro.html",
     "href": "index_julia-intro.html",
     "title": "PART I: Intro. to Julia",
