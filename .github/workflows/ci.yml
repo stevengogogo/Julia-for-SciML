@@ -54,7 +54,7 @@ jobs:
         run: |
           parallel -j2 jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=600 --execute --inplace {} ::: hands-on/*.ipynb
       - name: Deploy at hands-on branch 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: hands-on # The branch the action should deploy to.
           folder: hands-on # The folder the action should deploy.
