@@ -49,5 +49,5 @@ Both sessions will include presentations and hands-on sessions. Prior knowledge 
 
 [![](https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml/badge.svg){fig-align="left"}](https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml) 
 
-- Download hands-on tutorials ([Repo](https://github.com/stevengogogo/Julia-for-SciML/tree/hands-on))
+- Download hands-on tutorials ([Repo](https://github.com/stevengogogo/Julia-for-SciML/tree/hands-on), [zip](https://github.com/stevengogogo/Julia-for-SciML/archive/refs/heads/hands-on.zip))
 - View on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/stevengogogo/Julia-for-SciML/hands-on)
