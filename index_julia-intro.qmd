@@ -1,1 +1,7 @@
-# PART I: Intro. to Julia
+---
+title: "PART I: Intro. to Julia"
+---
+
+::: {.callout}
+- [Slides](SLIDE_julia-intro.qmd)
+:::

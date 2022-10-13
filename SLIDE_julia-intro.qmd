@@ -1,0 +1,39 @@
+---
+title: "Introduction to Julia Language"
+subtitle: "TAMIDS Workshop"
+date: "10/25, 2022"
+author: "Shao-Ting Chiu"
+institute: Texas A\&M Univ.
+format: 
+    beamer:
+        aspectratio: 169
+        theme: Copenhagen
+        header-includes: |
+             \setbeamertemplate{footline}[frame number] 
+bibliography: ref.bib
+---
+
+## What is Julia?
+
+:::: {.columns}
+
+::: {.column width="40%"}
+- Julia is a compiled language [@bezanson2017julia]
+
+:::
+
+::: {.column width="60%"}
+![](img/julia-logo-color.png){fig-align="right" width=50%} 
+:::
+
+::::
+
+---
+
+## Ecosystem
+
+
+---
+
+## References
+
