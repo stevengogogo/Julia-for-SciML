@@ -25,10 +25,10 @@ website:
       - index.qmd
       - section: index_julia-intro.qmd
         contents:
-          - julia_basics.ipynb
+          - hands-on/julia_basics.ipynb
       - section: index_sciml-intro.qmd
         contents:
-          - infectious_model.ipynb
+          - hands-on/infectious_model.ipynb
       - section: "Appendix"
         contents:
           - resources.qmd
