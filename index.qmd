@@ -1,5 +1,6 @@
 ---
 title: "Session Info"
+comments: false
 ---
 
 - Place: Blocker 220, Texas A&M University ([Map](https://www.google.com/maps/place/Blocker+Bldg,+College+Station,+TX+77840/@30.6194797,-96.344322,17z/data=!3m1!4b1!4m5!3m4!1s0x86468396697a6c2d:0x947f545ba84db9e2!8m2!3d30.6194797!4d-96.3421333))
@@ -38,3 +39,8 @@ Both sessions will include presentations and hands-on sessions. Prior knowledge 
 |30 min|Hands-on session with nerual differential equation|
 |30 min|Hands-on session with SciML application|
 : Schedule (Total: 2hrs)
+
+## This webpage
+
+
+![https://stevengogogo.github.io/Julia-for-SciML](img/site-QR-code.png){fig-align="center"}

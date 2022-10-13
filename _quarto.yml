@@ -15,6 +15,9 @@ website:
   page-navigation: true
   reader-mode: true
   open-graph: true
+  comments:
+    giscus: 
+      repo: stevengogogo/Julia-for-SciML-draft
   sidebar:
     style: "docked"
     search: true
