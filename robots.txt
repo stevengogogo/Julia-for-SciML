@@ -1,1 +1,1 @@
-Sitemap: https://stevengogogo.github.io/Julia-for-SciML-draft/sitemap.xml
+Sitemap: https://stevengogogo.github.io/Julia-for-SciML/sitemap.xml

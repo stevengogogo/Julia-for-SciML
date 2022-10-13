@@ -28,18 +28,25 @@
     "text": "Schedule\n\nSchedule (Total: 2hrs)\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with nerual differential equation\n\n\n30 min\nHands-on session with SciML application"
   },
   {
-    "objectID": "index.html#this-webpage",
-    "href": "index.html#this-webpage",
+    "objectID": "index.html#access-to-this-webpage",
+    "href": "index.html#access-to-this-webpage",
     "title": "Session Info",
-    "section": "This webpage",
-    "text": "This webpage\n\n\n\nhttps://stevengogogo.github.io/Julia-for-SciML"
+    "section": "Access to this webpage",
+    "text": "Access to this webpage\n\n\n\nFigure 1: https://stevengogogo.github.io/Julia-for-SciML\n\n\n\nHands-on session\n\n\n\n\n\n\nDownload hands-on tutorials (Repo, zip)\nView on"
   },
   {
-    "objectID": "julia_basics.html",
-    "href": "julia_basics.html",
+    "objectID": "hands-on/julia_basics.html",
+    "href": "hands-on/julia_basics.html",
     "title": "Julia Basics",
     "section": "",
-    "text": "using Pkg"
+    "text": "Libraries\n\nusing Pkg"
+  },
+  {
+    "objectID": "hands-on/infectious_model.html",
+    "href": "hands-on/infectious_model.html",
+    "title": "Example: Infectious Model",
+    "section": "",
+    "text": "x = 1 + 1\n\n2"
   },
   {
     "objectID": "index_julia-intro.html",
@@ -47,12 +54,5 @@
     "title": "PART I: Intro. to Julia",
     "section": "",
     "text": "Slides"
-  },
-  {
-    "objectID": "infectious_model.html",
-    "href": "infectious_model.html",
-    "title": "Example: Infectious Model",
-    "section": "",
-    "text": "x = 1 + 1\n\n2"
   }
 ]
