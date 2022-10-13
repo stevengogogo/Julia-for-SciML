@@ -40,7 +40,16 @@ Both sessions will include presentations and hands-on sessions. Prior knowledge 
 |30 min|Hands-on session with SciML application|
 : Schedule (Total: 2hrs)
 
-## This webpage
+## Access to this webpage
 
 
-![https://stevengogogo.github.io/Julia-for-SciML](img/site-QR-code.png){fig-align="center"}
+![`https://stevengogogo.github.io/Julia-for-SciML`](img/site-QR-code.png){#fig-surus fig-align="center"}
+
+### Hands-on session
+
+[![](https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml/badge.svg){fig-align="left"}](https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml) 
+
+- Download hands-on tutorials ([Repo](https://github.com/stevengogogo/Julia-for-SciML/tree/hands-on))
+- View on [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/stevengogogo/Julia-for-SciML/hands-on)
+
+ https://img.shields.io/apm/dm/Julia-for-SciML/hands-on
