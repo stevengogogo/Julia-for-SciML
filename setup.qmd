@@ -1,2 +1,4 @@
-# Julia Installation
+---
+title: "Setup Julia"
+---
 

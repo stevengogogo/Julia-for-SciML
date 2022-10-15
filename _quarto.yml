@@ -23,6 +23,7 @@ website:
     search: true
     contents:
       - index.qmd
+      - setup.qmd
       - section: index_julia-intro.qmd
         contents:
           - hands-on/julia_basics.ipynb
@@ -39,6 +40,7 @@ website:
         href: https://github.com/stevengogogo/Julia-for-SciML
 
 bibliography: ref.bib
+csl: setup/acm-sig-proceedings.csl
 
 format:
   html:
