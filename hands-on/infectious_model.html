@@ -124,8 +124,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Example: Infectious Model">
+<meta property="og:description" content="[raca?]">
 <meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
 <meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Example: Infectious Model">
+<meta name="twitter:description" content="[raca?]">
 <meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
 <meta name="twitter:image-height" content="756">
 <meta name="twitter:image-width" content="756">
@@ -187,6 +189,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">Session Info</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup.html" class="sidebar-item-text sidebar-link">Setup Julia</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -260,17 +267,272 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p><span class="citation" data-cites="raca">[<a href="#ref-raca" role="doc-biblioref"><strong>raca?</strong></a>]</span></p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"tutorial"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>  Activating new project at `~/Documents/GitHub/Julia-for-SciML/tutorial`</code></pre>
+<pre><code>  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial`</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>2</code></pre>
-</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span>(<span class="pp">@__DIR__</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg; Pkg</span>.<span class="fu">activate</span>(<span class="st">"."</span>); <span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Single experiment, move to ensemble further on</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Some good parameter values are stored as comments right now</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># because this is really good practice</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEq</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ModelingToolkit</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataDrivenDiffEq</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>, <span class="bu">DiffEqSensitivity</span>, <span class="bu">Optim</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqFlux</span>, <span class="bu">Flux</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">gr</span>()</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">corona!</span>(du,u,p,t)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    F, β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">-</span> <span class="fu">β</span>(t,β<span class="fl">0</span>,D,N,κ,α)<span class="op">*</span>S<span class="op">*</span>I<span class="op">/</span>N <span class="op">-</span>μ<span class="op">*</span>S <span class="co"># susceptible</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">+</span> <span class="fu">β</span>(t,β<span class="fl">0</span>,D,N,κ,α)<span class="op">*</span>S<span class="op">*</span>I<span class="op">/</span>N <span class="fu">-</span>(σ<span class="op">+</span>μ)<span class="op">*</span>E <span class="co"># exposed</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> σ<span class="op">*</span>E <span class="op">-</span> (γ<span class="op">+</span>μ)<span class="op">*</span>I <span class="co"># infected</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> γ<span class="op">*</span>I <span class="op">-</span> μ<span class="op">*</span>R <span class="co"># removed (recovered + dead)</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    dD <span class="op">=</span> d<span class="op">*</span>γ<span class="op">*</span>I <span class="op">-</span> λ<span class="op">*</span>D <span class="co"># severe, critical cases, and deaths</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> dS; du[<span class="fl">2</span>] <span class="op">=</span> dE; du[<span class="fl">3</span>] <span class="op">=</span> dI; du[<span class="fl">4</span>] <span class="op">=</span> dR</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">5</span>] <span class="op">=</span> dN; du[<span class="fl">6</span>] <span class="op">=</span> dD; du[<span class="fl">7</span>] <span class="op">=</span> dC</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">β</span>(t,β<span class="fl">0</span>,D,N,κ,α) <span class="op">=</span> <span class="fu">β0*</span>(<span class="fl">1</span><span class="op">-</span>α)<span class="fu">*</span>(<span class="fl">1</span><span class="op">-</span>D<span class="op">/</span>N)<span class="op">^</span>κ</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="fl">14e6</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>u0 <span class="op">=</span> [<span class="fl">0.9</span><span class="op">*</span>S0, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, S0, <span class="fl">0.0</span>, <span class="fl">0.0</span>]</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>p_ <span class="op">=</span> [<span class="fl">10.0</span>, <span class="fl">0.5944</span>, <span class="fl">0.4239</span>, <span class="fl">1117.3</span>, <span class="fl">0.02</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">5</span>,<span class="fl">0.2</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">11.2</span>]</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>R0 <span class="op">=</span> p_[<span class="fl">2</span>]<span class="op">/</span>p_[<span class="fl">7</span>]<span class="op">*</span>p_[<span class="fl">6</span>]<span class="op">/</span>(p_[<span class="fl">6</span>]<span class="op">+</span>p_[<span class="fl">5</span>])</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>tspan <span class="op">=</span> (<span class="fl">0.0</span>, <span class="fl">21.0</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(corona!, u0, tspan, p_)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>tspan2 <span class="op">=</span> (<span class="fl">0.0</span>,<span class="fl">60.0</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(corona!, u0, tspan2, p_)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>solution_extrapolate <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal data</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>tsdata <span class="op">=</span> <span class="fu">Array</span>(solution)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Add noise to the data</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>noisy_data <span class="op">=</span> tsdata <span class="op">+</span> <span class="fu">Float32</span>(<span class="fl">1e-5</span>)<span class="fu">*randn</span>(<span class="fu">eltype</span>(tsdata), <span class="fu">size</span>(tsdata))</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">abs</span>.(tsdata<span class="op">-</span>noisy_data)<span class="ch">')</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">### Neural ODE</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>ann_node <span class="op">=</span> <span class="fu">FastChain</span>(<span class="fu">FastDense</span>(<span class="fl">7</span>, <span class="fl">64</span>, tanh),<span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">64</span>, tanh), <span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">64</span>, tanh), <span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">7</span>))</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fu">Float64</span>.(<span class="fu">initial_params</span>(ann_node))</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">dudt_node</span>(u,p,t)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    F,β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    dS,dE,dI,dR,dD <span class="op">=</span> <span class="fu">ann_node</span>([S<span class="op">/</span>N,E,I,R,N,D<span class="op">/</span>N,C],p)</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    [dS,dE,dI,dR,dN,dD,dC]</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>prob_node <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_node, u0, tspan, p)</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">concrete_solve</span>(prob_node, <span class="fu">Tsit5</span>(), u0, p, saveat <span class="op">=</span> solution.t)</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">concrete_solve</span>(prob_node, <span class="fu">Vern7</span>(), u0, θ, saveat <span class="op">=</span> <span class="fl">1</span>,</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>                         abstol<span class="op">=</span><span class="fl">1e-6</span>, reltol<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>                         sensealg <span class="op">=</span> <span class="fu">InterpolatingAdjoint</span>(autojacvec<span class="op">=</span><span class="fu">ReverseDiffVJP</span>())))</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="co"># No regularisation right now</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ)</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(abs2, (noisy_data[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>] <span class="op">.-</span> pred[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])), pred <span class="co"># + 1e-5*sum(sum.(abs, params(ann)))</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(p)</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> losses <span class="op">=</span> []</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="fu">callback</span>(θ,l,pred) <span class="op">=</span> <span class="cf">begin</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(losses, l)</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">length</span>(losses)<span class="op">%</span><span class="fl">50</span><span class="op">==</span><span class="fl">0</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(losses[<span class="kw">end</span>])</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>    <span class="cn">false</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>res1_node <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, p, <span class="fu">ADAM</span>(<span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">500</span>)</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>res2_node <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, res1_node.minimizer, <span class="fu">BFGS</span>(initial_stepnorm<span class="op">=</span><span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">10000</span>)</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>prob_node2 <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_node, u0, tspan, res2_node.minimizer)</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">solve</span>(prob_node2, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(solution, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>])</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(s, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the losses</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(losses, yaxis <span class="op">=</span> <span class="op">:</span>log, xaxis <span class="op">=</span> <span class="op">:</span>log, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>)</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrapolate out</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>prob_node_extrapolate <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_node,u0, tspan2, res2_node.minimizer)</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>_sol_node <span class="op">=</span> <span class="fu">solve</span>(prob_node_extrapolate, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>p_node <span class="op">=</span> <span class="fu">scatter</span>(solution_extrapolate, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], legend <span class="op">=</span> <span class="op">:</span>topleft, label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>], title<span class="op">=</span><span class="st">"Neural ODE Extrapolation"</span>)</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_node,_sol_node, lw<span class="op">=</span><span class="fl">5</span>, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_node,[<span class="fl">20.99</span>,<span class="fl">21.01</span>],[<span class="fl">0.0</span>,<span class="fu">maximum</span>(<span class="fu">hcat</span>(<span class="fu">Array</span>(solution_extrapolate[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]),<span class="fu">Array</span>(_sol_node[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])))],lw<span class="op">=</span><span class="fl">5</span>,color<span class="op">=:</span>black,label<span class="op">=</span><span class="st">"Training Data End"</span>)</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"neuralode_extrapolation.png"</span>)</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"neuralode_extrapolation.pdf"</span>)</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="co">### Universal ODE Part 1</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>ann <span class="op">=</span> <span class="fu">FastChain</span>(<span class="fu">FastDense</span>(<span class="fl">3</span>, <span class="fl">64</span>, tanh),<span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">64</span>, tanh), <span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">1</span>))</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fu">Float64</span>.(<span class="fu">initial_params</span>(ann))</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">dudt_</span>(u,p,t)</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>    F, β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fu">ann</span>([S<span class="op">/</span>N,I,D<span class="op">/</span>N],p) <span class="co"># Exposure does not depend on exposed, removed, or cumulative!</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">-</span> z[<span class="fl">1</span>] <span class="op">-</span>μ<span class="op">*</span>S <span class="co"># susceptible</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">+</span> z[<span class="fl">1</span>] <span class="fu">-</span>(σ<span class="op">+</span>μ)<span class="op">*</span>E <span class="co"># exposed</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> σ<span class="op">*</span>E <span class="op">-</span> (γ<span class="op">+</span>μ)<span class="op">*</span>I <span class="co"># infected</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> γ<span class="op">*</span>I <span class="op">-</span> μ<span class="op">*</span>R <span class="co"># removed (recovered + dead)</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    dD <span class="op">=</span> d<span class="op">*</span>γ<span class="op">*</span>I <span class="op">-</span> λ<span class="op">*</span>D <span class="co"># severe, critical cases, and deaths</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    [dS,dE,dI,dR,dN,dD,dC]</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>prob_nn <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_,u0, tspan, p)</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">concrete_solve</span>(prob_nn, <span class="fu">Tsit5</span>(), u0, p, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>])</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(s[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]<span class="ch">')</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">concrete_solve</span>(prob_nn, <span class="fu">Vern7</span>(), u0, θ, saveat <span class="op">=</span> solution.t,</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>                         abstol<span class="op">=</span><span class="fl">1e-6</span>, reltol<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>                         sensealg <span class="op">=</span> <span class="fu">InterpolatingAdjoint</span>(autojacvec<span class="op">=</span><span class="fu">ReverseDiffVJP</span>())))</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="co"># No regularisation right now</span></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ)</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(abs2, noisy_data[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>] <span class="op">.-</span> pred[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]), pred <span class="co"># + 1e-5*sum(sum.(abs, params(ann)))</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(p)</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> losses <span class="op">=</span> []</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="fu">callback</span>(θ,l,pred) <span class="op">=</span> <span class="cf">begin</span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(losses, l)</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">length</span>(losses)<span class="op">%</span><span class="fl">50</span><span class="op">==</span><span class="fl">0</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(losses[<span class="kw">end</span>])</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>    <span class="cn">false</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>res1_uode <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, p, <span class="fu">ADAM</span>(<span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">500</span>)</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>res2_uode <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, res1_uode.minimizer, <span class="fu">BFGS</span>(initial_stepnorm<span class="op">=</span><span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">10000</span>)</span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(res2_uode.minimizer)</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>prob_nn2 <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_,u0, tspan, res2_uode.minimizer)</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>uode_sol <span class="op">=</span> <span class="fu">solve</span>(prob_nn2, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>])</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(uode_sol, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>])</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the losses</span></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(losses, yaxis <span class="op">=</span> <span class="op">:</span>log, xaxis <span class="op">=</span> <span class="op">:</span>log, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>)</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect the state trajectory and the derivatives</span></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> noisy_data</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal derivatives</span></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>DX <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">solution</span>(solution.t, <span class="dt">Val</span>{<span class="fl">1</span>}))</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrapolate out</span></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>prob_nn2 <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_,u0, tspan2, res2_uode.minimizer)</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>_sol_uode <span class="op">=</span> <span class="fu">solve</span>(prob_nn2, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>p_uode <span class="op">=</span> <span class="fu">scatter</span>(solution_extrapolate, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], legend <span class="op">=</span> <span class="op">:</span>topleft, label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>], title<span class="op">=</span><span class="st">"Universal ODE Extrapolation"</span>)</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uode,_sol_uode, lw <span class="op">=</span> <span class="fl">5</span>, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uode,[<span class="fl">20.99</span>,<span class="fl">21.01</span>],[<span class="fl">0.0</span>,<span class="fu">maximum</span>(<span class="fu">hcat</span>(<span class="fu">Array</span>(solution_extrapolate[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]),<span class="fu">Array</span>(_sol_uode[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])))],lw<span class="op">=</span><span class="fl">5</span>,color<span class="op">=:</span>black,label<span class="op">=</span><span class="st">"Training Data End"</span>)</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalode_extrapolation.png"</span>)</span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalode_extrapolation.pdf"</span>)</span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="co">### Universal ODE Part 2: SInDy to Equations</span></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Basis</span></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>]</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="co"># Lots of polynomials</span></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>polys <span class="op">=</span> Operation[]</span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">∈</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, j <span class="op">∈</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, k <span class="op">∈</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span></span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(polys, u[<span class="fl">1</span>]<span class="op">^</span>i <span class="op">*</span> u[<span class="fl">2</span>]<span class="op">^</span>j <span class="op">*</span> u[<span class="fl">3</span>]<span class="op">^</span>k)</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a><span class="co"># And some other stuff</span></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> [<span class="fu">cos</span>.(u)<span class="op">...</span>; <span class="fu">sin</span>.(u)<span class="op">...</span>; <span class="fu">unique</span>(polys)<span class="op">...</span>]</span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>basis <span class="op">=</span> <span class="fu">Basis</span>(h, u)</span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> noisy_data</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal derivatives</span></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>DX <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">solution</span>(solution.t, <span class="dt">Val</span>{<span class="fl">1</span>}))</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>S,E,I,R,N,D,C <span class="op">=</span> <span class="fu">eachrow</span>(X)</span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>F,β<span class="fl">0</span>,α,κ,μ,_,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fu">β</span>.(<span class="fl">0</span><span class="op">:</span>tspan[<span class="kw">end</span>],β<span class="fl">0</span>,D,N,κ,α)<span class="op">.*</span>S<span class="op">.*</span>I<span class="op">./</span>N</span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>L̂ <span class="op">=</span> <span class="fu">vec</span>(<span class="fu">ann</span>([S<span class="op">./</span>N I D<span class="op">./</span>N]<span class="ch">',res2_uode.minimizer))</span></span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a>X̂ <span class="op">=</span> [S<span class="op">./</span>N I D<span class="op">./</span>N]<span class="ch">'</span></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(L,title<span class="op">=</span><span class="st">"Estimated vs Expected Exposure Term"</span>,label<span class="op">=</span><span class="st">"True Exposure"</span>)</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(L̂,label<span class="op">=</span><span class="st">"Estimated Exposure"</span>)</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"estimated_exposure.png"</span>)</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"estimated_exposure.pdf"</span>)</span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an optimizer for the SINDY problem</span></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> <span class="fu">SR3</span>()</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the thresholds which should be used in the search process</span></span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> <span class="fu">exp10</span>.(<span class="op">-</span><span class="fl">6</span><span class="op">:</span><span class="fl">0.1</span><span class="op">:</span><span class="fl">1</span>)</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on original data and without further knowledge</span></span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>Ψ_direct <span class="op">=</span> <span class="fu">SInDy</span>(X[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="op">:</span>], DX[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="op">:</span>], basis, thresholds, opt <span class="op">=</span> opt, maxiter <span class="op">=</span> <span class="fl">50000</span>) <span class="co"># Fail</span></span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(Ψ_direct.basis)</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on ideal derivative data ( not available )</span></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a>Ψ_ideal <span class="op">=</span> <span class="fu">SInDy</span>(X[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">:</span><span class="kw">end</span>], L[<span class="fl">5</span><span class="op">:</span><span class="kw">end</span>], basis, thresholds, opt <span class="op">=</span> opt, maxiter <span class="op">=</span> <span class="fl">50000</span>) <span class="co"># Succeed</span></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(Ψ_ideal.basis)</span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on uode derivative data</span></span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>Ψ <span class="op">=</span> <span class="fu">SInDy</span>(X̂[<span class="op">:</span>, <span class="fl">2</span><span class="op">:</span><span class="kw">end</span>], L̂[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>], basis, thresholds,  opt <span class="op">=</span> opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, normalize <span class="op">=</span> <span class="cn">true</span>, denoise <span class="op">=</span> <span class="cn">true</span>) <span class="co"># Succeed</span></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(Ψ.basis)</span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a ODE for the estimated system</span></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">approx</span>(u,p,t)</span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>    F, β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fu">Ψ</span>([S<span class="op">/</span>N,I,D<span class="op">/</span>N]) <span class="co"># Exposure does not depend on exposed, removed, or cumulative!</span></span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">-</span> z[<span class="fl">1</span>] <span class="op">-</span>μ<span class="op">*</span>S <span class="co"># susceptible</span></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">+</span> z[<span class="fl">1</span>] <span class="fu">-</span>(σ<span class="op">+</span>μ)<span class="op">*</span>E <span class="co"># exposed</span></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> σ<span class="op">*</span>E <span class="op">-</span> (γ<span class="op">+</span>μ)<span class="op">*</span>I <span class="co"># infected</span></span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> γ<span class="op">*</span>I <span class="op">-</span> μ<span class="op">*</span>R <span class="co"># removed (recovered + dead)</span></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>    dD <span class="op">=</span> d<span class="op">*</span>γ<span class="op">*</span>I <span class="op">-</span> λ<span class="op">*</span>D <span class="co"># severe, critical cases, and deaths</span></span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a>    [dS,dE,dI,dR,dN,dD,dC]</span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the approximated problem and solution</span></span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a>a_prob <span class="op">=</span> <span class="fu">ODEProblem</span><span class="dt">{false}</span>(approx, u0, tspan2, p_)</span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a>a_solution <span class="op">=</span> <span class="fu">solve</span>(a_prob, <span class="fu">Tsit5</span>())</span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a>p_uodesindy <span class="op">=</span> <span class="fu">scatter</span>(solution_extrapolate, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], legend <span class="op">=</span> <span class="op">:</span>topleft, label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>])</span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uodesindy,a_solution, lw <span class="op">=</span> <span class="fl">5</span>, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uodesindy,[<span class="fl">20.99</span>,<span class="fl">21.01</span>],[<span class="fl">0.0</span>,<span class="fu">maximum</span>(<span class="fu">hcat</span>(<span class="fu">Array</span>(solution_extrapolate[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]),<span class="fu">Array</span>(_sol_uode[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])))],lw<span class="op">=</span><span class="fl">5</span>,color<span class="op">=:</span>black,label<span class="op">=</span><span class="st">"Training Data End"</span>)</span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalodesindy_extrapolation.png"</span>)</span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalodesindy_extrapolation.pdf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -476,7 +738,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="stevengogogo/Julia-for-SciML-draft" data-repo-id="R_kgDOIETmqA" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+<script src="https://giscus.app/client.js" data-repo="stevengogogo/Julia-for-SciML-draft" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
