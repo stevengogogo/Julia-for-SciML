@@ -3,5 +3,5 @@ title: "PART I: Intro. to Julia"
 ---
 
 ::: {.callout}
-- [Slides](slides/SLIDE_julia-intro.qmd)
+- [Slides](SLIDE_julia-intro.qmd)
 :::

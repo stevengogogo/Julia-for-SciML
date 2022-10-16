@@ -9,6 +9,8 @@ format:
     smaller: true
     scrollable: true
     controls: true
+    aspectratio: 169
+    slide-number: c/t
     #beamer:
         #aspectratio: 169
         #theme: Copenhagen
@@ -17,8 +19,8 @@ format:
             #\hypersetup{pdfpagemode=FullScreen}
             #%\linespread{1.1}\selectfont
 
-bibliography: ../ref.bib
-csl: ../setup/cell.csl
+bibliography: ref.bib
+csl: setup/cell.csl
 ---
 
 ## What is Julia?
