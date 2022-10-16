@@ -23,6 +23,38 @@ bibliography: ref.bib
 csl: setup/cell.csl
 ---
 
+## Session
+
+
+::: {.columns}
+
+
+::: {.column width="75%"}
+
+|Time|Content|
+|---|---|
+|25 min|Introduction to the Julia Programming Language|
+|25 min|The Julia SciML Ecosystem|
+|10 min|Break|
+|30 min|Hands-on session with nerual differential equation|
+|30 min|Hands-on session with SciML application|
+
+::: 
+
+::: {.column width="25%"}
+
+![Tutorial Website[^url]](img/site-QR-code.png){#fig-surus fig-align="center"}
+
+:::
+
+:::
+
+
+[^url]: https://stevengogogo.github.io/Julia-for-SciML
+
+
+---
+
 ## What is Julia?
 
 :::: {.columns}
