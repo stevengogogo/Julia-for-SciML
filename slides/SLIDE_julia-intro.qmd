@@ -5,19 +5,23 @@ date: "10/25, 2022"
 author: "Shao-Ting Chiu"
 institute: Texas A\&M Univ.
 format: 
-    beamer:
-        aspectratio: 169
-        theme: Copenhagen
-        header-includes: |
-            \setbeamertemplate{footline}[frame number] 
-            \hypersetup{pdfpagemode=FullScreen}
-            %\linespread{1.1}\selectfont
+  revealjs:
+    smaller: true
+    scrollable: true
+    controls: true
+    #beamer:
+        #aspectratio: 169
+        #theme: Copenhagen
+        #header-includes: |
+            #\setbeamertemplate{footline}[frame number] 
+            #\hypersetup{pdfpagemode=FullScreen}
+            #%\linespread{1.1}\selectfont
 
 bibliography: ../ref.bib
 csl: ../setup/cell.csl
 ---
 
-# What is Julia?
+## What is Julia?
 
 :::: {.columns}
 
@@ -42,9 +46,9 @@ csl: ../setup/cell.csl
 
 ---
 
-# A quick look at multiple dispatch
+## A quick look at multiple dispatch
 
-## A Generic function
+### A Generic function
 ```julia
 julia> function multiply(a,b)
            return a*b
@@ -54,14 +58,14 @@ multiply (generic function with 1 method)
 
 ---
 
-# A quick look at multiple dispatch
+## A quick look at multiple dispatch
 
 - Type inference in Julia solves the optimized data type [@juliainf].
 
 
-## Integer Input
+### Integer Input
 
-```julia
+```{.julia code-line-numbers="|3|9"}
 julia> @code_llvm multiply(1, 1)
 ;  @ REPL[1]:1 within `multiply`
 define i64 @julia_multiply_660(i64 signext %0, i64 signext %1) #0 {
@@ -86,10 +90,12 @@ This is my note.
 
 ---
 
-# A quick look at multiple dispatch {.allowpagebreaks}
+## A quick look at multiple dispatch
 
-## Mixed Input
-```julia
+### {auto-animate=true}
+
+
+```{.julia code-line-numbers="1||3|13"}
 julia> @code_llvm multiply(2.0,2)
 ;  @ REPL[1]:1 within `multiply`
 define double @julia_multiply_208(double %0, i64 signext %1) #0 {
@@ -108,7 +114,7 @@ top:
 
 ---
 
-# Significant Features
+## Significant Features
 
 1. Julia Base and standard library are written in Julia itself.
 
@@ -123,17 +129,17 @@ top:
 
 . . .
 
-## Why Julia is fast?[@SciMLBook]
+### Why Julia is fast?[@SciMLBook]
 
 - JIT
 - Type inference
 - Type specialization in functions
 
 
-# Ecosystem
+## Ecosystem
 
 
 ---
 
-# References
+## References
 
