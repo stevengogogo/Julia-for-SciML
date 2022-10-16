@@ -108,15 +108,26 @@ top:
 
 ---
 
-# Significant features
+# Significant Features
 
 1. Julia Base and standard library are written in Julia itself.
 
 . . .
 
-2. Multiple dispatch allows many conbinatoins of argument types
-    - Approaching the speed of statically-compiled language like C/Fortran
+2. Julia is always Just-in-Time (JIT) compiled
 
+. . .
+
+3. Multiple dispatch allows many conbinatoins of argument types
+    - Approaching the speed of statically-compiled language like C/Fortran [@juliadoc]
+
+. . .
+
+## Why Julia is fast?[@SciMLBook]
+
+- JIT
+- Type inference
+- Type specialization in functions
 
 
 # Ecosystem
