@@ -29,7 +29,7 @@ website:
           - hands-on/julia_basics.ipynb
       - section: index_sciml-intro.qmd
         contents:
-          - hands-on/infectious_model.ipynb
+          - hands-on/lott.ipynb
       - section: "Appendix"
         contents:
           - resources.qmd
