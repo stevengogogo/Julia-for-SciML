@@ -26,10 +26,12 @@ website:
       - setup.qmd
       - section: index_julia-intro.qmd
         contents:
-          - hands-on/julia_basics.ipynb
+          - text: "Julia Basics"
+            file: hands-on/julia_basics.ipynb
       - section: index_sciml-intro.qmd
         contents:
-          - hands-on/lott.ipynb
+          - text: "UDE Example"
+            file: hands-on/lotka.ipynb
       - section: "Appendix"
         contents:
           - resources.qmd
