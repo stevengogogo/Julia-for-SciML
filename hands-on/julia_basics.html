@@ -240,7 +240,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hands-on/infectious_model.html" class="sidebar-item-text sidebar-link">Example: Infectious Model</a>
+  <a href="../hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
   </div>
 </li>
       </ul>
@@ -291,6 +291,28 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"tutorial"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>?<span class="op">+</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>search: +
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>+(x, y...)</code></pre>
+<p>Addition operator. <code>x+y+z+...</code> calls this function with all arguments, i.e.&nbsp;<code>+(x, y, z, ...)</code>.</p>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<pre class="jldoctest"><code>julia&gt; 1 + 20 + 4
+25
+
+julia&gt; +(1, 20, 4)
+25</code></pre>
+<hr>
+<pre><code>dt::Date + t::Time -&gt; DateTime</code></pre>
+<p>The addition of a <code>Date</code> with a <code>Time</code> produces a <code>DateTime</code>. The hour, minute, second, and millisecond parts of the <code>Time</code> are used along with the year, month, and day of the <code>Date</code> to create the new <code>DateTime</code>. Non-zero microseconds or nanoseconds in the <code>Time</code> type will result in an <code>InexactError</code> being thrown.</p>
+</section>
+</div>
 </div>
 
 

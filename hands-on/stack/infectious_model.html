@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Example: Infectious Model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/TAM-LogoBox.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Example: Infectious Model">
+<meta property="og:description" content="Source code from [1].">
+<meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
+<meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Example: Infectious Model">
+<meta name="twitter:description" content="Source code from [1].">
+<meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
+<meta name="twitter:image-height" content="756">
+<meta name="twitter:image-width" content="756">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/stevengogogo/Julia-for-SciML"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Example: Infectious Model</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Session Info</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../setup.html" class="sidebar-item-text sidebar-link">Setup Julia</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../index_julia-intro.html" class="sidebar-item-text sidebar-link">PART I: Intro. to Julia</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-on/julia_basics.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../index_sciml-intro.html" class="sidebar-item-text sidebar-link">Part II: SciML Packages</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendix</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../resources.html" class="sidebar-item-text sidebar-link">Resources</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Example: Infectious Model</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>Source code from <span class="citation" data-cites="rackauckas2020universal">[<a href="#ref-rackauckas2020universal" role="doc-biblioref">1</a>]</span>.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span>(<span class="pp">@__DIR__</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"tutorial"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial`</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DifferentialEquations</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ModelingToolkit</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataDrivenDiffEq</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>, <span class="bu">DiffEqSensitivity</span>, <span class="bu">Optim</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqFlux</span>, <span class="bu">Flux</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Optimization</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">DiffEqSensitivity </span>as ds</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">DiffEqFlux </span>as df</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Optimization </span>as op</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gr</span>();</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">corona!</span>(du,u,p,t)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    F, β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">-</span> <span class="fu">β</span>(t,β<span class="fl">0</span>,D,N,κ,α)<span class="op">*</span>S<span class="op">*</span>I<span class="op">/</span>N <span class="op">-</span>μ<span class="op">*</span>S <span class="co"># susceptible</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">+</span> <span class="fu">β</span>(t,β<span class="fl">0</span>,D,N,κ,α)<span class="op">*</span>S<span class="op">*</span>I<span class="op">/</span>N <span class="fu">-</span>(σ<span class="op">+</span>μ)<span class="op">*</span>E <span class="co"># exposed</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> σ<span class="op">*</span>E <span class="op">-</span> (γ<span class="op">+</span>μ)<span class="op">*</span>I <span class="co"># infected</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> γ<span class="op">*</span>I <span class="op">-</span> μ<span class="op">*</span>R <span class="co"># removed (recovered + dead)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    dD <span class="op">=</span> d<span class="op">*</span>γ<span class="op">*</span>I <span class="op">-</span> λ<span class="op">*</span>D <span class="co"># severe, critical cases, and deaths</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> dS; du[<span class="fl">2</span>] <span class="op">=</span> dE; du[<span class="fl">3</span>] <span class="op">=</span> dI; du[<span class="fl">4</span>] <span class="op">=</span> dR</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">5</span>] <span class="op">=</span> dN; du[<span class="fl">6</span>] <span class="op">=</span> dD; du[<span class="fl">7</span>] <span class="op">=</span> dC</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">β</span>(t,β<span class="fl">0</span>,D,N,κ,α) <span class="op">=</span> <span class="fu">β0*</span>(<span class="fl">1</span><span class="op">-</span>α)<span class="fu">*</span>(<span class="fl">1</span><span class="op">-</span>D<span class="op">/</span>N)<span class="op">^</span>κ</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>S0 <span class="op">=</span> <span class="fl">14e6</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>u0 <span class="op">=</span> [<span class="fl">0.9</span><span class="op">*</span>S0, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, S0, <span class="fl">0.0</span>, <span class="fl">0.0</span>]</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>p_ <span class="op">=</span> [<span class="fl">10.0</span>, <span class="fl">0.5944</span>, <span class="fl">0.4239</span>, <span class="fl">1117.3</span>, <span class="fl">0.02</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">5</span>,<span class="fl">0.2</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">11.2</span>]</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>R0 <span class="op">=</span> p_[<span class="fl">2</span>]<span class="op">/</span>p_[<span class="fl">7</span>]<span class="op">*</span>p_[<span class="fl">6</span>]<span class="op">/</span>(p_[<span class="fl">6</span>]<span class="op">+</span>p_[<span class="fl">5</span>])</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>tspan <span class="op">=</span> (<span class="fl">0.0</span>, <span class="fl">21.0</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(corona!, u0, tspan, p_)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>tspan2 <span class="op">=</span> (<span class="fl">0.0</span>,<span class="fl">60.0</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(corona!, u0, tspan2, p_)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>solution_extrapolate <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal data</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>tsdata <span class="op">=</span> <span class="fu">Array</span>(solution)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add noise to the data</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>noisy_data <span class="op">=</span> tsdata <span class="op">+</span> <span class="fu">Float32</span>(<span class="fl">1e-5</span>)<span class="fu">*randn</span>(<span class="fu">eltype</span>(tsdata), <span class="fu">size</span>(tsdata))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>7×22 Matrix{Float64}:
+  1.26e7      1.23505e7  1.21059e7   1.18662e7  …    8.44577e6    8.2785e6
+  9.03374e-6  4.5798     8.14608    11.2091         70.9046      75.7781
+  1.76877e-5  0.744565   2.53841     4.95787        79.5931      85.8416
+  1.4555e-5   0.0516033  0.363191    1.09095       115.541      129.63
+  1.4e7       1.37228e7  1.34511e7   1.31847e7       9.38448e6    9.19866e6
+ -1.19366e-6  0.0101378  0.0700881   0.206669   …   16.4648      18.2247
+ -1.69442e-6  0.801628   2.94212     6.17725       221.823      246.265</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">abs</span>.(tsdata<span class="op">-</span>noisy_data)<span class="ch">')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<p><img src="infectious_model_files/figure-html/cell-5-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Neural ODE</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ann_node <span class="op">=</span> <span class="fu">FastChain</span>(<span class="fu">FastDense</span>(<span class="fl">7</span>, <span class="fl">64</span>, tanh),<span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">64</span>, tanh), <span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">64</span>, tanh), <span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">7</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fu">Float64</span>.(<span class="fu">initial_params</span>(ann_node))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">dudt_node</span>(u,p,t)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    F,β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    dS,dE,dI,dR,dD <span class="op">=</span> <span class="fu">ann_node</span>([S<span class="op">/</span>N,E,I,R,N,D<span class="op">/</span>N,C],p)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    [dS,dE,dI,dR,dN,dD,dC]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>prob_node <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_node, u0, tspan, p)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">concrete_solve</span>(prob_node, <span class="fu">Tsit5</span>(), u0, p, saveat <span class="op">=</span> solution.t)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">concrete_solve</span>(prob_node, <span class="fu">Vern7</span>(), u0, θ, saveat <span class="op">=</span> <span class="fl">1</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                         abstol<span class="op">=</span><span class="fl">1e-6</span>, reltol<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                         sensealg <span class="op">=</span> SciMLSensitivity.<span class="fu">InterpolatingAdjoint</span>(autojacvec<span class="op">=</span>SciMLSensitivity.<span class="fu">ReverseDiffVJP</span>())))</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># No regularisation right now</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(abs2, (noisy_data[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>] <span class="op">.-</span> pred[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])), pred <span class="co"># + 1e-5*sum(sum.(abs, params(ann)))</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(p)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> losses <span class="op">=</span> []</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="fu">callback</span>(θ,l,pred) <span class="op">=</span> <span class="cf">begin</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(losses, l)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">length</span>(losses)<span class="op">%</span><span class="fl">50</span><span class="op">==</span><span class="fl">0</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(losses[<span class="kw">end</span>])</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="cn">false</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: FastChain is being deprecated in favor of Lux.jl. Lux.jl uses functions with explicit parameters f(u,p) like FastChain, but is fully featured and documented machine learning library. See the Lux.jl documentation for more details.
+└ @ DiffEqFlux /Users/stevenchiu/.julia/packages/DiffEqFlux/Em1Aj/src/fast_layers.jl:9
+WARNING: redefinition of constant losses. This may fail, cause incorrect answers, or produce other errors.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>callback (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>res1_node <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, p, <span class="fu">ADAM</span>(<span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">500</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: sciml_train is being deprecated in favor of direct usage of Optimization.jl. Please consult the Optimization.jl documentation for more details. Optimization.jl's PolyOpt solver is the polyalgorithm of sciml_train
+└ @ DiffEqFlux /Users/stevenchiu/.julia/packages/DiffEqFlux/Em1Aj/src/train.jl:6</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>LoadError: Need an adjoint for constructor SciMLSensitivity.InterpolatingAdjoint{0, true, Val{:central}, SciMLSensitivity.ReverseDiffVJP{false}}. Gradient is of type ChainRulesCore.ZeroTangent</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res2_node <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, res1_node.minimizer, <span class="fu">BFGS</span>(initial_stepnorm<span class="op">=</span><span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">10000</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: sciml_train is being deprecated in favor of direct usage of Optimization.jl. Please consult the Optimization.jl documentation for more details. Optimization.jl's PolyOpt solver is the polyalgorithm of sciml_train
+└ @ DiffEqFlux /Users/stevenchiu/.julia/packages/DiffEqFlux/Em1Aj/src/train.jl:6</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>LoadError: Need an adjoint for constructor SciMLSensitivity.InterpolatingAdjoint{0, true, Val{:central}, SciMLSensitivity.ReverseDiffVJP{false}}. Gradient is of type ChainRulesCore.ZeroTangent</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prob_node2 <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_node, u0, tspan, res2_node.minimizer)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">solve</span>(prob_node2, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> <span class="fl">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: sciml_train is being deprecated in favor of direct usage of Optimization.jl. Please consult the Optimization.jl documentation for more details. Optimization.jl's PolyOpt solver is the polyalgorithm of sciml_train
+└ @ DiffEqFlux /Users/stevenchiu/.julia/packages/DiffEqFlux/Em1Aj/src/train.jl:6</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>LoadError: Need an adjoint for constructor SciMLSensitivity.InterpolatingAdjoint{0, true, Val{:central}, SciMLSensitivity.ReverseDiffVJP{false}}. Gradient is of type ChainRulesCore.ZeroTangent</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(solution, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(s, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the losses</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(losses, yaxis <span class="op">=</span> <span class="op">:</span>log, xaxis <span class="op">=</span> <span class="op">:</span>log, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrapolate out</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>prob_node_extrapolate <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_node,u0, tspan2, res2_node.minimizer)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>_sol_node <span class="op">=</span> <span class="fu">solve</span>(prob_node_extrapolate, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>p_node <span class="op">=</span> <span class="fu">scatter</span>(solution_extrapolate, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], legend <span class="op">=</span> <span class="op">:</span>topleft, label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>], title<span class="op">=</span><span class="st">"Neural ODE Extrapolation"</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_node,_sol_node, lw<span class="op">=</span><span class="fl">5</span>, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_node,[<span class="fl">20.99</span>,<span class="fl">21.01</span>],[<span class="fl">0.0</span>,<span class="fu">maximum</span>(<span class="fu">hcat</span>(<span class="fu">Array</span>(solution_extrapolate[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]),<span class="fu">Array</span>(_sol_node[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])))],lw<span class="op">=</span><span class="fl">5</span>,color<span class="op">=:</span>black,label<span class="op">=</span><span class="st">"Training Data End"</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"neuralode_extrapolation.png"</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"neuralode_extrapolation.pdf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">### Universal ODE Part 1</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ann <span class="op">=</span> <span class="fu">FastChain</span>(<span class="fu">FastDense</span>(<span class="fl">3</span>, <span class="fl">64</span>, tanh),<span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">64</span>, tanh), <span class="fu">FastDense</span>(<span class="fl">64</span>, <span class="fl">1</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fu">Float64</span>.(<span class="fu">initial_params</span>(ann))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">dudt_</span>(u,p,t)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    F, β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fu">ann</span>([S<span class="op">/</span>N,I,D<span class="op">/</span>N],p) <span class="co"># Exposure does not depend on exposed, removed, or cumulative!</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">-</span> z[<span class="fl">1</span>] <span class="op">-</span>μ<span class="op">*</span>S <span class="co"># susceptible</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">+</span> z[<span class="fl">1</span>] <span class="fu">-</span>(σ<span class="op">+</span>μ)<span class="op">*</span>E <span class="co"># exposed</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> σ<span class="op">*</span>E <span class="op">-</span> (γ<span class="op">+</span>μ)<span class="op">*</span>I <span class="co"># infected</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> γ<span class="op">*</span>I <span class="op">-</span> μ<span class="op">*</span>R <span class="co"># removed (recovered + dead)</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    dD <span class="op">=</span> d<span class="op">*</span>γ<span class="op">*</span>I <span class="op">-</span> λ<span class="op">*</span>D <span class="co"># severe, critical cases, and deaths</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    [dS,dE,dI,dR,dN,dD,dC]</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>prob_nn <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_,u0, tspan, p)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="fu">concrete_solve</span>(prob_nn, <span class="fu">Tsit5</span>(), u0, p, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>])</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(s[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]<span class="ch">')</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">concrete_solve</span>(prob_nn, <span class="fu">Vern7</span>(), u0, θ, saveat <span class="op">=</span> solution.t,</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>                         abstol<span class="op">=</span><span class="fl">1e-6</span>, reltol<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>                         sensealg <span class="op">=</span> <span class="fu">InterpolatingAdjoint</span>(autojacvec<span class="op">=</span><span class="fu">ReverseDiffVJP</span>())))</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co"># No regularisation right now</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ)</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(abs2, noisy_data[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>] <span class="op">.-</span> pred[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]), pred <span class="co"># + 1e-5*sum(sum.(abs, params(ann)))</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(p)</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> losses <span class="op">=</span> []</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="fu">callback</span>(θ,l,pred) <span class="op">=</span> <span class="cf">begin</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(losses, l)</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">length</span>(losses)<span class="op">%</span><span class="fl">50</span><span class="op">==</span><span class="fl">0</span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>        <span class="fu">println</span>(losses[<span class="kw">end</span>])</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    <span class="cn">false</span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>res1_uode <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, p, <span class="fu">ADAM</span>(<span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">500</span>)</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>res2_uode <span class="op">=</span> DiffEqFlux.<span class="fu">sciml_train</span>(loss, res1_uode.minimizer, <span class="fu">BFGS</span>(initial_stepnorm<span class="op">=</span><span class="fl">0.01</span>), cb<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">10000</span>)</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(res2_uode.minimizer)</span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>prob_nn2 <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_,u0, tspan, res2_uode.minimizer)</span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>uode_sol <span class="op">=</span> <span class="fu">solve</span>(prob_nn2, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>])</span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(uode_sol, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>])</span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the losses</span></span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(losses, yaxis <span class="op">=</span> <span class="op">:</span>log, xaxis <span class="op">=</span> <span class="op">:</span>log, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>)</span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect the state trajectory and the derivatives</span></span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> noisy_data</span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal derivatives</span></span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>DX <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">solution</span>(solution.t, <span class="dt">Val</span>{<span class="fl">1</span>}))</span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrapolate out</span></span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>prob_nn2 <span class="op">=</span> <span class="fu">ODEProblem</span>(dudt_,u0, tspan2, res2_uode.minimizer)</span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>_sol_uode <span class="op">=</span> <span class="fu">solve</span>(prob_nn2, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>p_uode <span class="op">=</span> <span class="fu">scatter</span>(solution_extrapolate, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], legend <span class="op">=</span> <span class="op">:</span>topleft, label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>], title<span class="op">=</span><span class="st">"Universal ODE Extrapolation"</span>)</span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uode,_sol_uode, lw <span class="op">=</span> <span class="fl">5</span>, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uode,[<span class="fl">20.99</span>,<span class="fl">21.01</span>],[<span class="fl">0.0</span>,<span class="fu">maximum</span>(<span class="fu">hcat</span>(<span class="fu">Array</span>(solution_extrapolate[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]),<span class="fu">Array</span>(_sol_uode[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])))],lw<span class="op">=</span><span class="fl">5</span>,color<span class="op">=:</span>black,label<span class="op">=</span><span class="st">"Training Data End"</span>)</span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalode_extrapolation.png"</span>)</span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalode_extrapolation.pdf"</span>)</span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a><span class="co">### Universal ODE Part 2: SInDy to Equations</span></span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Basis</span></span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>]</span>
+<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Lots of polynomials</span></span>
+<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a>polys <span class="op">=</span> Operation[]</span>
+<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="op">∈</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, j <span class="op">∈</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, k <span class="op">∈</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span></span>
+<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(polys, u[<span class="fl">1</span>]<span class="op">^</span>i <span class="op">*</span> u[<span class="fl">2</span>]<span class="op">^</span>j <span class="op">*</span> u[<span class="fl">3</span>]<span class="op">^</span>k)</span>
+<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a><span class="co"># And some other stuff</span></span>
+<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> [<span class="fu">cos</span>.(u)<span class="op">...</span>; <span class="fu">sin</span>.(u)<span class="op">...</span>; <span class="fu">unique</span>(polys)<span class="op">...</span>]</span>
+<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a>basis <span class="op">=</span> <span class="fu">Basis</span>(h, u)</span>
+<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> noisy_data</span>
+<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal derivatives</span></span>
+<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a>DX <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">solution</span>(solution.t, <span class="dt">Val</span>{<span class="fl">1</span>}))</span>
+<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a>S,E,I,R,N,D,C <span class="op">=</span> <span class="fu">eachrow</span>(X)</span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a>F,β<span class="fl">0</span>,α,κ,μ,_,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fu">β</span>.(<span class="fl">0</span><span class="op">:</span>tspan[<span class="kw">end</span>],β<span class="fl">0</span>,D,N,κ,α)<span class="op">.*</span>S<span class="op">.*</span>I<span class="op">./</span>N</span>
+<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a>L̂ <span class="op">=</span> <span class="fu">vec</span>(<span class="fu">ann</span>([S<span class="op">./</span>N I D<span class="op">./</span>N]<span class="ch">',res2_uode.minimizer))</span></span>
+<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a>X̂ <span class="op">=</span> [S<span class="op">./</span>N I D<span class="op">./</span>N]<span class="ch">'</span></span>
+<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(L,title<span class="op">=</span><span class="st">"Estimated vs Expected Exposure Term"</span>,label<span class="op">=</span><span class="st">"True Exposure"</span>)</span>
+<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(L̂,label<span class="op">=</span><span class="st">"Estimated Exposure"</span>)</span>
+<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"estimated_exposure.png"</span>)</span>
+<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"estimated_exposure.pdf"</span>)</span>
+<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an optimizer for the SINDY problem</span></span>
+<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> <span class="fu">SR3</span>()</span>
+<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the thresholds which should be used in the search process</span></span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> <span class="fu">exp10</span>.(<span class="op">-</span><span class="fl">6</span><span class="op">:</span><span class="fl">0.1</span><span class="op">:</span><span class="fl">1</span>)</span>
+<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on original data and without further knowledge</span></span>
+<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a>Ψ_direct <span class="op">=</span> <span class="fu">SInDy</span>(X[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="op">:</span>], DX[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="op">:</span>], basis, thresholds, opt <span class="op">=</span> opt, maxiter <span class="op">=</span> <span class="fl">50000</span>) <span class="co"># Fail</span></span>
+<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(Ψ_direct.basis)</span>
+<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on ideal derivative data ( not available )</span></span>
+<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a>Ψ_ideal <span class="op">=</span> <span class="fu">SInDy</span>(X[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">:</span><span class="kw">end</span>], L[<span class="fl">5</span><span class="op">:</span><span class="kw">end</span>], basis, thresholds, opt <span class="op">=</span> opt, maxiter <span class="op">=</span> <span class="fl">50000</span>) <span class="co"># Succeed</span></span>
+<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(Ψ_ideal.basis)</span>
+<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on uode derivative data</span></span>
+<span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a>Ψ <span class="op">=</span> <span class="fu">SInDy</span>(X̂[<span class="op">:</span>, <span class="fl">2</span><span class="op">:</span><span class="kw">end</span>], L̂[<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>], basis, thresholds,  opt <span class="op">=</span> opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, normalize <span class="op">=</span> <span class="cn">true</span>, denoise <span class="op">=</span> <span class="cn">true</span>) <span class="co"># Succeed</span></span>
+<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(Ψ.basis)</span>
+<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a ODE for the estimated system</span></span>
+<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">approx</span>(u,p,t)</span>
+<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a>    S,E,I,R,N,D,C <span class="op">=</span> u</span>
+<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a>    F, β<span class="fl">0</span>,α,κ,μ,σ,γ,d,λ <span class="op">=</span> p_</span>
+<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="fu">Ψ</span>([S<span class="op">/</span>N,I,D<span class="op">/</span>N]) <span class="co"># Exposure does not depend on exposed, removed, or cumulative!</span></span>
+<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">-</span> z[<span class="fl">1</span>] <span class="op">-</span>μ<span class="op">*</span>S <span class="co"># susceptible</span></span>
+<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a>    dE <span class="op">=</span> β<span class="fl">0</span><span class="op">*</span>S<span class="op">*</span>F<span class="op">/</span>N <span class="op">+</span> z[<span class="fl">1</span>] <span class="fu">-</span>(σ<span class="op">+</span>μ)<span class="op">*</span>E <span class="co"># exposed</span></span>
+<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> σ<span class="op">*</span>E <span class="op">-</span> (γ<span class="op">+</span>μ)<span class="op">*</span>I <span class="co"># infected</span></span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> γ<span class="op">*</span>I <span class="op">-</span> μ<span class="op">*</span>R <span class="co"># removed (recovered + dead)</span></span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>μ<span class="op">*</span>N <span class="co"># total population</span></span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a>    dD <span class="op">=</span> d<span class="op">*</span>γ<span class="op">*</span>I <span class="op">-</span> λ<span class="op">*</span>D <span class="co"># severe, critical cases, and deaths</span></span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a>    dC <span class="op">=</span> σ<span class="op">*</span>E <span class="co"># +cumulative cases</span></span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a>    [dS,dE,dI,dR,dN,dD,dC]</span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the approximated problem and solution</span></span>
+<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a>a_prob <span class="op">=</span> <span class="fu">ODEProblem</span><span class="dt">{false}</span>(approx, u0, tspan2, p_)</span>
+<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a>a_solution <span class="op">=</span> <span class="fu">solve</span>(a_prob, <span class="fu">Tsit5</span>())</span>
+<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a>p_uodesindy <span class="op">=</span> <span class="fu">scatter</span>(solution_extrapolate, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], legend <span class="op">=</span> <span class="op">:</span>topleft, label<span class="op">=</span>[<span class="st">"True Exposed"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>])</span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uodesindy,a_solution, lw <span class="op">=</span> <span class="fl">5</span>, vars<span class="op">=</span>[<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>], label<span class="op">=</span>[<span class="st">"Estimated Exposed"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p_uodesindy,[<span class="fl">20.99</span>,<span class="fl">21.01</span>],[<span class="fl">0.0</span>,<span class="fu">maximum</span>(<span class="fu">hcat</span>(<span class="fu">Array</span>(solution_extrapolate[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>]),<span class="fu">Array</span>(_sol_uode[<span class="fl">2</span><span class="op">:</span><span class="fl">4</span>,<span class="op">:</span>])))],lw<span class="op">=</span><span class="fl">5</span>,color<span class="op">=:</span>black,label<span class="op">=</span><span class="st">"Training Data End"</span>)</span>
+<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalodesindy_extrapolation.png"</span>)</span>
+<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a><span class="fu">savefig</span>(<span class="st">"universalodesindy_extrapolation.pdf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-rackauckas2020universal" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Rackauckas, C. et al. 2020. Universal differential equations for scientific machine learning. <em>arXiv preprint arXiv:2001.04385</em>. (2020).</div>
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="stevengogogo/Julia-for-SciML-draft" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">TAMIDS Workshop Series, Steven Chiu (Oct.&nbsp;25th 2022)</div>
+  </div>
+</footer>
+
+
+
+</body></html>

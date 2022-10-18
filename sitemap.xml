@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/index_sciml-intro.html</loc>
-    <lastmod>2022-10-16T18:44:58.813Z</lastmod>
+    <lastmod>2022-10-18T15:49:04.885Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/SLIDE_sciml-intro.html</loc>
-    <lastmod>2022-10-16T18:44:59.688Z</lastmod>
+    <lastmod>2022-10-18T15:49:06.458Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/index.html</loc>
-    <lastmod>2022-10-16T18:45:00.080Z</lastmod>
+    <lastmod>2022-10-18T15:49:07.566Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/SLIDE_julia-intro.html</loc>
-    <lastmod>2022-10-16T18:45:01.197Z</lastmod>
+    <lastmod>2022-10-18T15:49:09.174Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/julia_basics.html</loc>
-    <lastmod>2022-10-16T18:45:02.175Z</lastmod>
+    <lastmod>2022-10-18T15:49:10.828Z</lastmod>
   </url>
   <url>
-    <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/infectious_model.html</loc>
-    <lastmod>2022-10-16T18:45:03.562Z</lastmod>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/lotka.html</loc>
+    <lastmod>2022-10-18T15:49:13.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/stack/infectious_model.html</loc>
+    <lastmod>2022-10-18T15:49:16.864Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/ref.html</loc>
-    <lastmod>2022-10-16T18:45:04.360Z</lastmod>
+    <lastmod>2022-10-18T15:49:18.502Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/index_julia-intro.html</loc>
-    <lastmod>2022-10-16T18:45:05.346Z</lastmod>
+    <lastmod>2022-10-18T15:49:20.254Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/setup.html</loc>
-    <lastmod>2022-10-16T18:45:06.143Z</lastmod>
+    <lastmod>2022-10-18T15:49:21.300Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/resources.html</loc>
-    <lastmod>2022-10-16T18:45:06.934Z</lastmod>
+    <lastmod>2022-10-18T15:49:22.310Z</lastmod>
   </url>
 </urlset>
