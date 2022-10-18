@@ -281,14 +281,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <section id="activate-the-environment" class="level2">
 <h2 class="anchored" data-anchor-id="activate-the-environment">Activate the environment</h2>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Environment and packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span>(<span class="pp">@__DIR__</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"lotka"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/lotka`</code></pre>
 </div>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>() <span class="co"># This step will take a while for numerous packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>() <span class="co"># This step will take a while for numerous packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: The active manifest file is an older format with no julia version entry. Dependencies may have been resolved with a different julia version.
+└ @ nothing /Users/stevenchiu/Documents/GitHub/Julia-for-SciML/hands-on/lotka/Manifest.toml:0</code></pre>
+</div>
 </div>
 </section>
 <section id="import-packages" class="level2">
@@ -296,22 +303,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>When importing multiple packages, this requires precompilation that takes some time.</li>
 </ul>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEq</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ModelingToolkit</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataDrivenDiffEq</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>, <span class="bu">ComponentArrays</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Optimization</span>, <span class="bu">OptimizationOptimisers</span>, <span class="bu">OptimizationOptimJL </span><span class="co">#OptimizationFlux for ADAM and OptimizationOptimJL for BFGS</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqSensitivity</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Lux</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">gr</span>()</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Statistics</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a random seed for reproduceable behaviour</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Random</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> <span class="bu">Random</span>.<span class="fu">default_rng</span>()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">1234</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEq</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ModelingToolkit</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataDrivenDiffEq</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>, <span class="bu">ComponentArrays</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Optimization</span>, <span class="bu">OptimizationOptimisers</span>, <span class="bu">OptimizationOptimJL </span><span class="co">#OptimizationFlux for ADAM and OptimizationOptimJL for BFGS</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqSensitivity</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Lux</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">gr</span>()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Statistics</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a random seed for reproduceable behaviour</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Random</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> <span class="bu">Random</span>.<span class="fu">default_rng</span>()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">1234</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="building-ode-model-ground-truth-model" class="level2">
@@ -322,23 +329,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     \dot{y} &amp;= \gamma xy- \delta y
 \end{align}\]</span></p>
 <p>where <span class="math inline">\(\alpha, \beta, \gamma\)</span>, and <span class="math inline">\(\delta\)</span> are positive real parameters</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Data generation</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">lotka!</span>(du, u, p, t)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    α, β, γ, δ <span class="op">=</span> p</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> α<span class="op">*</span>u[<span class="fl">1</span>] <span class="op">-</span> β<span class="op">*</span>u[<span class="fl">2</span>]<span class="op">*</span>u[<span class="fl">1</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">2</span>] <span class="op">=</span> γ<span class="op">*</span>u[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">2</span>]  <span class="op">-</span> δ<span class="op">*</span>u[<span class="fl">2</span>]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Data generation</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">lotka!</span>(du, u, p, t)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    α, β, γ, δ <span class="op">=</span> p</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> α<span class="op">*</span>u[<span class="fl">1</span>] <span class="op">-</span> β<span class="op">*</span>u[<span class="fl">2</span>]<span class="op">*</span>u[<span class="fl">1</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">2</span>] <span class="op">=</span> γ<span class="op">*</span>u[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">2</span>]  <span class="op">-</span> δ<span class="op">*</span>u[<span class="fl">2</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>lotka! (generic function with 1 method)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="97">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the experimental parameter</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tspan <span class="op">=</span> (<span class="fl">0.0</span>,<span class="fl">3.0</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>u0 <span class="op">=</span> [<span class="fl">0.44249296</span>,<span class="fl">4.6280594</span>]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p_ <span class="op">=</span> [<span class="fl">1.3</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>, <span class="fl">1.8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="97">
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the experimental parameter</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tspan <span class="op">=</span> (<span class="fl">0.0</span>,<span class="fl">3.0</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>u0 <span class="op">=</span> [<span class="fl">0.44249296</span>,<span class="fl">4.6280594</span>]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>p_ <span class="op">=</span> [<span class="fl">1.3</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>, <span class="fl">1.8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>4-element Vector{Float64}:
  1.3
  0.9
@@ -351,11 +358,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>Vern7</code> is used for non-stiff problems. Numerous solvers can be found on <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">DifferentialEquations.jl’s doc</a></li>
 </ul>
-<div class="cell" data-execution_count="98">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(lotka!, u0,tspan, p_)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="98">
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(lotka!, u0,tspan, p_)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>solution <span class="op">=</span> <span class="fu">solve</span>(prob, <span class="fu">Vern7</span>(), abstol<span class="op">=</span><span class="fl">1e-12</span>, reltol<span class="op">=</span><span class="fl">1e-12</span>, saveat <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>retcode: Success
 Interpolation: 1st order linear
 t: 31-element Vector{Float64}:
@@ -418,31 +425,31 @@ u: 31-element Vector{Vector{Float64}}:
 </section>
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">Data processing</h2>
-<div class="cell" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal data</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">Array</span>(solution)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> solution.t</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>DX <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">solution</span>(solution.t, <span class="dt">Val</span>{<span class="fl">1</span>}))</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>full_problem <span class="op">=</span> <span class="fu">DataDrivenProblem</span>(X, t <span class="op">=</span> t, DX <span class="op">=</span> DX)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add noise in terms of the mean</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>x̄ <span class="op">=</span> <span class="fu">mean</span>(X, dims <span class="op">=</span> <span class="fl">2</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>noise_magnitude <span class="op">=</span> <span class="fl">5e-3</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>Xₙ <span class="op">=</span> X <span class="op">.+</span> (noise_magnitude<span class="op">*</span>x̄) <span class="op">.*</span> <span class="fu">randn</span>(<span class="fu">eltype</span>(X), <span class="fu">size</span>(X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="99">
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">Array</span>(solution)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> solution.t</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>DX <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">solution</span>(solution.t, <span class="dt">Val</span>{<span class="fl">1</span>}))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>full_problem <span class="op">=</span> <span class="fu">DataDrivenProblem</span>(X, t <span class="op">=</span> t, DX <span class="op">=</span> DX)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add noise in terms of the mean</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>x̄ <span class="op">=</span> <span class="fu">mean</span>(X, dims <span class="op">=</span> <span class="fl">2</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>noise_magnitude <span class="op">=</span> <span class="fl">5e-3</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>Xₙ <span class="op">=</span> X <span class="op">.+</span> (noise_magnitude<span class="op">*</span>x̄) <span class="op">.*</span> <span class="fu">randn</span>(<span class="fu">eltype</span>(X), <span class="fu">size</span>(X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>2×31 Matrix{Float64}:
- 0.442554  0.346422  0.283868  0.239053  …  1.25327    1.42578    1.60411
- 4.62367   3.98581   3.41621   2.91364      0.0747481  0.0616359  0.0619753</code></pre>
+ 0.444955  0.344412  0.277873  0.246362  …  1.2542     1.41631    1.60945
+ 4.6231    3.98748   3.40663   2.91876      0.0810739  0.0772539  0.0672219</code></pre>
 </div>
 </div>
 </section>
 <section id="data-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
-<div class="cell" data-execution_count="100">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution, alpha <span class="op">=</span> <span class="fl">0.75</span>, color <span class="op">=</span> <span class="op">:</span>black, label <span class="op">=</span> [<span class="st">"True Data"</span> <span class="cn">nothing</span>])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>(t, <span class="fu">transpose</span>(Xₙ), color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> [<span class="st">"Noisy Data"</span> <span class="cn">nothing</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="100">
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution, alpha <span class="op">=</span> <span class="fl">0.75</span>, color <span class="op">=</span> <span class="op">:</span>black, label <span class="op">=</span> [<span class="st">"True Data"</span> <span class="cn">nothing</span>])</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>(t, <span class="fu">transpose</span>(Xₙ), color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> [<span class="st">"Noisy Data"</span> <span class="cn">nothing</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <p><img src="lotka_files/figure-html/cell-9-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
@@ -454,265 +461,271 @@ u: 31-element Vector{Vector{Float64}}:
     \dot{x} &amp;= \theta_1 x + U_1(\theta_3, x, y)\\
     \dot{y} &amp;= -\theta_2 y + U_2(\theta_3..., x, y)
 \end{align}\]</span></p>
-<div class="cell" data-execution_count="101">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Define the network</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gaussian RBF as activation</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rbf</span>(x) <span class="op">=</span> <span class="fu">exp</span>.(<span class="fu">-</span>(x<span class="op">.^</span><span class="fl">2</span>))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Multilayer FeedForward</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> Lux.<span class="fu">Chain</span>(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    Lux.<span class="fu">Dense</span>(<span class="fl">2</span>,<span class="fl">5</span>,rbf), Lux.<span class="fu">Dense</span>(<span class="fl">5</span>,<span class="fl">5</span>, rbf), Lux.<span class="fu">Dense</span>(<span class="fl">5</span>,<span class="fl">5</span>, rbf), Lux.<span class="fu">Dense</span>(<span class="fl">5</span>,<span class="fl">2</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the initial parameters and state variables of the model</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>p, st <span class="op">=</span> Lux.<span class="fu">setup</span>(rng, U)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the hybrid model</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">ude_dynamics!</span>(du,u, p, t, p_true)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    û <span class="op">=</span> <span class="fu">U</span>(u, p, st)[<span class="fl">1</span>] <span class="co"># Network prediction</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> p_true[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">1</span>] <span class="op">+</span> û[<span class="fl">1</span>]</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">2</span>] <span class="op">=</span> <span class="op">-</span>p_true[<span class="fl">4</span>]<span class="op">*</span>u[<span class="fl">2</span>] <span class="op">+</span> û[<span class="fl">2</span>]</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="101">
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Define the network</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gaussian RBF as activation</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rbf</span>(x) <span class="op">=</span> <span class="fu">exp</span>.(<span class="fu">-</span>(x<span class="op">.^</span><span class="fl">2</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Multilayer FeedForward</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> Lux.<span class="fu">Chain</span>(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    Lux.<span class="fu">Dense</span>(<span class="fl">2</span>,<span class="fl">5</span>,rbf), Lux.<span class="fu">Dense</span>(<span class="fl">5</span>,<span class="fl">5</span>, rbf), Lux.<span class="fu">Dense</span>(<span class="fl">5</span>,<span class="fl">5</span>, rbf), Lux.<span class="fu">Dense</span>(<span class="fl">5</span>,<span class="fl">2</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the initial parameters and state variables of the model</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>p, st <span class="op">=</span> Lux.<span class="fu">setup</span>(rng, U)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the hybrid model</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">ude_dynamics!</span>(du,u, p, t, p_true)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    û <span class="op">=</span> <span class="fu">U</span>(u, p, st)[<span class="fl">1</span>] <span class="co"># Network prediction</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> p_true[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">1</span>] <span class="op">+</span> û[<span class="fl">1</span>]</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">2</span>] <span class="op">=</span> <span class="op">-</span>p_true[<span class="fl">4</span>]<span class="op">*</span>u[<span class="fl">2</span>] <span class="op">+</span> û[<span class="fl">2</span>]</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>ude_dynamics! (generic function with 1 method)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="102">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Closure with the known parameter</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nn_dynamics!</span>(du,u,p,t) <span class="op">=</span> <span class="fu">ude_dynamics!</span>(du,u,p,t,p_)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the problem (Fix: https://discourse.julialang.org/t/issue-with-ude-repository-lv-scenario-1/88618/5)</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>prob_nn <span class="op">=</span> <span class="fu">ODEProblem</span><span class="dt">{true, SciMLBase.FullSpecialize}</span>(nn_dynamics!,Xₙ[<span class="op">:</span>, <span class="fl">1</span>], tspan, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="102">
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Closure with the known parameter</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nn_dynamics!</span>(du,u,p,t) <span class="op">=</span> <span class="fu">ude_dynamics!</span>(du,u,p,t,p_)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the problem (Fix: https://discourse.julialang.org/t/issue-with-ude-repository-lv-scenario-1/88618/5)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#prob_nn = ODEProblem{true, SciMLBase.FullSpecialize}(nn_dynamics!,Xₙ[:, 1], tspan, p)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>prob_nn <span class="op">=</span> <span class="fu">ODEProblem</span>(nn_dynamics!,Xₙ[<span class="op">:</span>, <span class="fl">1</span>], tspan, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-cyan-fg">ODEProblem</span> with uType <span class="ansi-cyan-fg">Vector{Float64}</span> and tType <span class="ansi-cyan-fg">Float64</span>. In-place: <span class="ansi-cyan-fg">true</span>
 timespan: (0.0, 3.0)
 u0: 2-element Vector{Float64}:
- 0.4425543496585194
- 4.6236666047953</pre>
+ 0.44495468189157616
+ 4.623098367786485</pre>
 </div>
 </div>
 </div>
 </section>
 <section id="training-setting" class="level2">
 <h2 class="anchored" data-anchor-id="training-setting">Training Setting</h2>
-<div class="cell" data-execution_count="103">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Function to train the network</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a predictor</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ, X <span class="op">=</span> Xₙ[<span class="op">:</span>,<span class="fl">1</span>], T <span class="op">=</span> t)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    _prob <span class="op">=</span> <span class="fu">remake</span>(prob_nn, u0 <span class="op">=</span> X, tspan <span class="op">=</span> (T[<span class="fl">1</span>], T[<span class="kw">end</span>]), p <span class="op">=</span> θ)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">solve</span>(_prob, <span class="fu">Vern7</span>(), saveat <span class="op">=</span> T,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                abstol<span class="op">=</span><span class="fl">1e-6</span>, reltol<span class="op">=</span><span class="fl">1e-6</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                sensealg <span class="op">=</span> <span class="fu">ForwardDiffSensitivity</span>()</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                ))</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple L2 loss</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    X̂ <span class="op">=</span> <span class="fu">predict</span>(θ)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(abs2, Xₙ <span class="op">.-</span> X̂)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Container to track the losses</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> <span class="dt">Float64</span>[]</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>callback <span class="op">=</span> <span class="kw">function</span> (p, l)</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">push!</span>(losses, l)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="fu">length</span>(losses)<span class="op">%</span><span class="fl">50</span><span class="op">==</span><span class="fl">0</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">println</span>(<span class="st">"Current loss after </span><span class="sc">$</span>(<span class="fu">length</span>(losses))<span class="st"> iterations: </span><span class="sc">$</span>(losses[<span class="kw">end</span>])<span class="st">"</span>)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="cn">false</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="103">
-<pre><code>#19 (generic function with 1 method)</code></pre>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Function to train the network</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a predictor</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ, X <span class="op">=</span> Xₙ[<span class="op">:</span>,<span class="fl">1</span>], T <span class="op">=</span> t)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    _prob <span class="op">=</span> <span class="fu">remake</span>(prob_nn, u0 <span class="op">=</span> X, tspan <span class="op">=</span> (T[<span class="fl">1</span>], T[<span class="kw">end</span>]), p <span class="op">=</span> θ)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">solve</span>(_prob, <span class="fu">Vern7</span>(), saveat <span class="op">=</span> T,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                abstol<span class="op">=</span><span class="fl">1e-6</span>, reltol<span class="op">=</span><span class="fl">1e-6</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                sensealg <span class="op">=</span> <span class="fu">ForwardDiffSensitivity</span>()</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                ))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple L2 loss</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    X̂ <span class="op">=</span> <span class="fu">predict</span>(θ)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(abs2, Xₙ <span class="op">.-</span> X̂)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Container to track the losses</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> <span class="dt">Float64</span>[]</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>callback <span class="op">=</span> <span class="kw">function</span> (p, l)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">push!</span>(losses, l)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="fu">length</span>(losses)<span class="op">%</span><span class="fl">50</span><span class="op">==</span><span class="fl">0</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">println</span>(<span class="st">"Current loss after </span><span class="sc">$</span>(<span class="fu">length</span>(losses))<span class="st"> iterations: </span><span class="sc">$</span>(losses[<span class="kw">end</span>])<span class="st">"</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="cn">false</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>#9 (generic function with 1 method)</code></pre>
 </div>
 </div>
 </section>
 <section id="training" class="level2">
 <h2 class="anchored" data-anchor-id="training">Training</h2>
 <p>The training is <a href="https://github.com/ChrisRackauckas/universal_differential_equations/blob/7d2b21a082c517f6f2d94274376d4f1553fdebc3/LotkaVolterra/scenario_1.jl#L109-L119">splitted to two steps</a>: 1. ADAM: for better convergence 2. BFGS: get better position</p>
-<div class="cell" data-execution_count="104">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>adtype <span class="op">=</span> Optimization.<span class="fu">AutoZygote</span>()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>optf <span class="op">=</span> Optimization.<span class="fu">OptimizationFunction</span>((x,p)<span class="fu">-&gt;loss</span>(x), adtype)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>optprob <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf, <span class="fu">ComponentVector</span><span class="dt">{Float64}</span>(p))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>res1 <span class="op">=</span> Optimization.<span class="fu">solve</span>(optprob, <span class="fu">ADAM</span>(<span class="fl">0.1</span>), callback<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">200</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="pp">@info</span> <span class="st">"Training loss after </span><span class="sc">$</span>(<span class="fu">length</span>(losses))<span class="st"> iterations: </span><span class="sc">$</span>(losses[<span class="kw">end</span>])<span class="st">"</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train with BFGS</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> optprob2 <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf, res1.minimizer)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> res2 <span class="op">=</span> Optimization.<span class="fu">solve</span>(optprob2, Optim.<span class="fu">BFGS</span>(initial_stepnorm<span class="op">=</span><span class="fl">0.01</span>), callback<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">3000</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="pp">@info</span> <span class="st">"Final training loss after </span><span class="sc">$</span>(<span class="fu">length</span>(losses))<span class="st"> iterations: </span><span class="sc">$</span>(losses[<span class="kw">end</span>])<span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>adtype <span class="op">=</span> Optimization.<span class="fu">AutoZygote</span>()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>optf <span class="op">=</span> Optimization.<span class="fu">OptimizationFunction</span>((x,p)<span class="fu">-&gt;loss</span>(x), adtype)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>optprob <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf, <span class="fu">ComponentVector</span><span class="dt">{Float64}</span>(p))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>res1 <span class="op">=</span> Optimization.<span class="fu">solve</span>(optprob, <span class="fu">ADAM</span>(<span class="fl">0.1</span>), callback<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">200</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="pp">@info</span> <span class="st">"Training loss after </span><span class="sc">$</span>(<span class="fu">length</span>(losses))<span class="st"> iterations: </span><span class="sc">$</span>(losses[<span class="kw">end</span>])<span class="st">"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Train with BFGS</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> optprob2 <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf, res1.minimizer)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> res2 <span class="op">=</span> Optimization.<span class="fu">solve</span>(optprob2, Optim.<span class="fu">BFGS</span>(initial_stepnorm<span class="op">=</span><span class="fl">0.01</span>), callback<span class="op">=</span>callback, maxiters <span class="op">=</span> <span class="fl">3000</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="pp">@info</span> <span class="st">"Final training loss after </span><span class="sc">$</span>(<span class="fu">length</span>(losses))<span class="st"> iterations: </span><span class="sc">$</span>(losses[<span class="kw">end</span>])<span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current loss after 50 iterations: 3.469528000842328
-Current loss after 100 iterations: 1.6085778580005679
-Current loss after 150 iterations: 1.0932233615139908
-Current loss after 200 iterations: 0.9008213085586918
-  0.002767 seconds (912 allocations: 55.714 KiB, 97.56% compilation time)</code></pre>
+<pre><code>Current loss after 50 iterations: 3.2919945635723753
+Current loss after 100 iterations: 1.7058558916650455
+Current loss after 150 iterations: 1.6697049368588788
+Current loss after 200 iterations: 1.6423084245679131</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>┌ Info: Training loss after 201 iterations: 0.9008213085586918
-└ @ Main In[104]:6</code></pre>
+<pre><code>┌ Info: Training loss after 201 iterations: 1.6423084245679131
+└ @ Main In[23]:6</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current loss after 250 iterations: 0.00835701277177789
-Current loss after 300 iterations: 0.0012008428507987853
-Current loss after 350 iterations: 0.0007589772027163713
-Current loss after 400 iterations: 0.0007090003812023018
-Current loss after 450 iterations: 0.0006963845360709188
-Current loss after 500 iterations: 0.0006879639315406285
-Current loss after 550 iterations: 0.0006737836722368439
-Current loss after 600 iterations: 0.0006610212120100604
-Current loss after 650 iterations: 0.0006304002713236008
-Current loss after 700 iterations: 0.0005887565584171636
-Current loss after 750 iterations: 0.0005830120824833022
-Current loss after 800 iterations: 0.000567571010413902
-Current loss after 850 iterations: 0.0005601012883909123
-Current loss after 900 iterations: 0.0005481287746361439
-Current loss after 950 iterations: 0.0005426657868937582
-Current loss after 1000 iterations: 0.0005389589538206719
-Current loss after 1050 iterations: 0.0005378070015787143
-Current loss after 1100 iterations: 0.00053260691150804
-Current loss after 1150 iterations: 0.0005247085298999025
-Current loss after 1200 iterations: 0.0005222863437639172
-Current loss after 1250 iterations: 0.000514100635755448
-Current loss after 1300 iterations: 0.0005109459260636017
-Current loss after 1350 iterations: 0.0005079065846714043
-Current loss after 1400 iterations: 0.0005033748616302439
-Current loss after 1450 iterations: 0.0004994904499349531
-Current loss after 1500 iterations: 0.0004966601640042935
-Current loss after 1550 iterations: 0.0004923552185348715
-Current loss after 1600 iterations: 0.0004889445340668124
-Current loss after 1650 iterations: 0.0004805067981551289
-Current loss after 1700 iterations: 0.0004766270876236727
-Current loss after 1750 iterations: 0.0004669801522855263
-Current loss after 1800 iterations: 0.00046399927019063553
-Current loss after 1850 iterations: 0.00045877442467472985
-Current loss after 1900 iterations: 0.0004531416076322169
-Current loss after 1950 iterations: 0.00045018827875346385
-Current loss after 2000 iterations: 0.00044866125441227667
-Current loss after 2050 iterations: 0.0004385317791146122
-Current loss after 2100 iterations: 0.00043123783494311606
-Current loss after 2150 iterations: 0.00043041897973958385
-Current loss after 2200 iterations: 0.0004284921491458308
-Current loss after 2250 iterations: 0.0004278384777668959
-Current loss after 2300 iterations: 0.0004242955366192935
-Current loss after 2350 iterations: 0.0004233850019719135
-Current loss after 2400 iterations: 0.00042183393350811633
-Current loss after 2450 iterations: 0.0004212106099017218
-Current loss after 2500 iterations: 0.0004190375099401659
-Current loss after 2550 iterations: 0.00041641136591938967
-Current loss after 2600 iterations: 0.00041338080498632866
-Current loss after 2650 iterations: 0.00041134025280670385
-Current loss after 2700 iterations: 0.00040197161275078435
-Current loss after 2750 iterations: 0.00039949066296698606
-Current loss after 2800 iterations: 0.000393878651282027
-Current loss after 2850 iterations: 0.00039216371202708785
-Current loss after 2900 iterations: 0.0003874546834286143
-Current loss after 2950 iterations: 0.00037598086076886123
-Current loss after 3000 iterations: 0.0003737354834934274
-Current loss after 3050 iterations: 0.00037237715575335565
-Current loss after 3100 iterations: 0.000367860777556065
-Current loss after 3150 iterations: 0.0003606938309170762
-Current loss after 3200 iterations: 0.0003567357981520652
- 73.392067 seconds (623.24 M allocations: 115.171 GiB, 15.35% gc time, 0.22% compilation time)</code></pre>
+<pre><code>  0.002537 seconds (917 allocations: 56.104 KiB, 97.21% compilation time)
+Current loss after 250 iterations: 0.023661287470332845
+Current loss after 300 iterations: 0.013746817618177573
+Current loss after 350 iterations: 0.0032781193503113072
+Current loss after 400 iterations: 0.0017736994450182483
+Current loss after 450 iterations: 0.0016452061747373918
+Current loss after 500 iterations: 0.001415755561505311
+Current loss after 550 iterations: 0.001226557886040906
+Current loss after 600 iterations: 0.001107089612914693
+Current loss after 650 iterations: 0.0009982934123468784
+Current loss after 700 iterations: 0.0009875749757684356
+Current loss after 750 iterations: 0.0009812594981828098
+Current loss after 800 iterations: 0.0009796658875397177
+Current loss after 850 iterations: 0.0009793537523280391
+Current loss after 900 iterations: 0.0009772977493860333
+Current loss after 950 iterations: 0.0009743301969273224
+Current loss after 1000 iterations: 0.0009727084653298941
+Current loss after 1050 iterations: 0.000972080483835656
+Current loss after 1100 iterations: 0.0009717534715880698
+Current loss after 1150 iterations: 0.0009656859249757323
+Current loss after 1200 iterations: 0.000962561381268262
+Current loss after 1250 iterations: 0.0009612859817110582
+Current loss after 1300 iterations: 0.0009591475053966475
+Current loss after 1350 iterations: 0.0009582234874165839
+Current loss after 1400 iterations: 0.0009574676566527876
+Current loss after 1450 iterations: 0.0009569122026897299
+Current loss after 1500 iterations: 0.0009567527113130108
+Current loss after 1550 iterations: 0.0009561199657093553
+Current loss after 1600 iterations: 0.0009549884254749657
+Current loss after 1650 iterations: 0.0009541600089060593
+Current loss after 1700 iterations: 0.0009537452602046372
+Current loss after 1750 iterations: 0.0009536569492935126
+Current loss after 1800 iterations: 0.0009534426125349452
+Current loss after 1850 iterations: 0.0009532818826279794
+Current loss after 1900 iterations: 0.0009530863107623305
+Current loss after 1950 iterations: 0.0009529698205412621
+Current loss after 2000 iterations: 0.0009528567762890976
+Current loss after 2050 iterations: 0.0009525373206446654
+Current loss after 2100 iterations: 0.0009521593217738839
+Current loss after 2150 iterations: 0.0009520958641338131
+Current loss after 2200 iterations: 0.0009520568498258301
+Current loss after 2250 iterations: 0.0009517387568709354
+Current loss after 2300 iterations: 0.0009516121690135998
+Current loss after 2350 iterations: 0.0009514360660860543
+Current loss after 2400 iterations: 0.0009512526383059336
+Current loss after 2450 iterations: 0.0009511495748527354
+Current loss after 2500 iterations: 0.000951106817478341
+Current loss after 2550 iterations: 0.0009510985159145336
+Current loss after 2600 iterations: 0.0009509270459168483
+Current loss after 2650 iterations: 0.000950863437522074
+Current loss after 2700 iterations: 0.0009507791033767345
+Current loss after 2750 iterations: 0.000950657136744276
+Current loss after 2800 iterations: 0.0009506293508157388
+Current loss after 2850 iterations: 0.0009506101911525282
+Current loss after 2900 iterations: 0.0009504534699507922
+Current loss after 2950 iterations: 0.0009504069207206256
+Current loss after 3000 iterations: 0.0009503383212540466
+Current loss after 3050 iterations: 0.0009503196958639988
+Current loss after 3100 iterations: 0.0009502399212363976
+Current loss after 3150 iterations: 0.0009501939332356801
+Current loss after 3200 iterations: 0.0009501728013450467
+ 90.431967 seconds (721.66 M allocations: 153.828 GiB, 17.59% gc time, 2.15% compilation time: 0% of which was recompilation)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>┌ Info: Final training loss after 3202 iterations: 0.0003567221878942813
-└ @ Main In[104]:10</code></pre>
+<pre><code>┌ Info: Final training loss after 3202 iterations: 0.0009501727548593611
+└ @ Main In[23]:10</code></pre>
 </div>
 </div>
 </section>
 <section id="visualize-loss" class="level2">
 <h2 class="anchored" data-anchor-id="visualize-loss">Visualize loss</h2>
-<div class="cell" data-execution_count="105">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the losses</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pl_losses <span class="op">=</span> <span class="fu">plot</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, losses[<span class="fl">1</span><span class="op">:</span><span class="fl">200</span>], yaxis <span class="op">=</span> <span class="op">:</span>log10, xaxis <span class="op">=</span> <span class="op">:</span>log10, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>, label <span class="op">=</span> <span class="st">"ADAM"</span>, color <span class="op">=</span> <span class="op">:</span>blue)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(<span class="fl">201</span><span class="op">:</span><span class="fu">length</span>(losses), losses[<span class="fl">201</span><span class="op">:</span><span class="kw">end</span>], yaxis <span class="op">=</span> <span class="op">:</span>log10, xaxis <span class="op">=</span> <span class="op">:</span>log10, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>, label <span class="op">=</span> <span class="st">"BFGS"</span>, color <span class="op">=</span> <span class="op">:</span>red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="105">
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the losses</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>pl_losses <span class="op">=</span> <span class="fu">plot</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">200</span>, losses[<span class="fl">1</span><span class="op">:</span><span class="fl">200</span>], yaxis <span class="op">=</span> <span class="op">:</span>log10, xaxis <span class="op">=</span> <span class="op">:</span>log10, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>, label <span class="op">=</span> <span class="st">"ADAM"</span>, color <span class="op">=</span> <span class="op">:</span>blue)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(<span class="fl">201</span><span class="op">:</span><span class="fu">length</span>(losses), losses[<span class="fl">201</span><span class="op">:</span><span class="kw">end</span>], yaxis <span class="op">=</span> <span class="op">:</span>log10, xaxis <span class="op">=</span> <span class="op">:</span>log10, xlabel <span class="op">=</span> <span class="st">"Iterations"</span>, ylabel <span class="op">=</span> <span class="st">"Loss"</span>, label <span class="op">=</span> <span class="st">"BFGS"</span>, color <span class="op">=</span> <span class="op">:</span>red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
 <p><img src="lotka_files/figure-html/cell-14-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="106">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the best candidate</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>p_trained <span class="op">=</span> res2.minimizer;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the best candidate</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>p_trained <span class="op">=</span> res2.minimizer;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="107">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Analysis of the trained network</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data and the approximation</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ts <span class="op">=</span> <span class="fu">first</span>(solution.t)<span class="op">:</span><span class="fu">mean</span>(<span class="fu">diff</span>(solution.t))<span class="op">/</span><span class="fl">2</span><span class="op">:</span><span class="fu">last</span>(solution.t)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>X̂ <span class="op">=</span> <span class="fu">predict</span>(p_trained, Xₙ[<span class="op">:</span>,<span class="fl">1</span>], ts)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Trained on noisy data vs real solution</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>pl_trajectory <span class="op">=</span> <span class="fu">plot</span>(ts, <span class="fu">transpose</span>(X̂), xlabel <span class="op">=</span> <span class="st">"t"</span>, ylabel <span class="op">=</span><span class="st">"x(t), y(t)"</span>, color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> [<span class="st">"UDE Approximation"</span> <span class="cn">nothing</span>])</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>(solution.t, <span class="fu">transpose</span>(Xₙ), color <span class="op">=</span> <span class="op">:</span>black, label <span class="op">=</span> [<span class="st">"Measurements"</span> <span class="cn">nothing</span>])</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal unknown interactions of the predictor</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>Ȳ <span class="op">=</span> [<span class="op">-</span>p_[<span class="fl">2</span>]<span class="fu">*</span>(X̂[<span class="fl">1</span>,<span class="op">:</span>]<span class="op">.*</span>X̂[<span class="fl">2</span>,<span class="op">:</span>])<span class="ch">';p_[3]*(X̂[1,:].*X̂[2,:])'</span>]</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Neural network guess</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>Ŷ <span class="op">=</span> <span class="fu">U</span>(X̂,p_trained,st)[<span class="fl">1</span>]</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>pl_reconstruction <span class="op">=</span> <span class="fu">plot</span>(ts, <span class="fu">transpose</span>(Ŷ), xlabel <span class="op">=</span> <span class="st">"t"</span>, ylabel <span class="op">=</span><span class="st">"U(x,y)"</span>, color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> [<span class="st">"UDE Approximation"</span> <span class="cn">nothing</span>])</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(ts, <span class="fu">transpose</span>(Ȳ), color <span class="op">=</span> <span class="op">:</span>black, label <span class="op">=</span> [<span class="st">"True Interaction"</span> <span class="cn">nothing</span>])</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the error</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>pl_reconstruction_error <span class="op">=</span> <span class="fu">plot</span>(ts, <span class="fu">norm</span>.(<span class="fu">eachcol</span>(Ȳ<span class="op">-</span>Ŷ)), yaxis <span class="op">=</span> <span class="op">:</span>log, xlabel <span class="op">=</span> <span class="st">"t"</span>, ylabel <span class="op">=</span> <span class="st">"L2-Error"</span>, label <span class="op">=</span> <span class="cn">nothing</span>, color <span class="op">=</span> <span class="op">:</span>red)</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>pl_missing <span class="op">=</span> <span class="fu">plot</span>(pl_reconstruction, pl_reconstruction_error, layout <span class="op">=</span> (<span class="fl">2</span>,<span class="fl">1</span>))</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>pl_overall <span class="op">=</span> <span class="fu">plot</span>(pl_trajectory, pl_missing)</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Symbolic regression via sparse regression ( SINDy based )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="107">
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Analysis of the trained network</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data and the approximation</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ts <span class="op">=</span> <span class="fu">first</span>(solution.t)<span class="op">:</span><span class="fu">mean</span>(<span class="fu">diff</span>(solution.t))<span class="op">/</span><span class="fl">2</span><span class="op">:</span><span class="fu">last</span>(solution.t)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>X̂ <span class="op">=</span> <span class="fu">predict</span>(p_trained, Xₙ[<span class="op">:</span>,<span class="fl">1</span>], ts)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Trained on noisy data vs real solution</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>pl_trajectory <span class="op">=</span> <span class="fu">plot</span>(ts, <span class="fu">transpose</span>(X̂), xlabel <span class="op">=</span> <span class="st">"t"</span>, ylabel <span class="op">=</span><span class="st">"x(t), y(t)"</span>, color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> [<span class="st">"UDE Approximation"</span> <span class="cn">nothing</span>])</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>(solution.t, <span class="fu">transpose</span>(Xₙ), color <span class="op">=</span> <span class="op">:</span>black, label <span class="op">=</span> [<span class="st">"Measurements"</span> <span class="cn">nothing</span>])</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ideal unknown interactions of the predictor</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>Ȳ <span class="op">=</span> [<span class="op">-</span>p_[<span class="fl">2</span>]<span class="fu">*</span>(X̂[<span class="fl">1</span>,<span class="op">:</span>]<span class="op">.*</span>X̂[<span class="fl">2</span>,<span class="op">:</span>])<span class="ch">';p_[3]*(X̂[1,:].*X̂[2,:])'</span>]</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Neural network guess</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>Ŷ <span class="op">=</span> <span class="fu">U</span>(X̂,p_trained,st)[<span class="fl">1</span>]</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>pl_reconstruction <span class="op">=</span> <span class="fu">plot</span>(ts, <span class="fu">transpose</span>(Ŷ), xlabel <span class="op">=</span> <span class="st">"t"</span>, ylabel <span class="op">=</span><span class="st">"U(x,y)"</span>, color <span class="op">=</span> <span class="op">:</span>red, label <span class="op">=</span> [<span class="st">"UDE Approximation"</span> <span class="cn">nothing</span>])</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(ts, <span class="fu">transpose</span>(Ȳ), color <span class="op">=</span> <span class="op">:</span>black, label <span class="op">=</span> [<span class="st">"True Interaction"</span> <span class="cn">nothing</span>])</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the error</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>pl_reconstruction_error <span class="op">=</span> <span class="fu">plot</span>(ts, <span class="fu">norm</span>.(<span class="fu">eachcol</span>(Ȳ<span class="op">-</span>Ŷ)), yaxis <span class="op">=</span> <span class="op">:</span>log, xlabel <span class="op">=</span> <span class="st">"t"</span>, ylabel <span class="op">=</span> <span class="st">"L2-Error"</span>, label <span class="op">=</span> <span class="cn">nothing</span>, color <span class="op">=</span> <span class="op">:</span>red)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>pl_missing <span class="op">=</span> <span class="fu">plot</span>(pl_reconstruction, pl_reconstruction_error, layout <span class="op">=</span> (<span class="fl">2</span>,<span class="fl">1</span>))</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>pl_overall <span class="op">=</span> <span class="fu">plot</span>(pl_trajectory, pl_missing)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Symbolic regression via sparse regression ( SINDy based )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <p><img src="lotka_files/figure-html/cell-16-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="symbolic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="symbolic-regression">Symbolic Regression</h2>
-<div class="cell" data-execution_count="110">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Basis</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>]</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the basis functions, multivariate polynomials up to deg 5</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and sine</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="fu">polynomial_basis</span>(u, <span class="fl">5</span>); <span class="fu">sin</span>.(u)]</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>basis <span class="op">=</span> <span class="fu">Basis</span>(b,u);</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the thresholds which should be used in the search process</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> <span class="fu">exp10</span>.(<span class="op">-</span><span class="fl">3</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">5</span>)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an optimizer for the SINDy problem</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> <span class="fu">STLSQ</span>(λ)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define different problems for the recovery</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>ideal_problem <span class="op">=</span> <span class="fu">DirectDataDrivenProblem</span>(X̂, Ȳ)</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>nn_problem <span class="op">=</span> <span class="fu">DirectDataDrivenProblem</span>(X̂, Ŷ)</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on ideal derivative data for unknown function ( not available )</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Sparse regression"</span>)</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>full_res <span class="op">=</span> <span class="fu">solve</span>(full_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>)</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>ideal_res <span class="op">=</span> <span class="fu">solve</span>(ideal_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>)</span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>nn_res <span class="op">=</span> <span class="fu">solve</span>(nn_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>, sampler <span class="op">=</span> <span class="fu">DataSampler</span>(<span class="fu">Batcher</span>(n <span class="op">=</span> <span class="fl">4</span>, shuffle <span class="op">=</span> <span class="cn">true</span>)))</span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the results</span></span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> [full_res; ideal_res; nn_res]</span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the results</span></span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(println, results)</span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the results</span></span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(println <span class="op">∘</span> result, results)</span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the identified parameters</span></span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(println <span class="op">∘</span> parameter_map, results)</span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the recovered, hyrid model</span></span>
-<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">recovered_dynamics!</span>(du,u, p, t)</span>
-<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    û <span class="op">=</span> <span class="fu">nn_res</span>(u, p) <span class="co"># Network prediction</span></span>
-<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> p_[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">1</span>] <span class="op">+</span> û[<span class="fl">1</span>]</span>
-<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">2</span>] <span class="op">=</span> <span class="op">-</span>p_[<span class="fl">4</span>]<span class="op">*</span>u[<span class="fl">2</span>] <span class="op">+</span> û[<span class="fl">2</span>]</span>
-<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>estimation_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(recovered_dynamics!, u0, tspan, <span class="fu">parameters</span>(nn_res))</span>
-<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>estimate <span class="op">=</span> <span class="fu">solve</span>(estimation_prob, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> solution.t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Basis</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the basis functions, multivariate polynomials up to deg 5</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and sine</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="fu">polynomial_basis</span>(u, <span class="fl">5</span>); <span class="fu">sin</span>.(u)]</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>basis <span class="op">=</span> <span class="fu">Basis</span>(b,u);</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the thresholds which should be used in the search process</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> <span class="fu">exp10</span>.(<span class="op">-</span><span class="fl">3</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">5</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an optimizer for the SINDy problem</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> <span class="fu">STLSQ</span>(λ)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define different problems for the recovery</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>ideal_problem <span class="op">=</span> <span class="fu">DirectDataDrivenProblem</span>(X̂, Ȳ)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>nn_problem <span class="op">=</span> <span class="fu">DirectDataDrivenProblem</span>(X̂, Ŷ)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on ideal derivative data for unknown function ( not available )</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"Sparse regression"</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>full_res <span class="op">=</span> <span class="fu">solve</span>(full_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>ideal_res <span class="op">=</span> <span class="fu">solve</span>(ideal_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>nn_res <span class="op">=</span> <span class="fu">solve</span>(nn_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>, sampler <span class="op">=</span> <span class="fu">DataSampler</span>(<span class="fu">Batcher</span>(n <span class="op">=</span> <span class="fl">4</span>, shuffle <span class="op">=</span> <span class="cn">true</span>)))</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the results</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> [full_res; ideal_res; nn_res]</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the results</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(println, results)</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the results</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(println <span class="op">∘</span> result, results)</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the identified parameters</span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(println <span class="op">∘</span> parameter_map, results)</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the recovered, hyrid model</span></span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">recovered_dynamics!</span>(du,u, p, t)</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>    û <span class="op">=</span> <span class="fu">nn_res</span>(u, p) <span class="co"># Network prediction</span></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">1</span>] <span class="op">=</span> p_[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">1</span>] <span class="op">+</span> û[<span class="fl">1</span>]</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>    du[<span class="fl">2</span>] <span class="op">=</span> <span class="op">-</span>p_[<span class="fl">4</span>]<span class="op">*</span>u[<span class="fl">2</span>] <span class="op">+</span> û[<span class="fl">2</span>]</span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>estimation_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(recovered_dynamics!, u0, tspan, <span class="fu">parameters</span>(nn_res))</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>estimate <span class="op">=</span> <span class="fu">solve</span>(estimation_prob, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> solution.t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparse regression</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>STLSQ  13%|█████▊                                        |  ETA: 0:00:01
-  Threshold:          0.01
+<pre><code>STLSQ   0%|▏                                             |  ETA: 0:04:47
+  Threshold:          0.0010232929922807535
+  Best Objective:     0.0
+  Best Sparsity:      23.0
+  Current Objective:  0.0
+STLSQ   0%|▏                                             |  ETA: 0:02:58
+  Threshold:          0.0010232929922807535
   Best Objective:     0.0
   Best Sparsity:      23.0
   Current Objective:  0.0
@@ -727,42 +740,42 @@ R² : [-1.2429510122420595, 0.990118386736816]
 
 Linear Solution with 2 equations and 2 parameters.
 Returncode: solved
-L₂ Norm error : [1.3211879418496438e-31, 2.3688938315963e-32]
-AIC : [-4333.198002294267, -4438.038291907829]
+L₂ Norm error : [8.108165065870263e-32, 1.3731880503480992e-31]
+AIC : [-4362.980934730921, -4330.843170940274]
 R² : [1.0, 1.0]
 
-Linear Solution with 2 equations and 12 parameters.
+Linear Solution with 2 equations and 3 parameters.
 Returncode: solved
-L₂ Norm error : [2.3343801269794584, 0.44274177996973096]
-AIC : [75.71252952361633, -25.70088266885905]
-R² : [0.664896276909329, 0.9252179602574171]
+L₂ Norm error : [1.6430538154747572, 8.039350195270902]
+AIC : [36.28995216787681, 133.14524376489635]
+R² : [0.7906825418979999, -0.31134160491819185]
 
-Model ##Basis#1046 with 2 equations
+Model ##Basis#637 with 2 equations
 States : u[1] u[2]
 Parameters : 20
 Independent variable: t
 Equations
 Differential(t)(u[1]) = p₁ + p₁₀*(u[2]^2) + p₃*(u[1]^2) + p₁₇*sin(u[1]) + p₂*u[1] + p₄*(u[1]^3) + p₅*u[2] + p₁₂*(u[1]^2)*(u[2]^2) + p₁₅*(u[1]^2)*(u[2]^3) + p₁₃*(u[1]^3)*(u[2]^2) + p₁₁*(u[2]^2)*u[1] + p₁₄*(u[2]^3)*u[1] + p₇*(u[1]^2)*u[2] + p₈*(u[1]^3)*u[2] + p₉*(u[1]^4)*u[2] + p₁₆*(u[2]^4)*u[1] + p₆*u[1]*u[2]
 Differential(t)(u[2]) = p₁₉*(u[1]^2)*u[2] + p₂₀*(u[1]^3)*u[2] + p₁₈*u[1]*u[2]
-Model ##Basis#1049 with 2 equations
+Model ##Basis#640 with 2 equations
 States : u[1] u[2]
 Parameters : p₁ p₂
 Independent variable: t
 Equations
 φ₁ = p₁*u[1]*u[2]
 φ₂ = p₂*u[1]*u[2]
-Model ##Basis#1052 with 2 equations
+Model ##Basis#643 with 2 equations
 States : u[1] u[2]
-Parameters : 12
+Parameters : p₁ p₂ p₃
 Independent variable: t
 Equations
-φ₁ = p₁*(u[1]^3)*u[2] + p₂*(u[1]^4)*u[2]
-φ₂ = p₃*u[1] + p₄*(u[1]^2) + p₅*(u[1]^3) + p₁₀*(u[1]^2)*(u[2]^2) + p₁₁*(u[1]^3)*(u[2]^2) + p₁₂*(u[1]^2)*(u[2]^3) + p₆*u[1]*u[2] + p₇*(u[1]^2)*u[2] + p₈*(u[1]^3)*u[2] + p₉*(u[1]^4)*u[2]
+φ₁ = p₁*(u[1]^2)*u[2]
+φ₂ = p₃*sin(u[1]) + p₂*u[1]
 Pair{Sym{Real, Base.ImmutableDict{DataType, Any}}, Float64}[p₁ =&gt; 88.0, p₂ =&gt; 90.1, p₃ =&gt; 45.4, p₄ =&gt; 27.6, p₅ =&gt; 73.5, p₆ =&gt; -1107.4, p₇ =&gt; -2835.6, p₈ =&gt; 27.9, p₉ =&gt; 25.07, p₁₀ =&gt; 16.9, p₁₁ =&gt; -472.5, p₁₂ =&gt; 6115.8, p₁₃ =&gt; -117.4, p₁₄ =&gt; 22.016, p₁₅ =&gt; -659.7, p₁₆ =&gt; -25.4, p₁₇ =&gt; 62.5, p₁₈ =&gt; -13.9, p₁₉ =&gt; 31.25, p₂₀ =&gt; -15.5]
 Pair{Sym{Real, Base.ImmutableDict{DataType, Any}}, Float64}[p₁ =&gt; -0.9, p₂ =&gt; 0.8]
-Pair{Sym{Real, Base.ImmutableDict{DataType, Any}}, Float64}[p₁ =&gt; -6.6, p₂ =&gt; 4.4, p₃ =&gt; -9.3, p₄ =&gt; 16.9, p₅ =&gt; -5.7, p₆ =&gt; -6.9, p₇ =&gt; 137.21, p₈ =&gt; -221.24, p₉ =&gt; 73.6, p₁₀ =&gt; -31.08, p₁₁ =&gt; 8.16, p₁₂ =&gt; 4.3]</code></pre>
+Pair{Sym{Real, Base.ImmutableDict{DataType, Any}}, Float64}[p₁ =&gt; -2.012, p₂ =&gt; -2.25, p₃ =&gt; 3.3]</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="110">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>retcode: Success
 Interpolation: 1st order linear
 t: 31-element Vector{Float64}:
@@ -794,94 +807,94 @@ t: 31-element Vector{Float64}:
  3.0
 u: 31-element Vector{Vector{Float64}}:
  [0.44249296, 4.6280594]
- [0.3627445443308102, 3.9587001242732978]
- [0.3314229485874231, 3.328966119978393]
- [0.3195350372465093, 2.8042757858839753]
- [0.31754887251689373, 2.3961622087687]
- [0.32133497307349757, 2.086000709549741]
- [0.3287978586587243, 1.8510046953171453]
- [0.33869695698345803, 1.6720597813273184]
- [0.3502506915180724, 1.5347311764677078]
- [0.3628864692896785, 1.4280447919046295]
- [0.37619150965147025, 1.3438451858547527]
- [0.38985713275559497, 1.2758010766237882]
- [0.40364237522526314, 1.2189050380292614]
+ [0.3589998389049996, 3.90043838799414]
+ [0.32039236584298314, 3.288366022606705]
+ [0.30209737580427426, 2.7749501847648586]
+ [0.29519534196248753, 2.345125591932463]
+ [0.2957319262240388, 1.9858702305186864]
+ [0.30173746136416507, 1.6860822316973967]
+ [0.3121621269423411, 1.4363640495034167]
+ [0.3264408593862669, 1.228791374981506]
+ [0.3442811760621213, 1.05671475218947]
+ [0.3655278350988628, 0.9145062682055913]
+ [0.3901432875306497, 0.7974760103603659]
+ [0.41813107826611684, 0.7016575070929881]
  ⋮
- [0.50077433947757, 0.9091265272622229]
- [0.5161210861840806, 0.8610678370503931]
- [0.5325464705273117, 0.8093005948494036]
- [0.5505276051187781, 0.7536816501146165]
- [0.5707004168174493, 0.6938255066760479]
- [0.5938195858778759, 0.6284921408718404]
- [0.6207598616811292, 0.5555985753475307]
- [0.6529401370168936, 0.4743643719394661]
- [0.6927897952183001, 0.3873020930578921]
- [0.7427774836845894, 0.29576122236710667]
- [0.8063349462336009, 0.20892749866534546]
- [0.8863231701922465, 0.14122793717576548]</code></pre>
+ [0.7074222345154149, 0.3968840102725108]
+ [0.7606094385047732, 0.3826360576519005]
+ [0.8159667970667692, 0.3714306439202008]
+ [0.8731544682099793, 0.3621229881052103]
+ [0.931833648528594, 0.35361775010135293]
+ [0.9918281148809143, 0.34494926059255426]
+ [1.053178574026386, 0.33524417437964893]
+ [1.1161906808048632, 0.3236127866772301]
+ [1.1815090141176419, 0.3091482705104759]
+ [1.250273983171013, 0.2909351024621833]
+ [1.3243227902154364, 0.26776728987299037]
+ [1.4068247104939124, 0.23796649830740021]</code></pre>
 </div>
 </div>
 </section>
 <section id="visualization" class="level2">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
-<div class="cell" data-execution_count="121">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(estimate)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulation</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at long term prediction</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>t_long <span class="op">=</span> (<span class="fl">0.0</span>, <span class="fl">50.0</span>)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>estimation_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(recovered_dynamics!, u0, t_long, <span class="fu">parameters</span>(nn_res))</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>estimate_long <span class="op">=</span> <span class="fu">solve</span>(estimation_prob, <span class="fu">Tsit5</span>()) <span class="co"># Using higher tolerances here results in exit of julia</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(estimate_long)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>true_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(lotka!, u0, t_long, p_)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>true_solution_long <span class="op">=</span> <span class="fu">solve</span>(true_prob, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> estimate_long.t)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(true_solution_long)</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Post Processing and Plots</span></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>c1 <span class="op">=</span> <span class="fl">3</span> <span class="co"># RGBA(174/255,192/255,201/255,1) # Maroon</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> <span class="op">:</span>orange <span class="co"># RGBA(132/255,159/255,173/255,1) # Red</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>c3 <span class="op">=</span> <span class="op">:</span>blue <span class="co"># RGBA(255/255,90/255,0,1) # Orange</span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>c4 <span class="op">=</span> <span class="op">:</span>purple <span class="co"># RGBA(153/255,50/255,204/255,1) # Purple</span></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">=</span> <span class="fu">plot</span>(t,<span class="fu">abs</span>.(<span class="fu">Array</span>(solution) <span class="op">.-</span> estimate)<span class="ch">' .+ eps(Float32),</span></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>          lw <span class="op">=</span> <span class="fl">3</span>, yaxis <span class="op">=</span> <span class="op">:</span>log, title <span class="op">=</span> <span class="st">"Timeseries of UODE Error"</span>,</span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>          color <span class="op">=</span> [<span class="fl">3</span> <span class="op">:</span>orange], xlabel <span class="op">=</span> <span class="st">"t"</span>,</span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>          label <span class="op">=</span> [<span class="st">"x(t)"</span> <span class="st">"y(t)"</span>],</span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>          titlefont <span class="op">=</span> <span class="st">"Helvetica"</span>, legendfont <span class="op">=</span> <span class="st">"Helvetica"</span>,</span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>          legend <span class="op">=</span> <span class="op">:</span>topright)</span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot L₂</span></span>
-<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">=</span> <span class="fu">plot3d</span>(X̂[<span class="fl">1</span>,<span class="op">:</span>], X̂[<span class="fl">2</span>,<span class="op">:</span>], Ŷ[<span class="fl">2</span>,<span class="op">:</span>], lw <span class="op">=</span> <span class="fl">3</span>,</span>
-<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>     title <span class="op">=</span> <span class="st">"Neural Network Fit of U2(t)"</span>, color <span class="op">=</span> c1,</span>
-<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>     label <span class="op">=</span> <span class="st">"Neural Network"</span>, xaxis <span class="op">=</span> <span class="st">"x"</span>, yaxis<span class="op">=</span><span class="st">"y"</span>,</span>
-<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>     titlefont <span class="op">=</span> <span class="st">"Helvetica"</span>, legendfont <span class="op">=</span> <span class="st">"Helvetica"</span>,</span>
-<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>     legend <span class="op">=</span> <span class="op">:</span>bottomright)</span>
-<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(X̂[<span class="fl">1</span>,<span class="op">:</span>], X̂[<span class="fl">2</span>,<span class="op">:</span>], Ȳ[<span class="fl">2</span>,<span class="op">:</span>], lw <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"True Missing Term"</span>, color<span class="op">=</span>c2)</span>
-<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>p3 <span class="op">=</span> <span class="fu">scatter</span>(solution, color <span class="op">=</span> [c1 c2], label <span class="op">=</span> [<span class="st">"x data"</span> <span class="st">"y data"</span>],</span>
-<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>             title <span class="op">=</span> <span class="st">"Extrapolated Fit From Short Training Data"</span>,</span>
-<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>             titlefont <span class="op">=</span> <span class="st">"Helvetica"</span>, legendfont <span class="op">=</span> <span class="st">"Helvetica"</span>,</span>
-<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>             markersize <span class="op">=</span> <span class="fl">5</span>)</span>
-<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p3,true_solution_long, color <span class="op">=</span> [c1 c2], linestyle <span class="op">=</span> <span class="op">:</span>dot, lw<span class="op">=</span><span class="fl">5</span>, label <span class="op">=</span> [<span class="st">"True x(t)"</span> <span class="st">"True y(t)"</span>])</span>
-<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p3,estimate_long, color <span class="op">=</span> [c3 c4], lw<span class="op">=</span><span class="fl">1</span>, label <span class="op">=</span> [<span class="st">"Estimated x(t)"</span> <span class="st">"Estimated y(t)"</span>])</span>
-<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p3,[<span class="fl">2.99</span>,<span class="fl">3.01</span>],[<span class="fl">0.0</span>,<span class="fl">10.0</span>],lw<span class="op">=</span><span class="fl">1</span>,color<span class="op">=:</span>black, label <span class="op">=</span> <span class="cn">nothing</span>)</span>
-<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a><span class="fu">annotate!</span>([(<span class="fl">1.5</span>,<span class="fl">13</span>,<span class="fu">text</span>(<span class="st">"Training </span><span class="sc">\n</span><span class="st">Data"</span>, <span class="fl">10</span>, <span class="op">:</span>center, <span class="op">:</span>top, <span class="op">:</span>black, <span class="st">"Helvetica"</span>))])</span>
-<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> <span class="pp">@layout</span> [<span class="fu">grid</span>(<span class="fl">1</span>,<span class="fl">2</span>)</span>
-<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a>             <span class="fu">grid</span>(<span class="fl">1</span>,<span class="fl">1</span>)]</span>
-<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p1,p2,p3,layout <span class="op">=</span> l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(solution)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(estimate)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulation</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at long term prediction</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>t_long <span class="op">=</span> (<span class="fl">0.0</span>, <span class="fl">50.0</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>estimation_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(recovered_dynamics!, u0, t_long, <span class="fu">parameters</span>(nn_res))</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>estimate_long <span class="op">=</span> <span class="fu">solve</span>(estimation_prob, <span class="fu">Tsit5</span>()) <span class="co"># Using higher tolerances here results in exit of julia</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(estimate_long)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>true_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(lotka!, u0, t_long, p_)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>true_solution_long <span class="op">=</span> <span class="fu">solve</span>(true_prob, <span class="fu">Tsit5</span>(), saveat <span class="op">=</span> estimate_long.t)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(true_solution_long)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Post Processing and Plots</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>c1 <span class="op">=</span> <span class="fl">3</span> <span class="co"># RGBA(174/255,192/255,201/255,1) # Maroon</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>c2 <span class="op">=</span> <span class="op">:</span>orange <span class="co"># RGBA(132/255,159/255,173/255,1) # Red</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>c3 <span class="op">=</span> <span class="op">:</span>blue <span class="co"># RGBA(255/255,90/255,0,1) # Orange</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>c4 <span class="op">=</span> <span class="op">:</span>purple <span class="co"># RGBA(153/255,50/255,204/255,1) # Purple</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">=</span> <span class="fu">plot</span>(t,<span class="fu">abs</span>.(<span class="fu">Array</span>(solution) <span class="op">.-</span> estimate)<span class="ch">' .+ eps(Float32),</span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>          lw <span class="op">=</span> <span class="fl">3</span>, yaxis <span class="op">=</span> <span class="op">:</span>log, title <span class="op">=</span> <span class="st">"Timeseries of UODE Error"</span>,</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>          color <span class="op">=</span> [<span class="fl">3</span> <span class="op">:</span>orange], xlabel <span class="op">=</span> <span class="st">"t"</span>,</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>          label <span class="op">=</span> [<span class="st">"x(t)"</span> <span class="st">"y(t)"</span>],</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>          titlefont <span class="op">=</span> <span class="st">"Helvetica"</span>, legendfont <span class="op">=</span> <span class="st">"Helvetica"</span>,</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>          legend <span class="op">=</span> <span class="op">:</span>topright)</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot L₂</span></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">=</span> <span class="fu">plot3d</span>(X̂[<span class="fl">1</span>,<span class="op">:</span>], X̂[<span class="fl">2</span>,<span class="op">:</span>], Ŷ[<span class="fl">2</span>,<span class="op">:</span>], lw <span class="op">=</span> <span class="fl">3</span>,</span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>     title <span class="op">=</span> <span class="st">"Neural Network Fit of U2(t)"</span>, color <span class="op">=</span> c1,</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>     label <span class="op">=</span> <span class="st">"Neural Network"</span>, xaxis <span class="op">=</span> <span class="st">"x"</span>, yaxis<span class="op">=</span><span class="st">"y"</span>,</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>     titlefont <span class="op">=</span> <span class="st">"Helvetica"</span>, legendfont <span class="op">=</span> <span class="st">"Helvetica"</span>,</span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>     legend <span class="op">=</span> <span class="op">:</span>bottomright)</span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(X̂[<span class="fl">1</span>,<span class="op">:</span>], X̂[<span class="fl">2</span>,<span class="op">:</span>], Ȳ[<span class="fl">2</span>,<span class="op">:</span>], lw <span class="op">=</span> <span class="fl">3</span>, label <span class="op">=</span> <span class="st">"True Missing Term"</span>, color<span class="op">=</span>c2)</span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a>p3 <span class="op">=</span> <span class="fu">scatter</span>(solution, color <span class="op">=</span> [c1 c2], label <span class="op">=</span> [<span class="st">"x data"</span> <span class="st">"y data"</span>],</span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a>             title <span class="op">=</span> <span class="st">"Extrapolated Fit From Short Training Data"</span>,</span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a>             titlefont <span class="op">=</span> <span class="st">"Helvetica"</span>, legendfont <span class="op">=</span> <span class="st">"Helvetica"</span>,</span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>             markersize <span class="op">=</span> <span class="fl">5</span>)</span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p3,true_solution_long, color <span class="op">=</span> [c1 c2], linestyle <span class="op">=</span> <span class="op">:</span>dot, lw<span class="op">=</span><span class="fl">5</span>, label <span class="op">=</span> [<span class="st">"True x(t)"</span> <span class="st">"True y(t)"</span>])</span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p3,estimate_long, color <span class="op">=</span> [c3 c4], lw<span class="op">=</span><span class="fl">1</span>, label <span class="op">=</span> [<span class="st">"Estimated x(t)"</span> <span class="st">"Estimated y(t)"</span>])</span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(p3,[<span class="fl">2.99</span>,<span class="fl">3.01</span>],[<span class="fl">0.0</span>,<span class="fl">10.0</span>],lw<span class="op">=</span><span class="fl">1</span>,color<span class="op">=:</span>black, label <span class="op">=</span> <span class="cn">nothing</span>)</span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a><span class="fu">annotate!</span>([(<span class="fl">1.5</span>,<span class="fl">13</span>,<span class="fu">text</span>(<span class="st">"Training </span><span class="sc">\n</span><span class="st">Data"</span>, <span class="fl">10</span>, <span class="op">:</span>center, <span class="op">:</span>top, <span class="op">:</span>black, <span class="st">"Helvetica"</span>))])</span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> <span class="pp">@layout</span> [<span class="fu">grid</span>(<span class="fl">1</span>,<span class="fl">2</span>)</span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a>             <span class="fu">grid</span>(<span class="fl">1</span>,<span class="fl">1</span>)]</span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p1,p2,p3,layout <span class="op">=</span> l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>┌ Warning: dt(7.105427357601002e-15) &lt;= dtmin(7.105427357601002e-15) at t=3.7372345567423673. Aborting. There is either an error in your model specification or the true solution is unstable.
-└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/ZGRni/src/integrator_interface.jl:516</code></pre>
+<pre><code>┌ Warning: Interrupted. Larger maxiters is needed. If you are using an integrator for non-stiff ODEs or an automatic switching algorithm (the default), you may want to consider using a method for stiff equations. See the solver pages for more details (e.g. https://diffeq.sciml.ai/stable/solvers/ode_solve/#Stiff-Problems).
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/QzHjf/src/integrator_interface.jl:470</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="121">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <p><img src="lotka_files/figure-html/cell-18-output-2.svg" class="img-fluid"></p>
 </div>
 </div>
