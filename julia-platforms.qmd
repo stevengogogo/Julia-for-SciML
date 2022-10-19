@@ -1,0 +1,25 @@
+---
+title: "Julia Platforms"
+---
+
+
+## Developer setup
+
+
+- [Julia in Visual Studio Code](https://www.julia-vscode.org/) 
+- [julia-vim](https://code.visualstudio.com/docs/languages/julia)
+
+
+
+## Demonstration and Scientific Writing
+
+- [Pluto.jl](https://github.com/fonsp/Pluto.jl)
+- [Quarto](https://quarto.org/)
+
+
+
+## Cloud Service
+
+- [JuliaHub](https://juliahub.com/lp/)
+- Any VM machines such as Google Cloud Platform and Azure (setup by your own). 
+- [Github Actions](https://github.com/julia-actions/setup-julia)

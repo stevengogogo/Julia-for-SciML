@@ -2,3 +2,92 @@
 title: "Setup Julia"
 ---
 
+In this section, we are going to setup Julia on your on computer. There are several ways to accomplish this task. You can choose one of the following methods to get *Julia* and *Jupyter* installed on your local machine.
+
+## Install Julia
+
+### Official Julia Release
+
+The latest Julia release can be found at [official website](https://julialang.org/downloads/). Download the installer in respect of your operating system.
+
+1. Download Julia installer: [https://julialang.org/downloads/](https://julialang.org/downloads/)
+2. Specific instructions for each platform: [https://julialang.org/downloads/platform/](https://julialang.org/downloads/platform/)
+
+### jill with pip
+
+If you have already installed *pip* (if not, try install pip [here](https://pip.pypa.io/en/stable/installation/)). [Jill](https://pypi.org/project/jill/) is a Julia installer for Linux, MacOS and Windows. Jill can be installed via pip. Use the following command to get jill installed 
+
+``` bash
+pip install jill
+```
+
+Then, use jill to install Julia
+
+``` bash
+jill install
+```
+
+
+## What is expected when Julia is successfully installed?
+
+After getting Julia installed, click Julia app icon or type `julia` on cmd/terminal. The Julia REPL[^repl] will show up (@fig-julia-terminal).
+
+![Julia initiated on the terminal (MacOS)](img/julia_terminal.png){#fig-julia-terminal}
+
+
+[^repl]: Read-eval-print loop
+
+
+## Install IJulia: an Julia package for connecting jupyter {#sec-ijulia}
+
+[IJulia](https://github.com/JuliaLang/IJulia.jl) is an interface that combines Julia and [Jupyter interactive environment](http://jupyter.org/). This interface can be installed with Julia package manager --- [Pkg.jl](https://github.com/JuliaLang/Pkg.jl). The following steps show how to get IJulia installed. Noted that any registered packages[^pkg-register] can be installed via these steps.
+
+1. Initiate Julia REPL
+2. Install [IJUlia](https://github.com/JuliaLang/IJulia.jl). The following two methods are equivalent.
+
+::: {.panel-tabset}
+### Use `Pkg.add`
+
+```julia
+using Pkg
+Pkg.add("IJulia")
+```
+
+### Use Pkg interative environment
+
+Type `]` (right square bracket on your keyboard) to initiate Pkg environment.
+
+```julia
+]
+```
+
+The Pkg mode in Julia REPL is a shortcut to manipulate the Julia environment. To futher install the package, type
+
+```julia
+add IJulia
+```
+
+![Installing IJulia. Noted that the Pkg environment is started (`(@v1.8) pkg> ` in blue)](img/ijulia-install.png){#fig-install-ijulia}
+
+:::
+
+[^pkg-register]: Registered packages can be found on [JuliaHub](https://juliahub.com/ui/Packages)
+
+
+### Get Started with Jupyter and Julia
+
+Once [IJulia.jl is successfully installed]({#sec-ijulia), use the following command to initiate jupyter session (@fig-jupyter-front).
+
+``` julia
+using IJulia
+jupyterlab()
+```
+
+![Jupyter Lab. Noted that the Julia kernel is installed.](img/jupyter.png){width=50% #fig-jupyter-front}
+
+
+### Done!
+
+Congratulations! You have successfully get started with the Julia programming language. In the following session, we will go through Julia basics and SciML package. The hands-on sessions will require to use JupyterLab to run Julia sessions. The source code of hands-on session can be downloaded [here](https://github.com/stevengogogo/Julia-for-SciML/archive/refs/heads/hands-on.zip) or view on this website.
+
+For further information, the Appendix includes advanced topics such as developer setup and other alternative platforms.

@@ -34,6 +34,7 @@ website:
             file: hands-on/lotka.ipynb
       - section: "Appendix"
         contents:
+          - julia-platforms.qmd
           - resources.qmd
   navbar:
     background: maroon
@@ -50,6 +51,7 @@ format:
     theme: 
       light: default
       dark: darkly
+    code-copy: true
     pdf:
       documentclass: scrreport
   

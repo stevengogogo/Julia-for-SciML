@@ -30,3 +30,6 @@ title: "Resources"
 ## News
 
 - [Julia Computing](https://juliacomputing.com/)
+
+
+## Julia Platforms
