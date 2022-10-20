@@ -6,14 +6,10 @@ execute:
     freeze: auto
 ---
 
-::: {.callout}
+::: {.callout-note}
+## Presentation
 - [Slides](slides/SLIDE_julia-intro.qmd)
 :::
-
-``` {julia}
-#| echo: false
-using Pkg
-```
 
 ## Outline
 
@@ -25,7 +21,17 @@ Julia is a high-level programming language that well suited for computational sc
 
 ## Why Julia is fast?
 
+1. Just-in-Time
+2. Multiple dispatch
+3. Type inference
 
+
+``` {julia}
+#| echo: false
+using Pkg;
+Pkg.activate("hands-on/tutorial");
+using BenchmarkTools;
+```
 
 ## Multiple Dispatch
 
@@ -36,5 +42,43 @@ end
 ```
 
 ``` {julia}
-@code_llvm multiply(1,2)
+@code_llvm multiply(1,1)
+```
+
+``` {julia}
+@code_llvm multiply(1., 1.)
+```
+
+## Avoid allocation
+
+``` {julia}
+@code_llvm multiply([1.], [1.])
+```
+
+### Mutated function
+
+``` {julia}
+function multiply!(s, a,b, i)
+    s[i] = a[i] * b[i]
+    return s
+end
+```
+
+
+``` {julia}
+s = zeros(1)
+a = [1.]
+b = [1.];
+
+@btime multiply(a[1], b[1])
+@btime multiply!(s, a, b, 1)
+```
+
+
+### Version
+
+This tutorial is using Julia in version of 
+``` {julia}
+#| echo: false
+VERSION
 ```
