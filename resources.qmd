@@ -13,8 +13,10 @@ title: "Resources"
 - [Julia cheatsheet](https://cheatsheets.quantecon.org/julia-cheatsheet.html)
 - [The Julia Express](http://bogumilkaminski.pl/files/julia_express.pdf)
 
-## Advanced Topics
+## Courses
 - MIT's 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course. ([videos](https://www.youtube.com/watch?v=3IoqyXmAAkU&list=PLCAl7tjCwWyGjdzOOnlbGnVNZk0kB8VSa), [book](https://github.com/SciML/SciMLBook))
+- [ MIT 18.S191/6.S083/22.S092
+Introduction to Computational Thinking](https://computationalthinking.mit.edu/Spring21/)
 - [A Deep Introduction to Julia for Data Science and Scientific Computing](http://ucidatascienceinitiative.github.io/IntroToJulia/)
 
 ## Community
