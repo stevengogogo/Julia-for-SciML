@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - PART I: Intro. to Julia</title>
+<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Part I: Overviews</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -15,6 +15,25 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -25,7 +44,7 @@ ul.task-list{list-style: none;}
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./index_sciml-intro.html" rel="next">
+<link href="./intro-julia.html" rel="next">
 <link href="./setup.html" rel="prev">
 <link href="./img/TAM-LogoBox.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -60,10 +79,14 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - PART I: Intro. to Julia">
+<meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Part I: Overviews">
+<meta property="og:description" content="The overview session will be delivered by two parts: inroduction to julia and introduction to SciML.">
 <meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
-<meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - PART I: Intro. to Julia">
-<meta name="twitter:image" content="img/TAM-LogoBox.png">
+<meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Part I: Overviews">
+<meta name="twitter:description" content="The overview session will be delivered by two parts: inroduction to julia and introduction to SciML.">
+<meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
+<meta name="twitter:image-height" content="756">
+<meta name="twitter:image-width" content="756">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -101,7 +124,7 @@ ul.task-list{list-style: none;}
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">PART I: Intro. to Julia</h1>
+      <h1 class="quarto-secondary-nav-title">Part I: Overviews</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -131,7 +154,7 @@ ul.task-list{list-style: none;}
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Part I: Overviews</a>
+            <a href="./index-part1.html" class="sidebar-item-text sidebar-link active">Part I: Overviews</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -139,19 +162,19 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index_julia-intro.html" class="sidebar-item-text sidebar-link active">Intro. to Julia</a>
+  <a href="./intro-julia.html" class="sidebar-item-text sidebar-link">Intro. to Julia</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index_sciml-intro.html" class="sidebar-item-text sidebar-link">Intro. to SciML</a>
+  <a href="./intro-sciml.html" class="sidebar-item-text sidebar-link">Intro. to SciML</a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Part II: Hands-on session</a>
+            <a href="./index-part2.html" class="sidebar-item-text sidebar-link">Part II: Hands-on Session</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -171,7 +194,7 @@ ul.task-list{list-style: none;}
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendix</a>
+            <a href="./apx.html" class="sidebar-item-text sidebar-link">Appendix</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -179,12 +202,12 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./julia-platforms.html" class="sidebar-item-text sidebar-link">Julia Platforms</a>
+  <a href="./apx-julia-platforms.html" class="sidebar-item-text sidebar-link">Julia Platforms</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./resources.html" class="sidebar-item-text sidebar-link">Resources</a>
+  <a href="./apx-resources.html" class="sidebar-item-text sidebar-link">Resources</a>
   </div>
 </li>
       </ul>
@@ -194,14 +217,20 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stevengogogo/Julia-for-SciML/edit/main/index-part1.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">PART I: Intro. to Julia</h1>
+<h1 class="title d-none d-lg-block">Part I: Overviews</h1>
 </div>
 
 
@@ -215,22 +244,20 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<div class="callout callout callout-style-simple no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<ul>
-<li><a href="./slides/SLIDE_julia-intro.html">Slides</a></li>
-</ul>
-</div>
-</div>
-</div>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>The overview session will be delivered by two parts: <a href="./intro-julia.html">inroduction to julia</a> and <a href="./intro-sciml.html">introduction to SciML</a>. The purpose of the presentation is to give a general idea about the Julia programming language by introducing key features such as multiple dispatch, type inference and functional programming. Later on, I uses <a href="https://sciml.ai/">SciML</a>, an open source software for scientific machine learning, as an example that leverages the advantages of Julia to integrate the scientific computing and machine learning.</p>
+<p>Julia is a fresh approach for numerical computing <span class="citation" data-cites="bezanson2017julia">[<a href="#ref-bezanson2017julia" role="doc-biblioref">1</a>]</span>. I did my best to include the essential topics during this workshop. As a trending open source project, I am strongly encourge audience to get in touch with <a href="https://discourse.julialang.org/">the Julia community</a> or additional resources (see <a href="./apx-resources.html">Appendix</a>). I hope this introduction will arise your curiosity. If you have any questions/ideas, you are more than welcome to make comments via the dialogue block of each page or <a href="https://github.com/stevengogogo/Julia-for-SciML/discussions">the discussions</a></p>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-bezanson2017julia" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Bezanson, J. et al. 2017. <a href="https://doi.org/10.1137/141000671">Julia: A fresh approach to numerical computing</a>. <em>SIAM review</em>. 59, 1 (2017), 65–98.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -431,8 +458,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="stevengogogo/Julia-for-SciML-draft" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
-</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./setup.html" class="pagination-link">
@@ -440,8 +465,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./index_sciml-intro.html" class="pagination-link">
-        <span class="nav-page-text">Intro. to SciML</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./intro-julia.html" class="pagination-link">
+        <span class="nav-page-text">Intro. to Julia</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

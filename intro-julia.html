@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning – julia_basics</title>
+<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - PART I: Intro. to Julia</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,27 +81,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../hands-on/lotka.html" rel="next">
-<link href="../index-part2.html" rel="prev">
-<link href="../img/TAM-LogoBox.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro-sciml.html" rel="next">
+<link href="./index-part1.html" rel="prev">
+<link href="./img/TAM-LogoBox.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,8 +122,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - PART I: Intro. to Julia">
+<meta property="og:description" content="The presentation will give a short tour about essential ideas behind Julia. Though this tutorial put emphasis on the Scientific Machine Learning, Julia is designed for generic purpose">
+<meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
+<meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - PART I: Intro. to Julia">
+<meta name="twitter:description" content="The presentation will give a short tour about essential ideas behind Julia. Though this tutorial put emphasis on the Scientific Machine Learning, Julia is designed for generic purpose">
+<meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
+<meta name="twitter:image-height" content="756">
+<meta name="twitter:image-width" content="756">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -132,7 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
+      <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -160,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <h1 class="quarto-secondary-nav-title">PART I: Intro. to Julia</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -180,17 +188,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Session Info</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Session Info</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../setup.html" class="sidebar-item-text sidebar-link">Setup Julia</a>
+  <a href="./setup.html" class="sidebar-item-text sidebar-link">Setup Julia</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../index-part1.html" class="sidebar-item-text sidebar-link">Part I: Overviews</a>
+            <a href="./index-part1.html" class="sidebar-item-text sidebar-link">Part I: Overviews</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -198,19 +206,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-julia.html" class="sidebar-item-text sidebar-link">Intro. to Julia</a>
+  <a href="./intro-julia.html" class="sidebar-item-text sidebar-link active">Intro. to Julia</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro-sciml.html" class="sidebar-item-text sidebar-link">Intro. to SciML</a>
+  <a href="./intro-sciml.html" class="sidebar-item-text sidebar-link">Intro. to SciML</a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../index-part2.html" class="sidebar-item-text sidebar-link">Part II: Hands-on Session</a>
+            <a href="./index-part2.html" class="sidebar-item-text sidebar-link">Part II: Hands-on Session</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -218,19 +226,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hands-on/julia_basics.html" class="sidebar-item-text sidebar-link active">Julia Basics</a>
+  <a href="./hands-on/julia_basics.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
+  <a href="./hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../apx.html" class="sidebar-item-text sidebar-link">Appendix</a>
+            <a href="./apx.html" class="sidebar-item-text sidebar-link">Appendix</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -238,12 +246,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../apx-julia-platforms.html" class="sidebar-item-text sidebar-link">Julia Platforms</a>
+  <a href="./apx-julia-platforms.html" class="sidebar-item-text sidebar-link">Julia Platforms</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../apx-resources.html" class="sidebar-item-text sidebar-link">Resources</a>
+  <a href="./apx-resources.html" class="sidebar-item-text sidebar-link">Resources</a>
   </div>
 </li>
       </ul>
@@ -257,131 +265,81 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#julia-basics" id="toc-julia-basics" class="nav-link active" data-scroll-target="#julia-basics">Julia Basics</a>
-  <ul class="collapse">
-  <li><a href="#activate-environment" id="toc-activate-environment" class="nav-link" data-scroll-target="#activate-environment">Activate Environment</a></li>
-  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import packages</a></li>
-  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
-  </ul></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link active" data-scroll-target="#outline">Outline</a></li>
+  <li><a href="#what-is-julia" id="toc-what-is-julia" class="nav-link" data-scroll-target="#what-is-julia">What is Julia?</a></li>
+  <li><a href="#why-julia-is-fast" id="toc-why-julia-is-fast" class="nav-link" data-scroll-target="#why-julia-is-fast">Why Julia is fast?</a></li>
+  <li><a href="#multiple-dispatch" id="toc-multiple-dispatch" class="nav-link" data-scroll-target="#multiple-dispatch">Multiple Dispatch</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/stevengogogo/Julia-for-SciML/blob/main/hands-on/julia_basics.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stevengogogo/Julia-for-SciML/edit/main/intro-julia.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">PART I: Intro. to Julia</h1>
+</div>
 
 
-<section id="julia-basics" class="level1">
-<h1>Julia Basics</h1>
-<p>In this section, we are going to run julia with Jupyter</p>
-<section id="activate-environment" class="level2">
-<h2 class="anchored" data-anchor-id="activate-environment">Activate Environment</h2>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"tutorial"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial`</code></pre>
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="callout callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<ul>
+<li><a href="./slides/SLIDE_julia-intro.html">Slides</a></li>
+</ul>
 </div>
 </div>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>] st</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<p>The presentation will give a short tour about essential ideas behind Julia. Though this tutorial put emphasis on the Scientific Machine Learning, Julia is designed for generic purpose</p>
+</section>
+<section id="what-is-julia" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-julia">What is Julia?</h2>
+<p>Julia is a high-level programming language that well suited for computational science. It supports Just-in-time (JIT) and multiple dispatch to create static</p>
+</section>
+<section id="why-julia-is-fast" class="level2">
+<h2 class="anchored" data-anchor-id="why-julia-is-fast">Why Julia is fast?</h2>
+</section>
+<section id="multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-dispatch">Multiple Dispatch</h2>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">multiply</span>(a,b)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a<span class="op">*</span>b</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>multiply (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@code_llvm</span> <span class="fu">multiply</span>(<span class="fl">1</span>,<span class="fl">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Status `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial/Project.toml`
-  [6e4b80f9] BenchmarkTools v1.3.1
-  [2445eb08] DataDrivenDiffEq v0.8.5
-  [aae7a2af] DiffEqFlux v1.52.0
-  [41bf760c] DiffEqSensitivity v6.79.0
-  [0c46a032] DifferentialEquations v7.5.0
-  [587475ba] Flux v0.13.6
-⌃ [961ee093] ModelingToolkit v8.27.0
-  [429524aa] Optim v1.7.3
-⌃ [7f7a1694] Optimization v3.9.0
-⌃ [91a5bcdd] Plots v1.35.3
-Info Packages marked with ⌃ have new versions available and may be upgradable.</code></pre>
-</div>
-</div>
-</section>
-<section id="import-packages" class="level2">
-<h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">BenchmarkTools</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>┌ Info: Precompiling BenchmarkTools [6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf]
-└ @ Base loading.jl:1664</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DifferentialEquations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="documentation" class="level2">
-<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>?ODEProblem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>search: ODEProblem RODEProblem SplitODEProblem DynamicalODEProblem
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<p>Defines an ordinary differential equation (ODE) problem. Documentation Page: https://diffeq.sciml.ai/stable/types/ode_types/</p>
-<section id="mathematical-specification-of-an-ode-problem" class="level2">
-<h2 class="anchored" data-anchor-id="mathematical-specification-of-an-ode-problem">Mathematical Specification of an ODE Problem</h2>
-<p>To define an ODE Problem, you simply need to give the function <span class="math inline">\(f\)</span> and the initial condition <span class="math inline">\(u_0\)</span> which define an ODE:</p>
-<p><span class="math display">\[
-M \frac{du}{dt} = f(u,p,t)
-\]</span></p>
-<p>There are two different ways of specifying <code>f</code>:</p>
-<ul>
-<li><code>f(du,u,p,t)</code>: in-place. Memory-efficient when avoiding allocations. Best option for most cases unless mutation is not allowed.</li>
-<li><code>f(u,p,t)</code>: returning <code>du</code>. Less memory-efficient way, particularly suitable when mutation is not allowed (e.g.&nbsp;with certain automatic differentiation packages such as Zygote).</li>
-</ul>
-<p><code>u₀</code> should be an AbstractArray (or number) whose geometry matches the desired geometry of <code>u</code>. Note that we are not limited to numbers or vectors for <code>u₀</code>; one is allowed to provide <code>u₀</code> as arbitrary matrices / higher dimension tensors as well.</p>
-<p>For the mass matrix <span class="math inline">\(M\)</span>, see the documentation of <code>ODEFunction</code>.</p>
-</section>
-<section id="problem-type" class="level2">
-<h2 class="anchored" data-anchor-id="problem-type">Problem Type</h2>
-<section id="constructors" class="level3">
-<h3 class="anchored" data-anchor-id="constructors">Constructors</h3>
-<p><code>ODEProblem</code> can be constructed by first building an <code>ODEFunction</code> or by simply passing the ODE right-hand side to the constructor. The constructors are:</p>
-<ul>
-<li><code>ODEProblem(f::ODEFunction,u0,tspan,p=NullParameters();kwargs...)</code></li>
-<li><code>ODEProblem{isinplace,specialize}(f,u0,tspan,p=NullParameters();kwargs...)</code> : Defines the ODE with the specified functions. <code>isinplace</code> optionally sets whether the function is inplace or not. This is determined automatically, but not inferred. <code>specialize</code> optionally controls the specialization level. See the <a href="https://scimlbase.sciml.ai/stable/interfaces/Problems/#Specialization-Levels">specialization levels section of the SciMLBase documentation</a> for more details. The default is <code>AutoSpecialize</code>.</li>
-</ul>
-<p>For more details on the in-place and specialization controls, see the ODEFunction documentation.</p>
-<p>Parameters are optional, and if not given then a <code>NullParameters()</code> singleton will be used which will throw nice errors if you try to index non-existent parameters. Any extra keyword arguments are passed on to the solvers. For example, if you set a <code>callback</code> in the problem, then that <code>callback</code> will be added in every solve call.</p>
-<p>For specifying Jacobians and mass matrices, see the <code>ODEFunction</code> documentation.</p>
-</section>
-<section id="fields" class="level3">
-<h3 class="anchored" data-anchor-id="fields">Fields</h3>
-<ul>
-<li><code>f</code>: The function in the ODE.</li>
-<li><code>u0</code>: The initial condition.</li>
-<li><code>tspan</code>: The timespan for the problem.</li>
-<li><code>p</code>: The parameters.</li>
-<li><code>kwargs</code>: The keyword arguments passed onto the solves.</li>
-</ul>
-</section>
-</section>
-<section id="example-problems" class="level2">
-<h2 class="anchored" data-anchor-id="example-problems">Example Problems</h2>
-<p>Example problems can be found in <a href="https://github.com/JuliaDiffEq/DiffEqProblemLibrary.jl/tree/master/src/ode">DiffEqProblemLibrary.jl</a>.</p>
-<p>To use a sample problem, such as <code>prob_ode_linear</code>, you can do something like:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#] add DiffEqProblemLibrary</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqProblemLibrary.ODEProblemLibrary</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load problems</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ODEProblemLibrary.<span class="fu">importodeproblems</span>()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> ODEProblemLibrary.prob_ode_linear</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> <span class="fu">solve</span>(prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<pre><code>ODEProblem(f::ODEFunction,u0,tspan,p=NullParameters(),callback=CallbackSet())</code></pre>
-<p>Define an ODE problem from an <a href="@ref"><code>ODEFunction</code></a>.</p>
-</section>
+<pre><code>;  @ In[47]:1 within `multiply`
+define i64 @julia_multiply_2300(i64 signext %0, i64 signext %1) #0 {
+top:
+;  @ In[47]:2 within `multiply`
+; ┌ @ int.jl:88 within `*`
+   %2 = mul i64 %1, %0
+; └
+  ret i64 %2
+}</code></pre>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -589,13 +547,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index-part2.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Part II: Hands-on Session</span>
+      <a href="./index-part1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Part I: Overviews</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../hands-on/lotka.html" class="pagination-link">
-        <span class="nav-page-text">UDE Example</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./intro-sciml.html" class="pagination-link">
+        <span class="nav-page-text">Intro. to SciML</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

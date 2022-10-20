@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stevengogogo.github.io/Julia-for-SciML/index_sciml-intro.html</loc>
-    <lastmod>2022-10-18T16:15:22.265Z</lastmod>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/apx-julia-packages.html</loc>
+    <lastmod>2022-10-20T18:13:18.919Z</lastmod>
   </url>
   <url>
-    <loc>https://stevengogogo.github.io/Julia-for-SciML/SLIDE_sciml-intro.html</loc>
-    <lastmod>2022-10-18T16:15:23.270Z</lastmod>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/intro-sciml.html</loc>
+    <lastmod>2022-10-20T18:13:20.595Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/index.html</loc>
-    <lastmod>2022-10-18T16:15:23.930Z</lastmod>
+    <lastmod>2022-10-20T18:13:21.131Z</lastmod>
   </url>
   <url>
-    <loc>https://stevengogogo.github.io/Julia-for-SciML/SLIDE_julia-intro.html</loc>
-    <lastmod>2022-10-18T16:15:25.593Z</lastmod>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/slides/SLIDE_sciml-intro.html</loc>
+    <lastmod>2022-10-20T18:13:22.025Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/slides/SLIDE_julia-intro.html</loc>
+    <lastmod>2022-10-20T18:13:23.059Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/index-part2.html</loc>
+    <lastmod>2022-10-20T18:13:23.385Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/apx-resources.html</loc>
+    <lastmod>2022-10-20T18:13:24.303Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/index-part1.html</loc>
+    <lastmod>2022-10-20T18:13:24.638Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/index-apx.html</loc>
+    <lastmod>2022-10-20T18:13:25.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/apx-julia-platforms.html</loc>
+    <lastmod>2022-10-20T18:13:25.852Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/julia_basics.html</loc>
-    <lastmod>2022-10-18T16:15:26.885Z</lastmod>
+    <lastmod>2022-10-20T18:13:26.858Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/lotka.html</loc>
-    <lastmod>2022-10-18T16:15:28.662Z</lastmod>
+    <lastmod>2022-10-20T18:13:28.212Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/hands-on/stack/infectious_model.html</loc>
-    <lastmod>2022-10-18T16:15:30.249Z</lastmod>
+    <lastmod>2022-10-20T18:13:29.771Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/apx.html</loc>
+    <lastmod>2022-10-20T18:13:30.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://stevengogogo.github.io/Julia-for-SciML/intro-julia.html</loc>
+    <lastmod>2022-10-20T18:13:31.955Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/ref.html</loc>
-    <lastmod>2022-10-18T16:15:31.244Z</lastmod>
-  </url>
-  <url>
-    <loc>https://stevengogogo.github.io/Julia-for-SciML/index_julia-intro.html</loc>
-    <lastmod>2022-10-18T16:15:32.196Z</lastmod>
+    <lastmod>2022-10-20T18:13:32.719Z</lastmod>
   </url>
   <url>
     <loc>https://stevengogogo.github.io/Julia-for-SciML/setup.html</loc>
-    <lastmod>2022-10-18T16:15:33.063Z</lastmod>
-  </url>
-  <url>
-    <loc>https://stevengogogo.github.io/Julia-for-SciML/resources.html</loc>
-    <lastmod>2022-10-18T16:15:34.025Z</lastmod>
+    <lastmod>2022-10-20T18:13:34.011Z</lastmod>
   </url>
 </urlset>

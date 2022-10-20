@@ -25,7 +25,7 @@ ul.task-list{list-style: none;}
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./hands-on/lotka.html" rel="prev">
+<link href="./julia-platforms.html" rel="prev">
 <link href="./img/TAM-LogoBox.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -62,9 +62,7 @@ ul.task-list{list-style: none;}
 <meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Resources">
 <meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
 <meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Resources">
-<meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
-<meta name="twitter:image-height" content="756">
-<meta name="twitter:image-width" content="756">
+<meta name="twitter:image" content="img/TAM-LogoBox.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -132,7 +130,7 @@ ul.task-list{list-style: none;}
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./index_julia-intro.html" class="sidebar-item-text sidebar-link">PART I: Intro. to Julia</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Part I: Overviews</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -140,19 +138,29 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hands-on/julia_basics.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  <a href="./index_julia-intro.html" class="sidebar-item-text sidebar-link">Intro. to Julia</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index_sciml-intro.html" class="sidebar-item-text sidebar-link">Intro. to SciML</a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./index_sciml-intro.html" class="sidebar-item-text sidebar-link">Part II: SciML Packages</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Part II: Hands-on session</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hands-on/julia_basics.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
@@ -168,6 +176,11 @@ ul.task-list{list-style: none;}
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./julia-platforms.html" class="sidebar-item-text sidebar-link">Julia Platforms</a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./resources.html" class="sidebar-item-text sidebar-link active">Resources</a>
@@ -186,10 +199,11 @@ ul.task-list{list-style: none;}
   <ul>
   <li><a href="#learning-materials" id="toc-learning-materials" class="nav-link active" data-scroll-target="#learning-materials">Learning Materials</a></li>
   <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
-  <li><a href="#advanced-topics" id="toc-advanced-topics" class="nav-link" data-scroll-target="#advanced-topics">Advanced Topics</a></li>
+  <li><a href="#courses" id="toc-courses" class="nav-link" data-scroll-target="#courses">Courses</a></li>
   <li><a href="#community" id="toc-community" class="nav-link" data-scroll-target="#community">Community</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#news" id="toc-news" class="nav-link" data-scroll-target="#news">News</a></li>
+  <li><a href="#julia-platforms" id="toc-julia-platforms" class="nav-link" data-scroll-target="#julia-platforms">Julia Platforms</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/stevengogogo/Julia-for-SciML/edit/main/resources.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -225,10 +239,11 @@ ul.task-list{list-style: none;}
 <li><a href="http://bogumilkaminski.pl/files/julia_express.pdf">The Julia Express</a></li>
 </ul>
 </section>
-<section id="advanced-topics" class="level2">
-<h2 class="anchored" data-anchor-id="advanced-topics">Advanced Topics</h2>
+<section id="courses" class="level2">
+<h2 class="anchored" data-anchor-id="courses">Courses</h2>
 <ul>
 <li>MIT’s 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course. (<a href="https://www.youtube.com/watch?v=3IoqyXmAAkU&amp;list=PLCAl7tjCwWyGjdzOOnlbGnVNZk0kB8VSa">videos</a>, <a href="https://github.com/SciML/SciMLBook">book</a>)</li>
+<li><a href="https://computationalthinking.mit.edu/Spring21/">MIT 18.S191/6.S083/22.S092 Introduction to Computational Thinking</a></li>
 <li><a href="http://ucidatascienceinitiative.github.io/IntroToJulia/">A Deep Introduction to Julia for Data Science and Scientific Computing</a></li>
 </ul>
 </section>
@@ -250,6 +265,9 @@ ul.task-list{list-style: none;}
 <ul>
 <li><a href="https://juliacomputing.com/">Julia Computing</a></li>
 </ul>
+</section>
+<section id="julia-platforms" class="level2">
+<h2 class="anchored" data-anchor-id="julia-platforms">Julia Platforms</h2>
 
 
 </section>
@@ -459,8 +477,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./hands-on/lotka.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">UDE Example</span>
+      <a href="./julia-platforms.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia Platforms</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
