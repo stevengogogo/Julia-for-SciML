@@ -36,7 +36,7 @@ website:
             file: hands-on/julia_basics.ipynb
           - text: "UDE Example"
             file: hands-on/lotka.ipynb
-      - section: "Appendix"
+      - section: apx.qmd
         contents:
           - apx-julia-platforms.qmd
           - apx-resources.qmd

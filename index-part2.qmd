@@ -1,3 +1,4 @@
 ---
 title: "Part II: Hands-on Session"
+comments: false
 ---

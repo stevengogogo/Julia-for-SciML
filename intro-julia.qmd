@@ -1,7 +1,40 @@
 ---
 title: "PART I: Intro. to Julia"
+jupyter: julia-1.8
+execute: 
+    echo: true
+    freeze: auto
 ---
 
 ::: {.callout}
 - [Slides](slides/SLIDE_julia-intro.qmd)
 :::
+
+``` {julia}
+#| echo: false
+using Pkg
+```
+
+## Outline
+
+The presentation will give a short tour about essential ideas behind Julia. Though this tutorial put emphasis on the Scientific Machine Learning, Julia is designed for generic purpose
+
+## What is Julia?
+
+Julia is a high-level programming language that well suited for computational science. It supports Just-in-time (JIT) and multiple dispatch to create static 
+
+## Why Julia is fast?
+
+
+
+## Multiple Dispatch
+
+``` {julia}
+function multiply(a,b)
+    return a*b
+end
+```
+
+``` {julia}
+@code_llvm multiply(1,2)
+```
