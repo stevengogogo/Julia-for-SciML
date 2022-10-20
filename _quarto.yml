@@ -23,14 +23,18 @@ website:
     search: true
     contents:
       - index.qmd
+      - setup.qmd
       - section: index_julia-intro.qmd
         contents:
-          - hands-on/julia_basics.ipynb
+          - text: "Julia Basics"
+            file: hands-on/julia_basics.ipynb
       - section: index_sciml-intro.qmd
         contents:
-          - hands-on/infectious_model.ipynb
+          - text: "UDE Example"
+            file: hands-on/lotka.ipynb
       - section: "Appendix"
         contents:
+          - julia-platforms.qmd
           - resources.qmd
   navbar:
     background: maroon
@@ -39,6 +43,7 @@ website:
         href: https://github.com/stevengogogo/Julia-for-SciML
 
 bibliography: ref.bib
+csl: setup/acm-sig-proceedings.csl
 
 format:
   html:
@@ -46,6 +51,7 @@ format:
     theme: 
       light: default
       dark: darkly
+    code-copy: true
     pdf:
       documentclass: scrreport
   

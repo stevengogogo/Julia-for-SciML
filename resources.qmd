@@ -1,3 +1,37 @@
 ---
 title: "Resources"
 ---
+
+## Learning Materials
+
+
+
+## Basics
+- [Julia Documentaion (official doc also includes advanced topics)](https://docs.julialang.org/en/v1/)
+- [Think Julia](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html)
+- [MATLAB-Python-Julia cheatsheet](https://cheatsheets.quantecon.org/)
+- [Julia cheatsheet](https://cheatsheets.quantecon.org/julia-cheatsheet.html)
+- [The Julia Express](http://bogumilkaminski.pl/files/julia_express.pdf)
+
+## Courses
+- MIT's 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course. ([videos](https://www.youtube.com/watch?v=3IoqyXmAAkU&list=PLCAl7tjCwWyGjdzOOnlbGnVNZk0kB8VSa), [book](https://github.com/SciML/SciMLBook))
+- [ MIT 18.S191/6.S083/22.S092
+Introduction to Computational Thinking](https://computationalthinking.mit.edu/Spring21/)
+- [A Deep Introduction to Julia for Data Science and Scientific Computing](http://ucidatascienceinitiative.github.io/IntroToJulia/)
+
+## Community
+
+- [Discourse](https://discourse.julialang.org/)
+- [Forum](https://forem.julialang.org/)
+
+
+## Packages
+
+- [Survey of Julia packages](https://sosiristseng.github.io/julia-pkgs/#/)
+
+## News
+
+- [Julia Computing](https://juliacomputing.com/)
+
+
+## Julia Platforms
