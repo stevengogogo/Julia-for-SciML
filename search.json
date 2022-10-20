@@ -193,7 +193,7 @@
     "href": "intro-julia.html",
     "title": "PART I: Intro. to Julia",
     "section": "",
-    "text": "Slides"
+    "text": "Presentation\n\n\n\n\nSlides"
   },
   {
     "objectID": "intro-julia.html#outline",
@@ -214,14 +214,21 @@
     "href": "intro-julia.html#why-julia-is-fast",
     "title": "PART I: Intro. to Julia",
     "section": "Why Julia is fast?",
-    "text": "Why Julia is fast?"
+    "text": "Why Julia is fast?\n\nJust-in-Time\nMultiple dispatch\nType inference\n\n\n\n  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial`"
   },
   {
     "objectID": "intro-julia.html#multiple-dispatch",
     "href": "intro-julia.html#multiple-dispatch",
     "title": "PART I: Intro. to Julia",
     "section": "Multiple Dispatch",
-    "text": "Multiple Dispatch\n\nfunction multiply(a,b)\n    return a*b\nend\n\nmultiply (generic function with 1 method)\n\n\n\n@code_llvm multiply(1,2)\n\n;  @ In[47]:1 within `multiply`\ndefine i64 @julia_multiply_2300(i64 signext %0, i64 signext %1) #0 {\ntop:\n;  @ In[47]:2 within `multiply`\n; ┌ @ int.jl:88 within `*`\n   %2 = mul i64 %1, %0\n; └\n  ret i64 %2\n}"
+    "text": "Multiple Dispatch\n\nfunction multiply(a,b)\n    return a*b\nend\n\nmultiply (generic function with 1 method)\n\n\n\n@code_llvm multiply(1,1)\n\n;  @ In[129]:1 within `multiply`\ndefine i64 @julia_multiply_3781(i64 signext %0, i64 signext %1) #0 {\ntop:\n;  @ In[129]:2 within `multiply`\n; ┌ @ int.jl:88 within `*`\n   %2 = mul i64 %1, %0\n; └\n  ret i64 %2\n}\n\n\n\n@code_llvm multiply(1., 1.)\n\n;  @ In[129]:1 within `multiply`\ndefine double @julia_multiply_3783(double %0, double %1) #0 {\ntop:\n;  @ In[129]:2 within `multiply`\n; ┌ @ float.jl:385 within `*`\n   %2 = fmul double %0, %1\n; └\n  ret double %2\n}"
+  },
+  {
+    "objectID": "intro-julia.html#avoid-allocation",
+    "href": "intro-julia.html#avoid-allocation",
+    "title": "PART I: Intro. to Julia",
+    "section": "Avoid allocation",
+    "text": "Avoid allocation\n\n@code_llvm multiply([1.], [1.])\n\n;  @ In[129]:1 within `multiply`\n; Function Attrs: noreturn\ndefine nonnull {}* @julia_multiply_3785({}* nonnull align 16 dereferenceable(40) %0, {}* nonnull align 16 dereferenceable(40) %1) #0 {\ntop:\n  %2 = alloca [2 x {}*], align 8\n  %.sub = getelementptr inbounds [2 x {}*], [2 x {}*]* %2, i64 0, i64 0\n;  @ In[129]:2 within `multiply`\n  store {}* %0, {}** %.sub, align 8\n  %3 = getelementptr inbounds [2 x {}*], [2 x {}*]* %2, i64 0, i64 1\n  store {}* %1, {}** %3, align 8\n  %4 = call nonnull {}* @ijl_apply_generic({}* inttoptr (i64 4748813920 to {}*), {}** nonnull %.sub, i32 2)\n  call void @llvm.trap()\n  unreachable\n}\n\n\n\nMutated function\n\nfunction multiply!(s, a,b, i)\n    s[i] = a[i] * b[i]\n    return s\nend\n\nmultiply! (generic function with 2 methods)\n\n\n\ns = zeros(1)\na = [1.]\nb = [1.];\n\n@btime multiply(a[1], b[1])\n@btime multiply!(s, a, b, 1)\n\n  71.440 ns (3 allocations: 48 bytes)\n\n\n  36.506 ns (0 allocations: 0 bytes)\n\n\n1-element Vector{Float64}:\n 1.0\n\n\n\n\nVersion\nThis tutorial is using Julia in version of\n\n\nv\"1.8.2\""
   },
   {
     "objectID": "setup.html",
