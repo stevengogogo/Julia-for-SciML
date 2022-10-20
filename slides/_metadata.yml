@@ -1,0 +1,21 @@
+subtitle: "TAMIDS Workshop"
+date: "10/25, 2022"
+author: "Shao-Ting Chiu"
+institute: Texas A\&M Univ.
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+    controls: true
+    aspectratio: 169
+    slide-number: c/t
+    #beamer:
+        #aspectratio: 169
+        #theme: Copenhagen
+        #header-includes: |
+            #\setbeamertemplate{footline}[frame number] 
+            #\hypersetup{pdfpagemode=FullScreen}
+            #%\linespread{1.1}\selectfont
+
+bibliography: ../ref.bib
+csl: ../setup/cell.csl

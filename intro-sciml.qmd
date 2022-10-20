@@ -4,5 +4,5 @@ title: "Part II: SciML Packages"
 
 
 ::: {.callout}
-- [Slides](SLIDE_sciml-intro.qmd)
+- [Slides](slides/SLIDE_sciml-intro.qmd)
 :::
