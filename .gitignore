@@ -17,5 +17,6 @@ index.tex
 _site/
 *_freeze/
 # We usually ignore Manifest.toml because it is configured by local machine
+*Manifest.toml
 *site_libs
 hands-on/lotka/lotkaImage.so
