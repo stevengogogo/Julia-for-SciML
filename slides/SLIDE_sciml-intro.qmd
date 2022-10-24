@@ -309,6 +309,15 @@ $$\lambda_{NN}(I, \beta, \gamma) \approx \beta I$$
 
 [^case]: more cases are on https://juliacomputing.com/case-studies/
 
+
+---
+
+## Hands-on session
+
+- [Julia basics](https://stevengogogo.github.io/Julia-for-SciML/hands-on/julia_basics.html)
+- [UDE example](https://stevengogogo.github.io/Julia-for-SciML/hands-on/lotka.html)
+
+
 ---
 
 ## References
