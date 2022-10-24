@@ -1,0 +1,323 @@
+---
+title: "Introduction to Julia Language"
+---
+
+## Session
+
+
+::: {.columns}
+
+
+::: {.column width="75%"}
+
+|Time|Content|
+|---|---|
+|25 min|Introduction to the Julia Programming Language|
+|25 min|The Julia SciML Ecosystem|
+|10 min|Break|
+|30 min|Hands-on session with nerual differential equation|
+|30 min|Hands-on session with SciML application|
+
+::: 
+
+::: {.column width="25%"}
+
+![Tutorial Website[^url]](img/site-QR-code.png){#fig-surus fig-align="center"}
+
+:::
+
+:::
+
+
+[^url]: https://stevengogogo.github.io/Julia-for-SciML
+
+
+---
+
+## What is Julia?
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+1. *Julia* is a generic high-performance programming language[@bezanson2017julia]
+    - **Just-In-Time (JIT)** compilation
+    - **Multiple dispatch** creates type-stability
+1. Via multiple dispatch, different programming patterns can be adapted to the application.
+1. Julia supports high-level syntax that is approachable.
+
+
+:::
+
+::: {.column width="20%"}
+![](../img/julia-logo-color.png){fig-align="right"} 
+:::
+
+:::
+
+
+---
+
+## A quick look at multiple dispatch
+
+### A Generic function
+```julia
+julia> function multiply(a,b)
+           return a*b
+       end
+multiply (generic function with 1 method)
+```
+
+---
+
+## A quick look at multiple dispatch
+
+- Type inference in Julia solves the optimized data type [@juliainf].
+
+
+### Integer Input
+
+```{.julia code-line-numbers="|3|9"}
+julia> @code_llvm multiply(1, 1)
+;  @ REPL[1]:1 within `multiply`
+define i64 @julia_multiply_660(i64 signext %0, i64 signext %1) #0 {
+top:
+;  @ REPL[1]:2 within `multiply`
+; ┌ @ int.jl:88 within `*`
+   %2 = mul i64 %1, %0
+; └
+  ret i64 %2
+```
+
+- `@code_llvm` shows the processed script in [intermediate presentation (IR)](https://en.wikipedia.org/wiki/Intermediate_representation).
+
+::: notes
+
+This is my note.
+
+- It can contain Markdown
+- like this list
+
+:::
+
+---
+
+## A quick look at multiple dispatch
+
+### {auto-animate=true}
+
+
+```{.julia code-line-numbers="1||3|13"}
+julia> @code_llvm multiply(2.0,2)
+;  @ REPL[1]:1 within `multiply`
+define double @julia_multiply_208(double %0, i64 signext %1) #0 {
+top:
+;  @ REPL[1]:2 within `multiply`
+; ┌ @ promotion.jl:389 within `*`
+; │┌ @ promotion.jl:359 within `promote`
+; ││┌ @ promotion.jl:336 within `_promote`
+; │││┌ @ number.jl:7 within `convert`
+; ││││┌ @ float.jl:146 within `Float64`
+       %2 = sitofp i64 %1 to double
+# Skip
+  ret double %3
+}
+```
+
+---
+
+## Significant Features
+
+1. Julia Base and standard library are written in Julia itself.
+
+. . .
+
+2. Julia is always Just-in-Time (JIT) compiled
+
+. . .
+
+3. Multiple dispatch allows many conbinatoins of argument types
+    - Approaching the speed of statically-compiled language like C/Fortran [@juliadoc]
+
+. . .
+
+### Why Julia is fast?[@SciMLBook]
+
+- JIT
+- Type inference
+- Type specialization in functions
+
+
+## Why Julia? 
+
+- Syntax is simple [@perkel2019julia]
+
+  ``` julia
+  for i in 1:N
+    # do something
+  end
+  ```
+
+- Extensibility
+  - Collaboration of packages can be achieved by multiple dispatch
+
+- Fast
+  - No need to worry about the unstable for-loop
+
+- Julia is written mostly by Julia
+
+---
+
+## Generating Vandermonde Matrices[^vand]
+
+:::: {.columns}
+
+::: {.column width="40%"}
+Given $x=[\alpha_1, \dots, \alpha_m]$. Derive
+\begin{equation}
+  V_{m\times n} = 
+  \begin{bmatrix}
+    1 & \alpha_{1}^{1} & \dots & \alpha_{1}^{n-1}\\
+    1 & \alpha_{2}^{1} & \dots & \alpha_{2}^{n-1}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    1 & \alpha_{m}^{1} &  \dots & \alpha_{m}^{n-1}
+  \end{bmatrix}
+\end{equation}
+
+:::
+
+
+::: {.column width="60%"}
+
+
+- **Python**
+  - [`numpy.vander`](https://github.com/numpy/numpy/blob/f4be1039d6fe3e4fdc157a22e8c071ac10651997/numpy/lib/twodim_base.py#L490-L577)
+    - [C wrapper](https://github.com/numpy/numpy/blob/3b22d87050ab63db0dcd2d763644d924a69c5254/numpy/core/src/umath/ufunc_object.c#L2936-L3264)
+      - [generated C code](https://github.com/numpy/numpy/blob/3b22d87050ab63db0dcd2d763644d924a69c5254/numpy/core/src/umath/loops.c.src#L1467-L1505)
+- **Matlab**
+  - [`vander`](https://www.mathworks.com/help/matlab/ref/vander.html)
+    - hidden licensed source code
+:::
+
+::::
+
+. . .
+
+1. **Mining standard library** is a *must* to Write efficient algorithm in Python/Matlab
+2. Type-generic at high-level, but only fitted to limited predefined types.
+
+[^vand]: Example from https://github.com/mitmath/julia-mit
+
+---
+
+## The Two-Language Problem
+
+|Language|Flexibility|Performance|
+|---|:---:|:---:|
+|High-level (e.g. Python/Matlab)|Great|Bad|
+|Low-level (e.g. C/Fortan)|Bad|Great|
+
+
+**To develope an algorithm,**
+
+1. Write in Python
+2. Speed up in C++/C
+3. Write a wrapper
+
+---
+
+## Generating Vandermonde Matrics
+
+:::: {.columns}
+
+::: {.column width="40%"}
+Given $x=[\alpha_1, \dots, \alpha_m]$. Derive
+\begin{equation}
+  V_{m\times n} = 
+  \begin{bmatrix}
+    1 & \alpha_{1}^{1} & \dots & \alpha_{1}^{n-1}\\
+    1 & \alpha_{2}^{1} & \dots & \alpha_{2}^{n-1}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    1 & \alpha_{m}^{1} &  \dots & \alpha_{m}^{n-1}
+  \end{bmatrix}
+\end{equation}
+:::
+
+::: {.column width="60%"}
+
+**Julia (generic typing)**[^vand-julia]
+
+``` {.julia code-line-numbers="|1|9"}
+function vander(x::AbstractVector{T}, n=length(x)) where T
+  m = length(x)
+  V = zeros(T, m,n)
+  for j = 1:m
+    V[j,1] = one(x[j])
+  end
+  for i = 2:n
+    for j = 1:m
+      V[j,i] = x[j] * V[j,i-1]
+    end
+  end
+  return V
+end
+```
+
+:::
+
+::::
+
+1. This code works for any container supports element-wised `*` method.
+2. The flexibility does not hurt performance.
+
+[^vand-julia]: Source code is from https://web.mit.edu/18.06/www/Spring17/Julia-intro.pdf
+
+---
+
+## What if I don't need performance?
+
+1. For classical problems, Python/Matlab is good enough
+
+. . .
+
+2. **When accounting hard problems**, it is possible to implement in Python/Matlab. However, **the performance will be sacrificed**.
+
+. . . 
+
+3. **When performance is needed**, it is necessary to write the whole project again with C++/C/Fortran[^numba]. 
+
+[^numba]: Numba is an option while it is suitable for inner-library optimization.  The disccusion is [here](https://github.com/numba/numba/issues/3814#issuecomment-468742661)
+
+---
+
+## Can I still access to familiar libraries?
+
+1. Libraries of [Python](https://github.com/JuliaPy/PyCall.jl), [C and Fortran](https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/) can be easily called from Julia
+2. There are also numerous packages written in native Julia:
+
+|Python|Julia [^jl-pkgs]|
+|---|---|
+|Pandas|[DataFrames.jl](https://github.com/JuliaData/DataFrames.jl)|
+|Matplotlib|[Plots.jl](https://github.com/JuliaPlots/Plots.jl)|
+|SymPy|[ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl)|
+|Scipy|[DifferentialEquations.jl](https://github.com/SciML)/[JuliaStats](https://juliastats.org/)/...|
+|Scikit-Learn|[MLJ.jl](https://github.com/alan-turing-institute/MLJ.jl)|
+|Tensorflow/Pytorch|[Flux.jl](https://github.com/FluxML/Flux.jl)|
+|Optimization|[JuMP.jl](https://github.com/jump-dev/JuMP.jl)/[Optimization.jl](https://github.com/SciML/Optimization.jl)|
+|$\vdots$|$\vdots$| 
+
+[^jl-pkgs]: More at https://sosiristseng.github.io/julia-pkgs/
+
+---
+
+## How can I get started with Julia?
+
+- [Think Julia: How to Think Like a Computer Scientist](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html#_copyright)
+- MIT’s 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course
+- 
+
+---
+
+## References
+

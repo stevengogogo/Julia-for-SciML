@@ -34,4 +34,9 @@ Introduction to Computational Thinking](https://computationalthinking.mit.edu/Sp
 - [Julia Computing](https://juliacomputing.com/)
 
 
+## Styling guide
+
+- [SciML style](https://github.com/SciML/SciMLStyle#open-source-contributions-are-allowed-to-start-small-and-grow-over-time)
+- [Performance Tips](https://docs.julialang.org/en/v1/manual/performance-tips/)
+
 ## Julia Platforms

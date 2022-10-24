@@ -24,18 +24,22 @@ website:
     contents:
       - index.qmd
       - setup.qmd
-      - section: index_julia-intro.qmd
+      - section: index-part1.qmd
+        contents:
+          - text: "Intro. to Julia"
+            file: intro-julia.qmd
+          - text: "Intro. to SciML"
+            file:  intro-sciml.qmd
+      - section: index-part2.qmd
         contents:
           - text: "Julia Basics"
             file: hands-on/julia_basics.ipynb
-      - section: index_sciml-intro.qmd
-        contents:
           - text: "UDE Example"
-            file: hands-on/lotka.ipynb
-      - section: "Appendix"
+            file: hands-on/ude.ipynb
+      - section: apx.qmd
         contents:
-          - julia-platforms.qmd
-          - resources.qmd
+          - apx-julia-platforms.qmd
+          - apx-resources.qmd
   navbar:
     background: maroon
     right:

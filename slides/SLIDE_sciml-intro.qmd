@@ -1,0 +1,324 @@
+---
+title: "SciML Ecosystem"
+---
+
+## Scientific Machine Learning [@baker2019]
+
+
+:::: {.columns .v-center-container}
+
+::: {.column width="50%"}
+
+![](img/sir.png){fig-pos="center"}
+
+:::
+
+::: {.column width="50%"}
+
+\begin{equation}
+    u(t) = \begin{bmatrix}
+        S(t)\\ 
+        I(t)\\ 
+        R(t)
+    \end{bmatrix}
+\end{equation}
+
+:::
+
+:::: 
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<center>**Machine Learning (Data-Driven)**[^nn]</center>
+
+$$\frac{du}{dt} = NN(u, p, t)$$
+
+:::
+
+::: {.column width="50%"}
+
+<center>**Physical Modeling**</center>
+
+$$\frac{du}{dt} = f(u, p, t)$$
+
+:::
+
+::::
+
+[^nn]: where $NN(\cdot) \approx f(\cdot)$ 
+
+---
+
+## Scientific Machine Learning
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<center>**Machine Learning (Data-Driven)**</center>
+
+$$\frac{du}{dt} = NN(u, p, t)$$
+
+```julia
+NN = Chain(Dense(4,32,tanh),
+           Dense(32,32,tanh),
+           Dense(32,3))
+```
+
+:::
+
+::: {.column width="50%"}
+
+<center>**Physical Modeling**</center>
+
+$$\frac{du}{dt} = f(u, p, t)$$
+
+```julia
+function sir_ode(u,p,t)
+    (S,I,R) = u
+    (β,γ) = p
+    dS = -β*S*I
+    dI = β*S*I - γ*I
+    dR = β*S*I
+    [dS,dI,dR]
+end;
+```
+
+:::
+
+::::
+
+. . .
+
+||Data Driven|Physical Modeling|
+|:---:|:---:|:---:|
+|Pros|Universal approximation|Small training set, interpretation|
+|Cons|Requires tremendous data|Requires analytical expression|
+
+. . .
+
+- The question is 
+    - *How to combine two separated ecosystems into unified high-performance framework.*
+
+---
+
+## SciML Software
+
+- An Open Source Software for Scientific Machine Learning [^sci]
+- Leverage the type inference and multiple dispatche of Julia to integrate packages.
+- This ecosystem supports
+    1. Differential Equation Solving
+        - [DifferentialEquations.jl](https://diffeq.sciml.ai/stable/)
+    1. Physics-informed model discovery
+        - [DiffEqFlux.jl](https://diffeqflux.sciml.ai/stable/)
+    1. Parameter Estimation and Bayesian Analysis
+        - [DataDrivenDiffEq.jl](https://datadriven.sciml.ai/dev/)
+    1. And many others ([134 packages](https://github.com/SciML) in total)
+
+![](img/SciMLGitHubPreview.png){width=30% fig-align="right"}
+
+[^sci]: https://sciml.ai/
+---
+
+## SciML Software[^rac]
+
+![](img/scimlinterface.png){fig-pos="center" width=60%}
+
+[^rac]: Image is from Figure 1. of Rackauckas, Christopher, et al. "Universal differential equations for scientific machine learning." arXiv preprint arXiv:2001.04385 (2020).
+
+
+---
+
+## Example {#sec-ex}
+
+Suppose we have a ground truth model $u(t) = [S(t), I(t), C(t)]^T$
+
+\begin{align}
+    \frac{dS}{dt} &= -\beta S(t)I(t)\\ 
+    \frac{dI}{dt} &= \beta S(t)I(t)-\gamma I(t)\\
+    \frac{dR}{dt} &= \beta S(t)I(t)
+\end{align}
+
+where $\beta$ and $\gamma$ are nonnegative parameters.
+
+---
+
+## Data and Prior knowledge
+
+- Data: $\{u(t), t\}$
+- Model with unknown mechanism $\lambda: R^3\to R$. Such that
+\begin{align}
+    \frac{dS}{dt} &= -\lambda(I(t), \beta, \gamma) S(t)\\ 
+    \frac{dI}{dt} &= \lambda(I(t), \beta, \gamma) S(t)-\gamma I(t)\\
+    \frac{dR}{dt} &= \lambda(I(t), \beta, \gamma)S(t)
+\end{align}
+
+- Also, let $\lambda$ be the *approximated* function of a part of [the truth model](#sec-ex)
+
+---
+
+## Use Convolutional Neural Network for surrogation
+
+- By universal approximation theorem,
+
+\begin{align}
+    \frac{dS}{dt} &= -\lambda_{NN}(I(t), \beta, \gamma) S(t)\\ 
+    \frac{dI}{dt} &= \lambda_{NN}(I(t), \beta, \gamma) S(t)-\gamma I(t)\\
+    \frac{dR}{dt} &= \lambda_{NN}(I(t), \beta, \gamma)S(t)
+\end{align}
+
+- This is the universal ordinary differential equation[@rackauckas2020universal]
+
+--- 
+
+## Implementation
+
+:::: {.columns }
+
+::: {.column width="50%"}
+**Universal Differential Equation (UDE)**
+
+\begin{align}
+    \frac{dS}{dt} &= -\lambda_{NN}(I(t), \beta, \gamma) S(t)\\ 
+    \frac{dI}{dt} &= \lambda_{NN}(I(t), \beta, \gamma) S(t)-\gamma I(t)\\
+    \frac{dR}{dt} &= \lambda_{NN}(I(t), \beta, \gamma)S(t)
+\end{align}
+
+:::
+
+::: {.column width="50%"}
+**Implementation**
+
+``` {.julia code-line-numbers="|2-4|5-6|7-11"}
+function sir_ude(u,p_,t,foi, st)
+    # Current State
+    S,I,C = u
+    β,γ = p
+    # CNN
+    λ= foi([I], p_, st)[1][1] 
+    # UDE
+    dS = -λ*S
+    dI = λ*S - γ*I
+    dR = λ*S
+    [dS, dI, dR]
+end;
+```
+
+:::
+
+::::
+
+. . .
+
+
+:::: {.columns }
+
+::: {.column width="50%"}
+
+- To achieve this task, integration of multiple frameworks is necessary.
+
+:::
+
+::: {.column width="50%"}
+
+|Tasks|SciML Package|
+|---|---|
+|ODE solver|[DifferentialEquations.jl](https://diffeq.sciml.ai/stable/)|
+|Neural network|[Flux.jl](https://fluxml.ai/)/[Lux.jl](https://discourse.julialang.org/t/ann-lux-jl-explicitly-parameterized-neural-networks-in-julia/81689/5)|
+|Differential programming|[Zygote.jl](https://fluxml.ai/Zygote.jl/latest/)|
+|Optimization|[Optimization.jl](https://docs.sciml.ai/Optimization/stable/)|
+
+:::
+
+::::
+
+---
+
+## Model Discovery and why we need it?
+
+- Suppose the UDE[^abb-ude] model is successfully fitted with dataset $\{u(t), t\}$
+
+
+:::: {.columns }
+
+::: {.column width="60%"}
+![](img/ude_fitted.png){width="100%"}
+:::
+
+::: {.column width="40%"}
+
+\begin{align}
+    \frac{dS}{dt} &= -\lambda_{NN}(I(t), \beta, \gamma) S(t)\\ 
+    \frac{dI}{dt} &= \lambda_{NN}(I(t), \beta, \gamma) S(t)-\gamma I(t)\\
+    \frac{dR}{dt} &= \lambda_{NN}(I(t), \beta, \gamma)S(t)
+\end{align}
+
+- How is the extrapolation?
+    - Such as $u_{ext}(t_{ext}) \notin \{u(t), t\}$
+
+:::
+
+::::
+
+
+[^abb-ude]: Universal Ordinary Differential Equation [@rackauckas2020universal]
+
+---
+
+## Model Discovery and why we need it?
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+![](img/ude_extra.png)
+
+:::
+
+::: {.column width="40%"}
+
+- We should get
+
+$$\lambda_{NN}(I, \beta, \gamma) \approx \beta I$$
+
+- However, the extrapolation of nerual network is errornous.
+- Sparsification of neural networks is needed (Occam's net). 
+    - Symbolic regressions[^sindy]
+    - [DataDrivenDiffEq.jl](https://github.com/SciML/DataDrivenDiffEq.jl)
+:::
+
+::::
+
+[^sindy]: Such as sparse identification[@brunton2016discovering]
+
+---
+
+## Application and Industry[^case]
+
+- [Cedar$^{\text{EDA}}$](https://cedar-eda.com/): differentiable analog circuit with machine learning
+    - SPICE (C++)
+- [Pumas-AI](https://pumas.ai/): Model-informed drug development with machine learning
+    - NONMEM (Fortran)
+
+- Macroeconomics, climate, urban development
+
+[^case]: more cases are on https://juliacomputing.com/case-studies/
+
+
+---
+
+## Hands-on session
+
+- [Julia basics](https://stevengogogo.github.io/Julia-for-SciML/hands-on/julia_basics.html)
+- [UDE example](https://stevengogogo.github.io/Julia-for-SciML/hands-on/lotka.html)
+
+
+---
+
+## References
+

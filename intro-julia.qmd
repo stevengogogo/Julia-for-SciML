@@ -1,0 +1,113 @@
+---
+title: "PART I: Intro. to Julia"
+jupyter: julia-1.8
+execute: 
+    echo: true
+    freeze: auto
+---
+
+::: {.callout-note}
+## Presentation
+- [Slides](slides/SLIDE_julia-intro.qmd)
+:::
+
+## Outline
+
+The presentation will give a short tour about essential ideas behind Julia. Though this tutorial put emphasis on the Scientific Machine Learning, Julia is designed for generic purpose
+
+## What is Julia?
+
+Julia is a high-level programming language that well suited for computational science. It supports Just-in-time (JIT) and multiple dispatch to create static 
+
+## Why Julia is fast?
+
+1. Just-in-Time
+2. Multiple dispatch
+3. Type inference
+
+
+``` {julia}
+#| echo: false
+using Pkg;
+Pkg.activate("hands-on/tutorial");
+Pkg.instantiate();
+using BenchmarkTools;
+```
+
+## Multiple Dispatch
+
+``` {julia}
+function multiply(a,b)
+    return a*b
+end
+```
+
+``` {julia}
+@code_llvm multiply(1,1)
+```
+
+``` {julia}
+@code_llvm multiply(1., 1.)
+```
+
+## Avoid allocation
+
+``` {julia}
+@code_llvm multiply([1.], [1.])
+```
+
+### Mutated function
+
+``` {julia}
+function multiply!(s, a,b, i)
+    s[i] = a[i] * b[i]
+    return s
+end
+```
+
+
+``` {julia}
+s = zeros(1)
+a = [1.]
+b = [1.];
+
+@btime multiply(a[1], b[1])
+@btime multiply!(s, a, b, 1)
+```
+
+## Vandermonde Matrics
+
+``` {julia}
+function vander(x::AbstractVector{T}, n=length(x)) where T
+  m = length(x)
+  V = zeros(T, m,n)
+  for j = 1:m
+    V[j,1] = one(x[j])
+  end
+  for i = 2:n
+    for j = 1:m
+      V[j,i] = x[j] * V[j,i-1]
+    end
+  end
+  return V
+end
+```
+
+``` {julia}
+x = [1., 2., 3., 4.]
+vander(x)
+```
+
+``` {julia}
+x2 = [1+1im, 2+7im, 3+4im]
+vander(x2)
+```
+
+
+### Version
+
+This tutorial is using Julia in version of 
+``` {julia}
+#| echo: false
+VERSION
+```

@@ -1,0 +1,10 @@
+---
+title: "Part I: Overviews"
+comments: false
+---
+
+## Objectives
+
+The overview session will be delivered by two parts: [inroduction to julia ](intro-julia.qmd) and [introduction to SciML](intro-sciml.qmd). The purpose of the presentation is to give a general idea about the Julia programming language by introducing key features such as multiple dispatch, type inference and functional programming. Later on, I uses [SciML](https://sciml.ai/), an open source software for scientific machine learning, as an example that leverages the advantages of Julia to integrate the scientific computing and machine learning.
+
+Julia is a fresh approach for numerical computing [@bezanson2017julia]. I did my best to include the essential topics during this workshop. As a trending open source project, I am strongly encourge audience to get in touch with [the Julia community](https://discourse.julialang.org/) or additional resources (see [Appendix](apx-resources.qmd)). I hope this introduction will arise your curiosity. If you have any questions/ideas, you are more than welcome to make comments via the dialogue block of each page or [the discussions](https://github.com/stevengogogo/Julia-for-SciML/discussions)

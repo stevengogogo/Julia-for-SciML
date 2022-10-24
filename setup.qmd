@@ -1,27 +1,29 @@
 ---
 title: "Setup Julia"
+author: "Steven Chiu"
+date: today
 ---
 
-In this section, we are going to setup Julia on your on computer. There are several ways to accomplish this task. You can choose one of the following methods to get *Julia* and *Jupyter* installed on your local machine.
+For the hands-on session, setting up Julia on the local computer is strongly recommended. There are several ways to accomplish this task. First, you can choose one of the following methods to get *Julia* and *Jupyter* installed on your local machine.
 
 ## Install Julia
 
 ### Official Julia Release
 
-The latest Julia release can be found at [official website](https://julialang.org/downloads/). Download the installer in respect of your operating system.
+The latest Julia release can be found at [official website](https://julialang.org/downloads/). First, download the installer in respect of your operating system.
 
 1. Download Julia installer: [https://julialang.org/downloads/](https://julialang.org/downloads/)
 2. Specific instructions for each platform: [https://julialang.org/downloads/platform/](https://julialang.org/downloads/platform/)
 
 ### jill with pip
 
-If you have already installed *pip* (if not, try install pip [here](https://pip.pypa.io/en/stable/installation/)). [Jill](https://pypi.org/project/jill/) is a Julia installer for Linux, MacOS and Windows. Jill can be installed via pip. Use the following command to get jill installed 
+If you have already installed *pip* (if not, try install pip [here](https://pip.pypa.io/en/stable/installation/)). [Jill](https://pypi.org/project/jill/) is a Julia installer for Linux, macOS and Windows. Jill can be installed via pip. Use the following command to get jill installed. 
 
 ``` bash
 pip install jill
 ```
 
-Then, use jill to install Julia
+Then, use jill to install Julia.
 
 ``` bash
 jill install
@@ -30,7 +32,7 @@ jill install
 
 ## What is expected when Julia is successfully installed?
 
-After getting Julia installed, click Julia app icon or type `julia` on cmd/terminal. The Julia REPL[^repl] will show up (@fig-julia-terminal).
+After getting Julia installed, click the Julia app icon or type `julia` on cmd/terminal. The Julia REPL[^repl] will show up (@fig-julia-terminal).
 
 ![Julia initiated on the terminal (MacOS)](img/julia_terminal.png){#fig-julia-terminal}
 
@@ -43,7 +45,7 @@ After getting Julia installed, click Julia app icon or type `julia` on cmd/termi
 [IJulia](https://github.com/JuliaLang/IJulia.jl) is an interface that combines Julia and [Jupyter interactive environment](http://jupyter.org/). This interface can be installed with Julia package manager --- [Pkg.jl](https://github.com/JuliaLang/Pkg.jl). The following steps show how to get IJulia installed. Noted that any registered packages[^pkg-register] can be installed via these steps.
 
 1. Initiate Julia REPL
-2. Install [IJUlia](https://github.com/JuliaLang/IJulia.jl). The following two methods are equivalent.
+2. Install [IJulia](https://github.com/JuliaLang/IJulia.jl). The following two methods are equivalent.
 
 ::: {.panel-tabset}
 ### Use `Pkg.add`
@@ -88,6 +90,14 @@ jupyterlab()
 
 ### Done!
 
-Congratulations! You have successfully get started with the Julia programming language. In the following session, we will go through Julia basics and SciML package. The hands-on sessions will require to use JupyterLab to run Julia sessions. The source code of hands-on session can be downloaded [here](https://github.com/stevengogogo/Julia-for-SciML/archive/refs/heads/hands-on.zip) or view on this website.
+Congratulations! You have successfully gotten started with the Julia programming language. In the following session, we will review Julia basics and the SciML package. The hands-on sessions will require to use JupyterLab to run Julia sessions. 
+
+
+
+::: {.content-hidden when-format="pdf"}
+
+The source code of hands-on session can be downloaded [here](https://github.com/stevengogogo/Julia-for-SciML/archive/refs/heads/hands-on.zip) or viewed on this website.
 
 For further information, the Appendix includes advanced topics such as developer setup and other alternative platforms.
+
+:::
