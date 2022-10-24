@@ -10,9 +10,10 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.37">
+  <meta name="generator" content="quarto-1.2.242">
 
   <meta name="author" content="Shao-Ting Chiu">
+  <meta name="dcterms.date" content="2022-10-25">
   <title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - SciML Ecosystem</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,10 +23,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -440,16 +446,25 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">SciML Ecosystem</h1>
   <p class="subtitle">TAMIDS Workshop</p>
-  <p class="author">Shao-Ting Chiu</p>
-  <p class="institute">Texas A&amp;M Univ.</p>
-  <p class="date">10/25, 2022</p>
-</section>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Shao-Ting Chiu 
+</div>
+        <p class="quarto-title-affiliation">
+            Texas A&amp;M Univ.
+          </p>
+    </div>
+</div>
+
+  <p class="date">10/25/22</p>
+</section>
 <section id="scientific-machine-learning-baker2019" class="slide level2">
-<h2>Scientific Machine Learning<span class="citation" data-cites="baker2019"><sup><a href="#/ref-baker2019" role="doc-biblioref" onclick="return false;">1</a></sup></span></h2>
+<h2>Scientific Machine Learning<span class="citation" data-cites="baker2019"><sup><a href="#/references" role="doc-biblioref" onclick="">1</a></sup></span></h2>
 <div class="columns v-center-container">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
@@ -482,7 +497,7 @@
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1" role="doc-endnote"><p>where <span class="math inline">\(NN(\cdot) \approx f(\cdot)\)</span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>where <span class="math inline">\(NN(\cdot) \approx f(\cdot)\)</span></p></li></ol></aside></section>
 <section id="scientific-machine-learning" class="slide level2">
 <h2>Scientific Machine Learning</h2>
 <div class="columns">
@@ -568,7 +583,7 @@
 <p><img data-src="img/SciMLGitHubPreview.png" style="width:30.0%"></p>
 </figure>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn2" role="doc-endnote"><p>https://sciml.ai/</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>https://sciml.ai/</p></li></ol></aside></section>
 <section id="sciml-softwarerac" class="slide level2">
 <h2>SciML Software<sup>1</sup></h2>
 <div class="quarto-figure quarto-figure-center">
@@ -576,7 +591,7 @@
 <p><img data-src="img/scimlinterface.png" style="width:60.0%"></p>
 </figure>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn3" role="doc-endnote"><p>Image is from Figure 1. of Rackauckas, Christopher, et al.&nbsp;“Universal differential equations for scientific machine learning.” arXiv preprint arXiv:2001.04385 (2020).</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>Image is from Figure 1. of Rackauckas, Christopher, et al.&nbsp;“Universal differential equations for scientific machine learning.” arXiv preprint arXiv:2001.04385 (2020).</p></li></ol></aside></section>
 <section id="sec-ex" class="slide level2">
 <h2>Example</h2>
 <p>Suppose we have a ground truth model <span class="math inline">\(u(t) = [S(t), I(t), C(t)]^T\)</span></p>
@@ -610,7 +625,7 @@
     \frac{dR}{dt} &amp;= \lambda_{NN}(I(t), \beta, \gamma)S(t)
 \end{align}\]</span></p>
 <ul>
-<li>This is the universal ordinary differential equation<span class="citation" data-cites="rackauckas2020universal"><sup><a href="#/ref-rackauckas2020universal" role="doc-biblioref" onclick="return false;">2</a></sup></span></li>
+<li>This is the universal ordinary differential equation<span class="citation" data-cites="rackauckas2020universal"><sup><a href="#/references" role="doc-biblioref" onclick="">2</a></sup></span></li>
 </ul>
 </section>
 <section id="implementation" class="slide level2">
@@ -698,7 +713,7 @@
 </ul>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn4" role="doc-endnote"><p>Universal Ordinary Differential Equation<span class="citation" data-cites="rackauckas2020universal"><sup><a href="#/ref-rackauckas2020universal" role="doc-biblioref" onclick="return false;">2</a></sup></span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>Universal Ordinary Differential Equation<span class="citation" data-cites="rackauckas2020universal"><sup><a href="#/references" role="doc-biblioref" onclick="">2</a></sup></span></p></li></ol></aside></section>
 <section id="model-discovery-and-why-we-need-it-1" class="slide level2">
 <h2>Model Discovery and why we need it?</h2>
 <div class="columns">
@@ -719,7 +734,7 @@
 </ul>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn5" role="doc-endnote"><p>Such as sparse identification<span class="citation" data-cites="brunton2016discovering"><sup><a href="#/ref-brunton2016discovering" role="doc-biblioref" onclick="return false;">3</a></sup></span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>Such as sparse identification<span class="citation" data-cites="brunton2016discovering"><sup><a href="#/references" role="doc-biblioref" onclick="">3</a></sup></span></p></li></ol></aside></section>
 <section id="application-and-industrycase" class="slide level2">
 <h2>Application and Industry<sup>1</sup></h2>
 <ul>
@@ -733,7 +748,7 @@
 </ul></li>
 <li>Macroeconomics, climate, urban development</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn6" role="doc-endnote"><p>more cases are on https://juliacomputing.com/case-studies/</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn6"><p>more cases are on https://juliacomputing.com/case-studies/</p></li></ol></aside></section>
 <section id="hands-on-session" class="slide level2">
 <h2>Hands-on session</h2>
 <ul>
@@ -1009,7 +1024,24 @@
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -1039,31 +1071,50 @@
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

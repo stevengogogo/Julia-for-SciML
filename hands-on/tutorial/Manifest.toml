@@ -2,7 +2,7 @@
 
 julia_version = "1.8.2"
 manifest_format = "2.0"
-project_hash = "177dd8acb2dac083695d1885d4fa65df1ced707e"
+project_hash = "b614971f5c2b612d2213df9dd2091ff8a9a820f0"
 
 [[deps.AbstractAlgebra]]
 deps = ["GroupsCore", "InteractiveUtils", "LinearAlgebra", "MacroTools", "Markdown", "Random", "RandomExtensions", "SparseArrays", "Test"]
@@ -1300,9 +1300,9 @@ version = "0.6.36"
 
 [[deps.SciMLBase]]
 deps = ["ArrayInterfaceCore", "CommonSolve", "ConstructionBase", "Distributed", "DocStringExtensions", "EnumX", "FunctionWrappersWrappers", "IteratorInterfaceExtensions", "LinearAlgebra", "Logging", "Markdown", "Preferences", "RecipesBase", "RecursiveArrayTools", "RuntimeGeneratedFunctions", "StaticArraysCore", "Statistics", "Tables"]
-git-tree-sha1 = "bb721d406b9002ccd5636f576041f077b6d06371"
+git-tree-sha1 = "556d521bb57a9cc232a5c60a6dc4feccd64a620a"
 uuid = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
-version = "1.64.0"
+version = "1.65.0"
 
 [[deps.Scratch]]
 deps = ["Dates"]
