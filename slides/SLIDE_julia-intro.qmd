@@ -249,9 +249,9 @@ Given $x=[\alpha_1, \dots, \alpha_m]$. Derive
 **Julia (generic typing)**[^vand-julia]
 
 ``` {.julia code-line-numbers="|1|9"}
-function vander{T}(x::AbstractVector{T}, n=length(x))
+function vander(x::AbstractVector{T}, n=length(x)) where T
   m = length(x)
-  V = Array(T,M,n)
+  V = zeros(T, m,n)
   for j = 1:m
     V[j,1] = one(x[j])
   end
@@ -259,8 +259,8 @@ function vander{T}(x::AbstractVector{T}, n=length(x))
     for j = 1:m
       V[j,i] = x[j] * V[j,i-1]
     end
-    return V
   end
+  return V
 end
 ```
 

@@ -5,6 +5,7 @@ institute: Texas A\&M Univ.
 format: 
   revealjs:
     smaller: true
+    css: style.css
     scrollable: true
     controls: true
     aspectratio: 169
