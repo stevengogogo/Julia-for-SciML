@@ -12,7 +12,8 @@ website:
   favicon: img/TAM-LogoBox.png
   twitter-card:
     image: "img/TAM-LogoBox.png"
-  google-analytics: G-X84VXS8VLF
+  google-analytics: 
+    tracking-id: "G-X84VXS8VLF"
   page-navigation: true
   reader-mode: true
   open-graph: true
