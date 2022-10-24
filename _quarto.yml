@@ -12,8 +12,10 @@ website:
   favicon: img/TAM-LogoBox.png
   twitter-card:
     image: "img/TAM-LogoBox.png"
+  cookie-consent: true
   google-analytics: 
     tracking-id: "G-X84VXS8VLF"
+    anonymize-ip: true
   page-navigation: true
   reader-mode: true
   open-graph: true
