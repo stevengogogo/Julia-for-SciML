@@ -109,6 +109,7 @@
     }
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="style.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -575,8 +576,203 @@
 </ul>
 </div>
 </section>
-<section id="ecosystem" class="slide level2">
-<h2>Ecosystem</h2>
+<section id="why-julia" class="slide level2">
+<h2>Why Julia?</h2>
+<ul>
+<li><p>Syntax is simple<span class="citation" data-cites="perkel2019julia"><sup><a href="#/ref-perkel2019julia" role="doc-biblioref" onclick="return false;">5</a></sup></span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span>N</span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="co"># do something</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Extensibility</p>
+<ul>
+<li>Collaboration of packages can be achieved by multiple dispatch</li>
+</ul></li>
+<li><p>Fast</p>
+<ul>
+<li>No need to worry about the unstable for-loop</li>
+</ul></li>
+<li><p>Julia is written mostly by Julia</p></li>
+</ul>
+</section>
+<section id="generating-vandermonde-matricesvand" class="slide level2">
+<h2>Generating Vandermonde Matrices<sup>1</sup></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>Given <span class="math inline">\(x=[\alpha_1, \dots, \alpha_m]\)</span>. Derive <span class="math display">\[\begin{equation}
+  V_{m\times n} =
+  \begin{bmatrix}
+    1 &amp; \alpha_{1}^{1} &amp; \dots &amp; \alpha_{1}^{n-1}\\
+    1 &amp; \alpha_{2}^{1} &amp; \dots &amp; \alpha_{2}^{n-1}\\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+    1 &amp; \alpha_{m}^{1} &amp;  \dots &amp; \alpha_{m}^{n-1}
+  \end{bmatrix}
+\end{equation}\]</span></p>
+</div><div class="column" style="width:60%;">
+<ul>
+<li><strong>Python</strong>
+<ul>
+<li><a href="https://github.com/numpy/numpy/blob/f4be1039d6fe3e4fdc157a22e8c071ac10651997/numpy/lib/twodim_base.py#L490-L577"><code>numpy.vander</code></a>
+<ul>
+<li><a href="https://github.com/numpy/numpy/blob/3b22d87050ab63db0dcd2d763644d924a69c5254/numpy/core/src/umath/ufunc_object.c#L2936-L3264">C wrapper</a>
+<ul>
+<li><a href="https://github.com/numpy/numpy/blob/3b22d87050ab63db0dcd2d763644d924a69c5254/numpy/core/src/umath/loops.c.src#L1467-L1505">generated C code</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>Matlab</strong>
+<ul>
+<li><a href="https://www.mathworks.com/help/matlab/ref/vander.html"><code>vander</code></a>
+<ul>
+<li>hidden licensed source code</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<ol type="1">
+<li><strong>Mining standard library</strong> is a <em>must</em> to Write efficient algorithm in Python/Matlab</li>
+<li>Type-generic at high-level, but only fitted to limited predefined types.</li>
+</ol>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2" role="doc-endnote"><p>Example from https://github.com/mitmath/julia-mit</p></li></ol></aside></section>
+<section id="the-two-language-problem" class="slide level2">
+<h2>The Two-Language Problem</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Language</th>
+<th style="text-align: center;">Flexibility</th>
+<th style="text-align: center;">Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>High-level (e.g.&nbsp;Python/Matlab)</td>
+<td style="text-align: center;">Great</td>
+<td style="text-align: center;">Bad</td>
+</tr>
+<tr class="even">
+<td>Low-level (e.g.&nbsp;C/Fortan)</td>
+<td style="text-align: center;">Bad</td>
+<td style="text-align: center;">Great</td>
+</tr>
+</tbody>
+</table>
+<p><strong>To develope an algorithm,</strong></p>
+<ol type="1">
+<li>Write in Python</li>
+<li>Speed up in C++/C</li>
+<li>Write a wrapper</li>
+</ol>
+</section>
+<section id="generating-vandermonde-matrics" class="slide level2">
+<h2>Generating Vandermonde Matrics</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>Given <span class="math inline">\(x=[\alpha_1, \dots, \alpha_m]\)</span>. Derive <span class="math display">\[\begin{equation}
+  V_{m\times n} =
+  \begin{bmatrix}
+    1 &amp; \alpha_{1}^{1} &amp; \dots &amp; \alpha_{1}^{n-1}\\
+    1 &amp; \alpha_{2}^{1} &amp; \dots &amp; \alpha_{2}^{n-1}\\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+    1 &amp; \alpha_{m}^{1} &amp;  \dots &amp; \alpha_{m}^{n-1}
+  \end{bmatrix}
+\end{equation}\]</span></p>
+</div><div class="column" style="width:60%;">
+<p><strong>Julia (generic typing)</strong><sup>1</sup></p>
+<div class="sourceCode" id="cb5" data-code-line-numbers="|1|9"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">function</span> <span class="fu">vander</span>(x<span class="op">::</span><span class="dt">AbstractVector{T}</span>, n<span class="op">=</span><span class="fu">length</span>(x)) <span class="kw">where</span> T</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  m <span class="op">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  V <span class="op">=</span> <span class="fu">zeros</span>(T, m,n)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="cf">for</span> j <span class="op">=</span> <span class="fl">1</span><span class="op">:</span>m</span>
+<span id="cb5-5"><a href="#cb5-5"></a>    V[j,<span class="fl">1</span>] <span class="op">=</span> <span class="fu">one</span>(x[j])</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="cf">end</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="cf">for</span> i <span class="op">=</span> <span class="fl">2</span><span class="op">:</span>n</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="cf">for</span> j <span class="op">=</span> <span class="fl">1</span><span class="op">:</span>m</span>
+<span id="cb5-9"><a href="#cb5-9"></a>      V[j,i] <span class="op">=</span> x[j] <span class="op">*</span> V[j,i<span class="op">-</span><span class="fl">1</span>]</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="cf">end</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="cf">end</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="cf">return</span> V</span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ol type="1">
+<li>This code works for any container supports element-wised <code>*</code> method.</li>
+<li>The flexibility does not hurt performance.</li>
+</ol>
+<aside><ol class="aside-footnotes"><li id="fn3" role="doc-endnote"><p>Source code is from https://web.mit.edu/18.06/www/Spring17/Julia-intro.pdf</p></li></ol></aside></section>
+<section id="what-if-i-dont-need-performance" class="slide level2">
+<h2>What if I don’t need performance?</h2>
+<ol type="1">
+<li>For classical problems, Python/Matlab is good enough</li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li><strong>When accounting hard problems</strong>, it is possible to implement in Python/Matlab. However, <strong>the performance will be sacrificed</strong>.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><strong>When performance is needed</strong>, it is necessary to write the whole project again with C++/C/Fortran<sup>1</sup>.</li>
+</ol>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn4" role="doc-endnote"><p>Numba is an option while it is suitable for inner-library optimization. The disccusion is <a href="https://github.com/numba/numba/issues/3814#issuecomment-468742661">here</a></p></li></ol></aside></section>
+<section id="can-i-still-access-to-familiar-libraries" class="slide level2">
+<h2>Can I still access to familiar libraries?</h2>
+<ol type="1">
+<li>Libraries of <a href="https://github.com/JuliaPy/PyCall.jl">Python</a>, <a href="https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/">C and Fortran</a> can be easily called from Julia</li>
+<li>There are also numerous packages written in native Julia:</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>Python</th>
+<th>Julia <sup>1</sup></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pandas</td>
+<td><a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a></td>
+</tr>
+<tr class="even">
+<td>Matplotlib</td>
+<td><a href="https://github.com/JuliaPlots/Plots.jl">Plots.jl</a></td>
+</tr>
+<tr class="odd">
+<td>SymPy</td>
+<td><a href="https://github.com/SciML/ModelingToolkit.jl">ModelingToolkit.jl</a></td>
+</tr>
+<tr class="even">
+<td>Scipy</td>
+<td><a href="https://github.com/SciML">DifferentialEquations.jl</a>/<a href="https://juliastats.org/">JuliaStats</a>/…</td>
+</tr>
+<tr class="odd">
+<td>Scikit-Learn</td>
+<td><a href="https://github.com/alan-turing-institute/MLJ.jl">MLJ.jl</a></td>
+</tr>
+<tr class="even">
+<td>Tensorflow/Pytorch</td>
+<td><a href="https://github.com/FluxML/Flux.jl">Flux.jl</a></td>
+</tr>
+<tr class="odd">
+<td>Optimization</td>
+<td><a href="https://github.com/jump-dev/JuMP.jl">JuMP.jl</a>/<a href="https://github.com/SciML/Optimization.jl">Optimization.jl</a></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+</tr>
+</tbody>
+</table>
+<aside><ol class="aside-footnotes"><li id="fn5" role="doc-endnote"><p>More at https://sosiristseng.github.io/julia-pkgs/</p></li></ol></aside></section>
+<section id="how-can-i-get-started-with-julia" class="slide level2">
+<h2>How can I get started with Julia?</h2>
+<ul>
+<li><a href="https://benlauwens.github.io/ThinkJulia.jl/latest/book.html#_copyright">Think Julia: How to Think Like a Computer Scientist</a></li>
+<li>MIT’s 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course</li>
+<li></li>
+</ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
@@ -596,6 +792,9 @@
 </div>
 <div id="ref-SciMLBook" class="csl-entry" role="doc-biblioentry">
 <div class="csl-left-margin">4. </div><div class="csl-right-inline">Rackauckas, C. (2022). Parallel computing and scientific machine learning (SciML): Methods and applications <a href="https://doi.org/10.5281/zenodo.6917234">10.5281/zenodo.6917234</a>.</div>
+</div>
+<div id="ref-perkel2019julia" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Perkel, J.M. (2019). Julia: Come for the syntax, stay for the speed. Nature <em>572</em>, 141–143.</div>
 </div>
 </div>
 </section>

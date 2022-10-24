@@ -6,6 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Steven Chiu">
+<meta name="dcterms.date" content="2022-10-24">
 
 <title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Setup Julia</title>
 <style>
@@ -124,10 +126,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Setup Julia">
-<meta property="og:description" content="In this section, we are going to setup Julia on your on computer. There are several ways to accomplish this task.">
+<meta property="og:description" content="For the hands-on session, setting up Julia on the local computer is strongly recommended. There are several ways to accomplish this task.">
 <meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
 <meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Setup Julia">
-<meta name="twitter:description" content="In this section, we are going to setup Julia on your on computer. There are several ways to accomplish this task.">
+<meta name="twitter:description" content="For the hands-on session, setting up Julia on the local computer is strongly recommended. There are several ways to accomplish this task.">
 <meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
 <meta name="twitter:image-height" content="756">
 <meta name="twitter:image-width" content="756">
@@ -231,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
+  <a href="./hands-on/ude.html" class="sidebar-item-text sidebar-link">UDE Example</a>
   </div>
 </li>
       </ul>
@@ -291,19 +293,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Steven Chiu </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 24, 2022</p>
+    </div>
+  </div>
     
   </div>
   
 
 </header>
 
-<p>In this section, we are going to setup Julia on your on computer. There are several ways to accomplish this task. You can choose one of the following methods to get <em>Julia</em> and <em>Jupyter</em> installed on your local machine.</p>
+<p>For the hands-on session, setting up Julia on the local computer is strongly recommended. There are several ways to accomplish this task. First, you can choose one of the following methods to get <em>Julia</em> and <em>Jupyter</em> installed on your local machine.</p>
 <section id="install-julia" class="level2">
 <h2 class="anchored" data-anchor-id="install-julia">Install Julia</h2>
 <section id="official-julia-release" class="level3">
 <h3 class="anchored" data-anchor-id="official-julia-release">Official Julia Release</h3>
-<p>The latest Julia release can be found at <a href="https://julialang.org/downloads/">official website</a>. Download the installer in respect of your operating system.</p>
+<p>The latest Julia release can be found at <a href="https://julialang.org/downloads/">official website</a>. First, download the installer in respect of your operating system.</p>
 <ol type="1">
 <li>Download Julia installer: <a href="https://julialang.org/downloads/">https://julialang.org/downloads/</a></li>
 <li>Specific instructions for each platform: <a href="https://julialang.org/downloads/platform/">https://julialang.org/downloads/platform/</a></li>
@@ -311,15 +325,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="jill-with-pip" class="level3">
 <h3 class="anchored" data-anchor-id="jill-with-pip">jill with pip</h3>
-<p>If you have already installed <em>pip</em> (if not, try install pip <a href="https://pip.pypa.io/en/stable/installation/">here</a>). <a href="https://pypi.org/project/jill/">Jill</a> is a Julia installer for Linux, MacOS and Windows. Jill can be installed via pip. Use the following command to get jill installed</p>
+<p>If you have already installed <em>pip</em> (if not, try install pip <a href="https://pip.pypa.io/en/stable/installation/">here</a>). <a href="https://pypi.org/project/jill/">Jill</a> is a Julia installer for Linux, macOS and Windows. Jill can be installed via pip. Use the following command to get jill installed.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install jill</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then, use jill to install Julia</p>
+<p>Then, use jill to install Julia.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jill</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="what-is-expected-when-julia-is-successfully-installed" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-expected-when-julia-is-successfully-installed">What is expected when Julia is successfully installed?</h2>
-<p>After getting Julia installed, click Julia app icon or type <code>julia</code> on cmd/terminal. The Julia REPL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> will show up (<a href="#fig-julia-terminal">Figure&nbsp;1</a>).</p>
+<p>After getting Julia installed, click the Julia app icon or type <code>julia</code> on cmd/terminal. The Julia REPL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> will show up (<a href="#fig-julia-terminal">Figure&nbsp;1</a>).</p>
 <div id="fig-julia-terminal" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/julia_terminal.png" class="img-fluid figure-img"></p>
@@ -332,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://github.com/JuliaLang/IJulia.jl">IJulia</a> is an interface that combines Julia and <a href="http://jupyter.org/">Jupyter interactive environment</a>. This interface can be installed with Julia package manager — <a href="https://github.com/JuliaLang/Pkg.jl">Pkg.jl</a>. The following steps show how to get IJulia installed. Noted that any registered packages<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> can be installed via these steps.</p>
 <ol type="1">
 <li>Initiate Julia REPL</li>
-<li>Install <a href="https://github.com/JuliaLang/IJulia.jl">IJUlia</a>. The following two methods are equivalent.</li>
+<li>Install <a href="https://github.com/JuliaLang/IJulia.jl">IJulia</a>. The following two methods are equivalent.</li>
 </ol>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Use <code>Pkg.add</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Use Pkg interative environment</a></li></ul>
@@ -369,8 +383,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="done" class="level3">
 <h3 class="anchored" data-anchor-id="done">Done!</h3>
-<p>Congratulations! You have successfully get started with the Julia programming language. In the following session, we will go through Julia basics and SciML package. The hands-on sessions will require to use JupyterLab to run Julia sessions. The source code of hands-on session can be downloaded <a href="https://github.com/stevengogogo/Julia-for-SciML/archive/refs/heads/hands-on.zip">here</a> or view on this website.</p>
+<p>Congratulations! You have successfully gotten started with the Julia programming language. In the following session, we will review Julia basics and the SciML package. The hands-on sessions will require to use JupyterLab to run Julia sessions.</p>
+<div>
+<p>The source code of hands-on session can be downloaded <a href="https://github.com/stevengogogo/Julia-for-SciML/archive/refs/heads/hands-on.zip">here</a> or viewed on this website.</p>
 <p>For further information, the Appendix includes advanced topics such as developer setup and other alternative platforms.</p>
+</div>
 
 
 </section>

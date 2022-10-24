@@ -88,7 +88,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../hands-on/lotka.html" rel="next">
+<link href="../hands-on/ude.html" rel="next">
 <link href="../index-part2.html" rel="prev">
 <link href="../img/TAM-LogoBox.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -121,8 +121,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -223,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hands-on/lotka.html" class="sidebar-item-text sidebar-link">UDE Example</a>
+  <a href="../hands-on/ude.html" class="sidebar-item-text sidebar-link">UDE Example</a>
   </div>
 </li>
       </ul>
@@ -260,8 +262,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#julia-basics" id="toc-julia-basics" class="nav-link active" data-scroll-target="#julia-basics">Julia Basics</a>
   <ul class="collapse">
   <li><a href="#activate-environment" id="toc-activate-environment" class="nav-link" data-scroll-target="#activate-environment">Activate Environment</a></li>
-  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import packages</a></li>
+  <li><a href="#import-packages" id="toc-import-packages" class="nav-link" data-scroll-target="#import-packages">Import packages</a>
+  <ul class="collapse">
+  <li><a href="#precompilation" id="toc-precompilation" class="nav-link" data-scroll-target="#precompilation">precompilation</a></li>
+  <li><a href="#library" id="toc-library" class="nav-link" data-scroll-target="#library">Library</a></li>
+  </ul></li>
   <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  <li><a href="#multiple-dispatch" id="toc-multiple-dispatch" class="nav-link" data-scroll-target="#multiple-dispatch">Multiple Dispatch</a></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">Data Types</a></li>
+  <li><a href="#referencing-items" id="toc-referencing-items" class="nav-link" data-scroll-target="#referencing-items">Referencing items</a></li>
+  <li><a href="#iterations" id="toc-iterations" class="nav-link" data-scroll-target="#iterations">Iterations</a></li>
+  <li><a href="#composite-type-and-multiple-dispatch" id="toc-composite-type-and-multiple-dispatch" class="nav-link" data-scroll-target="#composite-type-and-multiple-dispatch">Composite Type and multiple dispatch</a></li>
+  <li><a href="#performance-tips" id="toc-performance-tips" class="nav-link" data-scroll-target="#performance-tips">Performance tips</a></li>
+  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/stevengogogo/Julia-for-SciML/blob/main/hands-on/julia_basics.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -276,7 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this section, we are going to run julia with Jupyter</p>
 <section id="activate-environment" class="level2">
 <h2 class="anchored" data-anchor-id="activate-environment">Activate Environment</h2>
-<div class="cell" data-execution_count="14">
+<p>The <code>Pkg</code> is the package manager. In the beginning of the project, use <code>Pkg.activate</code> to locate the <a href="tutorial/project.toml"><code>project.toml</code></a> that lists required packages. Later on, <code>Pkg.insantiate</code> can install all packages.</p>
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"tutorial"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -284,99 +298,360 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial`</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="15">
+<p><code>]</code> is the shorthand to use <code>Pkg</code> api. The <code>] st</code> command shows the installed packages and the version. The specified version is listed in <a href="tutorial/manifest.toml">manifest.toml</a>. There are other useful commands:</p>
+<ol type="1">
+<li>Resolve conflicting packages: <code>] resolve</code></li>
+<li>Upgrade packages: <code>] up</code></li>
+<li>Precompilation: <code>] precompile</code></li>
+<li>Remove packages: <code>] rm packageA packageB</code></li>
+<li>Add packages: <code>] add packagesA packageB</code></li>
+</ol>
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>] st</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status `~/Documents/GitHub/Julia-for-SciML/hands-on/tutorial/Project.toml`
   [6e4b80f9] BenchmarkTools v1.3.1
-  [2445eb08] DataDrivenDiffEq v0.8.5
-  [aae7a2af] DiffEqFlux v1.52.0
-  [41bf760c] DiffEqSensitivity v6.79.0
-  [0c46a032] DifferentialEquations v7.5.0
-  [587475ba] Flux v0.13.6
-⌃ [961ee093] ModelingToolkit v8.27.0
-  [429524aa] Optim v1.7.3
-⌃ [7f7a1694] Optimization v3.9.0
-⌃ [91a5bcdd] Plots v1.35.3
-Info Packages marked with ⌃ have new versions available and may be upgradable.</code></pre>
+  [0c46a032] DifferentialEquations v7.6.0
+  [961ee093] ModelingToolkit v8.29.1
+  [91a5bcdd] Plots v1.35.5</code></pre>
 </div>
 </div>
 </section>
 <section id="import-packages" class="level2">
 <h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">BenchmarkTools</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>┌ Info: Precompiling BenchmarkTools [6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf]
-└ @ Base loading.jl:1664</code></pre>
+<p>There are two ways to import packages in Julia: <code>using</code> and <code>import</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">packageA</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">packageB </span>as B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When applying <code>using</code>, namespace prefix is not needed except the function is not exported from package or there is a conflict. On the other hand, <code>import</code> works just like Python’s import, and namespace is required.</p>
+<section id="precompilation" class="level3">
+<h3 class="anchored" data-anchor-id="precompilation">precompilation</h3>
+<ul>
+<li>During importing packages, precompilation will start and take some time to complete. Noted that it only takes time for the first run.</li>
+</ul>
+</section>
+<section id="library" class="level3">
+<h3 class="anchored" data-anchor-id="library">Library</h3>
+<p>In this tutorial, we will need two packages: - <code>BenchmarkTools.jl</code>: measure the allocation and time elapse of commands - <code>DifferentialEquations</code>: Differential Equation solver</p>
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">BenchmarkTools</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DifferentialEquations</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span>, <span class="bu">Statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DifferentialEquations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</section>
 </section>
 <section id="documentation" class="level2">
 <h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
+<p>The <code>?</code> command can be used to search documentation of the function or variable</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?<span class="pp">@btime</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>@btime expression [other parameters...]</code></pre>
+<p>Similar to the <code>@time</code> macro included with Julia, this executes an expression, printing the time it took to execute and the memory allocated before returning the value of the expression.</p>
+<p>Unlike <code>@time</code>, it uses the <code>@benchmark</code> macro, and accepts all of the same additional parameters as <code>@benchmark</code>. The printed time is the <em>minimum</em> elapsed time measured during the benchmark.</p>
+</div>
+</div>
+</section>
+<section id="multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-dispatch">Multiple Dispatch</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(exp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+# 21 methods for generic function <b>exp</b>:<ul><li> exp(x::<b>Union{Float16, Float32, Float64}</b>) in Base.Math at <a href="https://github.com/JuliaLang/julia/tree/36034abf26062acad4af9dcec7c4fc53b260dbb4/base/special/exp.jl#L326" target="_blank">special/exp.jl:326</a></li> <li> exp(A::<b>StridedMatrix{var"#s885"} where var"#s885"&lt;:Union{Float32, Float64, ComplexF32, ComplexF64}</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl:569</a></li> <li> exp(A::<b>StridedMatrix{var"#s885"} where var"#s885"&lt;:Union{Integer, Complex{&lt;:Integer}}</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl:570</a></li> <li> exp(A::<b>Hermitian{var"#s884", S} where {var"#s884"&lt;:Complex, S&lt;:(AbstractMatrix{&lt;:var"#s884"})}</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/symmetric.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/symmetric.jl:731</a></li> <li> exp(A::<b>Union{Hermitian{var"#s885", S}, Symmetric{var"#s885", S}} where {var"#s885"&lt;:Real, S}</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/symmetric.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/symmetric.jl:727</a></li> <li> exp(D::<b>Diagonal</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/diagonal.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/diagonal.jl:674</a></li> <li> exp(A::<b>Transpose{&lt;:Any, &lt;:AbstractMatrix}</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl:572</a></li> <li> exp(A::<b>Adjoint{&lt;:Any, &lt;:AbstractMatrix}</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/dense.jl:571</a></li> <li> exp(z::<b>DualNumbers.Dual</b>) in DualNumbers at <a href="file:///Users/stevenchiu/.julia/packages/DualNumbers/5knFX/src/dual.jl" target="_blank">/Users/stevenchiu/.julia/packages/DualNumbers/5knFX/src/dual.jl:336</a></li> <li> exp(::<b>Static.StaticFloat64{M}</b>)<i> where M</i> in Static at <a href="file:///Users/stevenchiu/.julia/packages/Static/maaLb/src/Static.jl" target="_blank">/Users/stevenchiu/.julia/packages/Static/maaLb/src/Static.jl:457</a></li> <li> exp(L::<b>SciMLBase.AbstractDiffEqLinearOperator</b>) in SciMLBase at <a href="file:///Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/operators/common_defaults.jl" target="_blank">/Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/operators/common_defaults.jl:66</a></li> <li> exp(L::<b>SciMLBase.AbstractDiffEqLinearOperator</b>, t) in SciMLBase at <a href="file:///Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/operators/operators.jl" target="_blank">/Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/operators/operators.jl:62</a></li> <li> exp(v::<b>VectorizationBase.AbstractSIMD{W}</b>)<i> where W</i> in VectorizationBase at <a href="file:///Users/stevenchiu/.julia/packages/VectorizationBase/MOxkH/src/special/exp.jl" target="_blank">/Users/stevenchiu/.julia/packages/VectorizationBase/MOxkH/src/special/exp.jl:623</a></li> <li> exp(d::<b>ForwardDiff.Dual{T}</b>)<i> where T</i> in ForwardDiff at <a href="file:///Users/stevenchiu/.julia/packages/ForwardDiff/pDtsf/src/dual.jl" target="_blank">/Users/stevenchiu/.julia/packages/ForwardDiff/pDtsf/src/dual.jl:238</a></li> <li> exp(A::<b>StaticArraysCore.StaticArray{Tuple{N, M}, T, 2} where {N, M, T}</b>) in StaticArrays at <a href="file:///Users/stevenchiu/.julia/packages/StaticArrays/PUoe1/src/expm.jl" target="_blank">/Users/stevenchiu/.julia/packages/StaticArrays/PUoe1/src/expm.jl:1</a></li> <li> exp(J::<b>UniformScaling</b>) in LinearAlgebra at <a href="file:///Users/administrator/.julia/scratchspaces/a66863c6-20e8-4ff4-8a62-49f30b1f605e/agent-cache/default-macmini-aarch64-1.0/build/default-macmini-aarch64-1-0/julialang/julia-release-1-dot-8/usr/share/julia/stdlib/v1.8/LinearAlgebra/src/uniformscaling.jl" target="_blank">/Applications/Julia-1.8.app/Contents/Resources/julia/share/julia/stdlib/v1.8/LinearAlgebra/src/uniformscaling.jl:173</a></li> <li> exp(x::<b>BigFloat</b>) in Base.MPFR at <a href="https://github.com/JuliaLang/julia/tree/36034abf26062acad4af9dcec7c4fc53b260dbb4/base/mpfr.jl#L626" target="_blank">mpfr.jl:626</a></li> <li> exp(x::<b>Real</b>) in Base.Math at <a href="https://github.com/JuliaLang/julia/tree/36034abf26062acad4af9dcec7c4fc53b260dbb4/base/math.jl#L1369" target="_blank">math.jl:1369</a></li> <li> exp(::<b>Missing</b>) in Base.Math at <a href="https://github.com/JuliaLang/julia/tree/36034abf26062acad4af9dcec7c4fc53b260dbb4/base/math.jl#L1374" target="_blank">math.jl:1374</a></li> <li> exp(a::<b>ComplexF16</b>) in Base.Math at <a href="https://github.com/JuliaLang/julia/tree/36034abf26062acad4af9dcec7c4fc53b260dbb4/base/math.jl#L1358" target="_blank">math.jl:1358</a></li> <li> exp(z::<b>Complex</b>) in Base at <a href="https://github.com/JuliaLang/julia/tree/36034abf26062acad4af9dcec7c4fc53b260dbb4/base/complex.jl#L680" target="_blank">complex.jl:680</a></li> </ul>
+</div>
+</div>
+</section>
+<section id="data-types" class="level2">
+<h2 class="anchored" data-anchor-id="data-types">Data Types</h2>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">1</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>1.0</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"julia"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>"julia"</code></pre>
+</div>
+</div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>?ODEProblem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>String</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1im</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>1 + 1im</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Complex{Int64}</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(a,b)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a<span class="op">+</span>b</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(x,x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>2.0</code></pre>
+</div>
+</div>
+</section>
+<section id="referencing-items" class="level2">
+<h2 class="anchored" data-anchor-id="referencing-items">Referencing items</h2>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> [<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>4-element Vector{Int64}:
+ 1
+ 2
+ 3
+ 4</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>xs[<span class="kw">end</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>4</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>xs[<span class="fl">1</span>] <span class="co">#julia index starts from 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>xs[<span class="kw">end</span><span class="op">-</span><span class="fl">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>3</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>xs[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>2-element Vector{Int64}:
+ 1
+ 2</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">add</span>(a<span class="op">::</span><span class="dt">T</span>,b<span class="op">::</span><span class="dt">T</span>) <span class="kw">where</span> T<span class="op">&lt;:</span><span class="dt"> AbstractVector</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">.+</span> b</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(xs,xs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>4-element Vector{Int64}:
+ 2
+ 4
+ 6
+ 8</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add</span>(xs,xs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>4-element Vector{Int64}:
+ 2
+ 4
+ 6
+ 8</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>xs <span class="op">.+</span> xs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<pre><code>4-element Vector{Int64}:
+ 2
+ 4
+ 6
+ 8</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"Name"</span> <span class="op">=&gt;</span> <span class="st">"Alex"</span>, <span class="st">"age"</span><span class="op">=&gt;</span> <span class="fl">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>Dict{String, Any} with 2 entries:
+  "Name" =&gt; "Alex"
+  "age"  =&gt; 12</code></pre>
+</div>
+</div>
+</section>
+<section id="iterations" class="level2">
+<h2 class="anchored" data-anchor-id="iterations">Iterations</h2>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> xs</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(x)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>search: ODEProblem RODEProblem SplitODEProblem DynamicalODEProblem
+<pre><code>1
+2
+3
+4</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="fu">eachindex</span>(xs)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(xs[i])</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+4</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>?eachindex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>search: eachindex
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<p>Defines an ordinary differential equation (ODE) problem. Documentation Page: https://diffeq.sciml.ai/stable/types/ode_types/</p>
-<section id="mathematical-specification-of-an-ode-problem" class="level2">
-<h2 class="anchored" data-anchor-id="mathematical-specification-of-an-ode-problem">Mathematical Specification of an ODE Problem</h2>
-<p>To define an ODE Problem, you simply need to give the function <span class="math inline">\(f\)</span> and the initial condition <span class="math inline">\(u_0\)</span> which define an ODE:</p>
-<p><span class="math display">\[
-M \frac{du}{dt} = f(u,p,t)
-\]</span></p>
-<p>There are two different ways of specifying <code>f</code>:</p>
-<ul>
-<li><code>f(du,u,p,t)</code>: in-place. Memory-efficient when avoiding allocations. Best option for most cases unless mutation is not allowed.</li>
-<li><code>f(u,p,t)</code>: returning <code>du</code>. Less memory-efficient way, particularly suitable when mutation is not allowed (e.g.&nbsp;with certain automatic differentiation packages such as Zygote).</li>
-</ul>
-<p><code>u₀</code> should be an AbstractArray (or number) whose geometry matches the desired geometry of <code>u</code>. Note that we are not limited to numbers or vectors for <code>u₀</code>; one is allowed to provide <code>u₀</code> as arbitrary matrices / higher dimension tensors as well.</p>
-<p>For the mass matrix <span class="math inline">\(M\)</span>, see the documentation of <code>ODEFunction</code>.</p>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>eachindex(A...)</code></pre>
+<p>Create an iterable object for visiting each index of an <code>AbstractArray</code> <code>A</code> in an efficient manner. For array types that have opted into fast linear indexing (like <code>Array</code>), this is simply the range <code>1:length(A)</code>. For other array types, return a specialized Cartesian range to efficiently index into the array with indices specified for every dimension. For other iterables, including strings and dictionaries, return an iterator object supporting arbitrary index types (e.g.&nbsp;unevenly spaced or non-integer indices).</p>
+<p>If you supply more than one <code>AbstractArray</code> argument, <code>eachindex</code> will create an iterable object that is fast for all arguments (a <a href="@ref"><code>UnitRange</code></a> if all inputs have fast linear indexing, a <a href="@ref"><code>CartesianIndices</code></a> otherwise). If the arrays have different sizes and/or dimensionalities, a <code>DimensionMismatch</code> exception will be thrown.</p>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<pre class="jldoctest"><code>julia&gt; A = [1 2; 3 4];
+
+julia&gt; for i in eachindex(A) # linear indexing
+           println(i)
+       end
+1
+2
+3
+4
+
+julia&gt; for i in eachindex(view(A, 1:2, 1:1)) # Cartesian indexing
+           println(i)
+       end
+CartesianIndex(1, 1)
+CartesianIndex(2, 1)</code></pre>
 </section>
-<section id="problem-type" class="level2">
-<h2 class="anchored" data-anchor-id="problem-type">Problem Type</h2>
-<section id="constructors" class="level3">
-<h3 class="anchored" data-anchor-id="constructors">Constructors</h3>
-<p><code>ODEProblem</code> can be constructed by first building an <code>ODEFunction</code> or by simply passing the ODE right-hand side to the constructor. The constructors are:</p>
-<ul>
-<li><code>ODEProblem(f::ODEFunction,u0,tspan,p=NullParameters();kwargs...)</code></li>
-<li><code>ODEProblem{isinplace,specialize}(f,u0,tspan,p=NullParameters();kwargs...)</code> : Defines the ODE with the specified functions. <code>isinplace</code> optionally sets whether the function is inplace or not. This is determined automatically, but not inferred. <code>specialize</code> optionally controls the specialization level. See the <a href="https://scimlbase.sciml.ai/stable/interfaces/Problems/#Specialization-Levels">specialization levels section of the SciMLBase documentation</a> for more details. The default is <code>AutoSpecialize</code>.</li>
-</ul>
-<p>For more details on the in-place and specialization controls, see the ODEFunction documentation.</p>
-<p>Parameters are optional, and if not given then a <code>NullParameters()</code> singleton will be used which will throw nice errors if you try to index non-existent parameters. Any extra keyword arguments are passed on to the solvers. For example, if you set a <code>callback</code> in the problem, then that <code>callback</code> will be added in every solve call.</p>
-<p>For specifying Jacobians and mass matrices, see the <code>ODEFunction</code> documentation.</p>
+</div>
+</div>
 </section>
-<section id="fields" class="level3">
-<h3 class="anchored" data-anchor-id="fields">Fields</h3>
-<ul>
-<li><code>f</code>: The function in the ODE.</li>
-<li><code>u0</code>: The initial condition.</li>
-<li><code>tspan</code>: The timespan for the problem.</li>
-<li><code>p</code>: The parameters.</li>
-<li><code>kwargs</code>: The keyword arguments passed onto the solves.</li>
-</ul>
+<section id="composite-type-and-multiple-dispatch" class="level2">
+<h2 class="anchored" data-anchor-id="composite-type-and-multiple-dispatch">Composite Type and multiple dispatch</h2>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Base.+</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract type</span> Coordinate <span class="kw">end</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Point1 <span class="op">&lt;:</span><span class="dt"> Coordinate</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    y</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommended way</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Point2{T} <span class="op">&lt;:</span><span class="dt"> Coordinate</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">::</span><span class="dt">T</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">::</span><span class="dt">T</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The custom type can be extended to existed function</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">+</span>(a<span class="op">::</span><span class="dt">T</span>, b<span class="op">::</span><span class="dt">T</span>) <span class="kw">where</span> T<span class="op">&lt;:</span><span class="dt">Coordinate</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="fu">T</span>(a.x<span class="op">+</span>b.x, a.y<span class="op">+</span>b.y)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>+ (generic function with 381 methods)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">=</span> <span class="fu">Point1</span>(<span class="fl">1</span>,<span class="fl">2</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">=</span> <span class="fu">Point1</span>(<span class="fl">2</span>,<span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>Point1(2, 3)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">+</span> p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>Point1(3, 5)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@which</span> <span class="fu">+</span>(p0,p1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
++(a::<b>T</b>, b::<b>T</b>)<i> where T&lt;:Coordinate</i> in Main at In[29]:1
+</div>
+</div>
 </section>
+<section id="performance-tips" class="level2">
+<h2 class="anchored" data-anchor-id="performance-tips">Performance tips</h2>
+<p>from https://book.sciml.ai/notes/02/</p>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">100</span>,<span class="fl">100</span>);</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">100</span>,<span class="fl">100</span>);</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> <span class="fu">rand</span>(<span class="fl">100</span>,<span class="fl">100</span>);</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="fu">size</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<pre><code>(100, 100)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">inner_alloc!</span>(C,A,B)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> [A[i,j] <span class="op">+</span> B[i,j]]</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    C[i,j] <span class="op">=</span> val[<span class="fl">1</span>]</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">inner_alloc!</span>(C,A,B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  165.167 μs (10000 allocations: 625.00 KiB)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">inner_noalloc!</span>(C,A,B)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> A[i,j] <span class="op">+</span> B[i,j]</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    C[i,j] <span class="op">=</span> val[<span class="fl">1</span>]</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="pp">@btime</span> <span class="fu">inner_noalloc!</span>(C,A,B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="example-problems" class="level2">
-<h2 class="anchored" data-anchor-id="example-problems">Example Problems</h2>
-<p>Example problems can be found in <a href="https://github.com/JuliaDiffEq/DiffEqProblemLibrary.jl/tree/master/src/ode">DiffEqProblemLibrary.jl</a>.</p>
-<p>To use a sample problem, such as <code>prob_ode_linear</code>, you can do something like:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#] add DiffEqProblemLibrary</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqProblemLibrary.ODEProblemLibrary</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load problems</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ODEProblemLibrary.<span class="fu">importodeproblems</span>()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> ODEProblemLibrary.prob_ode_linear</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> <span class="fu">solve</span>(prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<pre><code>ODEProblem(f::ODEFunction,u0,tspan,p=NullParameters(),callback=CallbackSet())</code></pre>
-<p>Define an ODE problem from an <a href="@ref"><code>ODEFunction</code></a>.</p>
-</section>
+<section id="plotting" class="level2">
+<h2 class="anchored" data-anchor-id="plotting">Plotting</h2>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">lorenz!</span>(du,u,p,t)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a> du[<span class="fl">1</span>] <span class="op">=</span> <span class="fl">10.0</span><span class="fu">*</span>(u[<span class="fl">2</span>]<span class="op">-</span>u[<span class="fl">1</span>])</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a> du[<span class="fl">2</span>] <span class="op">=</span> u[<span class="fl">1</span>]<span class="fu">*</span>(<span class="fl">28.0</span><span class="op">-</span>u[<span class="fl">3</span>]) <span class="op">-</span> u[<span class="fl">2</span>]</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a> du[<span class="fl">3</span>] <span class="op">=</span> u[<span class="fl">1</span>]<span class="op">*</span>u[<span class="fl">2</span>] <span class="op">-</span> (<span class="fl">8</span><span class="op">/</span><span class="fl">3</span>)<span class="op">*</span>u[<span class="fl">3</span>]</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>u0 <span class="op">=</span> [<span class="fl">1.0</span>;<span class="fl">0.0</span>;<span class="fl">0.0</span>]</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>tspan <span class="op">=</span> (<span class="fl">0.0</span>,<span class="fl">100.0</span>)</span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>prob <span class="op">=</span> <span class="fu">ODEProblem</span>(lorenz!,u0,tspan)</span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> <span class="fu">solve</span>(prob)</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sol,idxs<span class="op">=</span>(<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<p><img src="julia_basics_files/figure-html/cell-36-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sol,idxs<span class="op">=</span>(<span class="fl">1</span>,<span class="fl">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="60">
+<p><img src="julia_basics_files/figure-html/cell-37-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
 
@@ -594,7 +869,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../hands-on/lotka.html" class="pagination-link">
+      <a href="../hands-on/ude.html" class="pagination-link">
         <span class="nav-page-text">UDE Example</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

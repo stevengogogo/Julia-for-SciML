@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning – ude</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../apx.html" rel="next">
+<link href="../hands-on/julia_basics.html" rel="prev">
+<link href="../img/TAM-LogoBox.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/stevengogogo/Julia-for-SciML"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Session Info</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../setup.html" class="sidebar-item-text sidebar-link">Setup Julia</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../index-part1.html" class="sidebar-item-text sidebar-link">Part I: Overviews</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-julia.html" class="sidebar-item-text sidebar-link">Intro. to Julia</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro-sciml.html" class="sidebar-item-text sidebar-link">Intro. to SciML</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../index-part2.html" class="sidebar-item-text sidebar-link">Part II: Hands-on Session</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hands-on/julia_basics.html" class="sidebar-item-text sidebar-link">Julia Basics</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hands-on/ude.html" class="sidebar-item-text sidebar-link active">UDE Example</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../apx.html" class="sidebar-item-text sidebar-link">Appendix</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../apx-julia-platforms.html" class="sidebar-item-text sidebar-link">Julia Platforms</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../apx-resources.html" class="sidebar-item-text sidebar-link">Resources</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#applying-universal-differential-equation-for-discovering-infectious-disease-model" id="toc-applying-universal-differential-equation-for-discovering-infectious-disease-model" class="nav-link active" data-scroll-target="#applying-universal-differential-equation-for-discovering-infectious-disease-model">Applying Universal differential equation for discovering infectious disease model</a>
+  <ul class="collapse">
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#activate-environment" id="toc-activate-environment" class="nav-link" data-scroll-target="#activate-environment">Activate Environment</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
+  <li><a href="#sir-model-for-spread-of-disease" id="toc-sir-model-for-spread-of-disease" class="nav-link" data-scroll-target="#sir-model-for-spread-of-disease">SIR model for spread of disease</a></li>
+  <li><a href="#ode-solver" id="toc-ode-solver" class="nav-link" data-scroll-target="#ode-solver">ODE solver</a></li>
+  <li><a href="#generating-the-measurement" id="toc-generating-the-measurement" class="nav-link" data-scroll-target="#generating-the-measurement">Generating the measurement</a></li>
+  <li><a href="#create-neural-network-to-approximate-unknown-mechanism" id="toc-create-neural-network-to-approximate-unknown-mechanism" class="nav-link" data-scroll-target="#create-neural-network-to-approximate-unknown-mechanism">Create neural network to approximate unknown mechanism</a></li>
+  <li><a href="#multiple-layer-network" id="toc-multiple-layer-network" class="nav-link" data-scroll-target="#multiple-layer-network">Multiple layer network</a></li>
+  <li><a href="#symbolic-regression" id="toc-symbolic-regression" class="nav-link" data-scroll-target="#symbolic-regression">Symbolic Regression</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/stevengogogo/Julia-for-SciML/blob/main/hands-on/ude.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="applying-universal-differential-equation-for-discovering-infectious-disease-model" class="level1">
+<h1>Applying Universal differential equation for discovering infectious disease model</h1>
+<p>SciML software provides functionality to mix physical laws and machine learning model. This approach integrate the two long separated fields: physical modeling and machine learning, and leverage the strengths from both sides.</p>
+<p>Specifically, the universal differential equation (UDE) is a unifying framework connecting physical modeling and data-driven approach, and SciML software provides state-of-art implementation and high-performance computing with Julia.</p>
+<p>In this session, we are going to investigate an infectious disease model, SIR model, as a demonstration of applying UDE approach. This method can be divided by three parts:</p>
+<p><strong>Part I: Data acquisition with ground truth model</strong></p>
+<ul>
+<li>Use DifferentialEquation.jl to implement SIR model</li>
+<li>Use ODE solver to get solution</li>
+<li>Apply noise</li>
+</ul>
+<p><strong>Part II: Model Surrogation</strong></p>
+<ul>
+<li>Assume SIR model is partly known, and use convolution neural network (CNN) as universal approximator to surrogate the unknown process.</li>
+<li>The UDE model is a combination of ODE and CNN frameworks</li>
+<li>Use Automatic Differentiation to achieve gradient descent</li>
+</ul>
+<p><strong>Part III: Model discovery</strong></p>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<blockquote class="blockquote">
+<p>This notebook is modified from 1. https://github.com/epirecipes/sir-julia/blob/master/notebook/ude/ude.ipynb 2. https://github.com/ChrisRackauckas/universal_differential_equations/blob/master/LotkaVolterra/scenario_1.jl</p>
+<p>The original UDE paper: Rackauckas, Christopher, et al.&nbsp;“Universal differential equations for scientific machine learning.” arXiv preprint arXiv:2001.04385 (2020).</p>
+</blockquote>
+</section>
+<section id="activate-environment" class="level2">
+<h2 class="anchored" data-anchor-id="activate-environment">Activate Environment</h2>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"ude"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  Activating project at `~/Documents/GitHub/Julia-for-SciML/hands-on/ude`</code></pre>
+</div>
+</div>
+</section>
+<section id="libraries" class="level2">
+<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
+<div class="cell" data-execution_count="96">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEq</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Distributions</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataDrivenDiffEq</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ModelingToolkit</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DiffEqFlux</span>, <span class="bu">Lux</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Optimization</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OptimizationPolyalgorithms</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Random</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ComponentArrays</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Statistics</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random seeds</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> <span class="bu">Random</span>.<span class="fu">default_rng</span>()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">123</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sir-model-for-spread-of-disease" class="level2">
+<h2 class="anchored" data-anchor-id="sir-model-for-spread-of-disease">SIR model for spread of disease</h2>
+<p><span class="math display">\[\begin{align}
+    \frac{dS}{dt} &amp;= -\beta S(t)I(t)\\
+    \frac{dI}{dt} &amp;= \beta S(t)I(t)-\gamma I(t)\\
+    \frac{dR}{dt} &amp;= \beta S(t)I(t)
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(S\)</span>: Susceptible individuals</li>
+<li><span class="math inline">\(I\)</span>: Infected individauls</li>
+<li><span class="math inline">\(R\)</span>: Recovered individuals</li>
+<li><span class="math inline">\(\beta\)</span>: Infectious rate</li>
+<li><span class="math inline">\(\gamma\)</span>: Recovery rate</li>
+</ul>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sir_ode</span>(u,p,t)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    (S,I,R) <span class="op">=</span> u</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    (β,γ) <span class="op">=</span> p</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>β<span class="op">*</span>S<span class="op">*</span>I</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> β<span class="op">*</span>S<span class="op">*</span>I <span class="op">-</span> γ<span class="op">*</span>I</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> β<span class="op">*</span>S<span class="op">*</span>I</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    [dS,dI,dR]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ode-solver" class="level2">
+<h2 class="anchored" data-anchor-id="ode-solver">ODE solver</h2>
+<ul>
+<li>more solvers can be found at https://diffeq.sciml.ai/stable/solvers/ode_solve/</li>
+</ul>
+<div class="cell" data-execution_count="300">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>solver <span class="op">=</span> <span class="fu">RadauIIA3</span>(); <span class="co"># Fully-Implicit Runge-Kutta Methods</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="fl">1000.0</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> [<span class="fl">0.5</span>,<span class="fl">0.25</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>u0 <span class="op">=</span> [<span class="fl">0.99</span>, <span class="fl">0.01</span>, <span class="fl">0.0</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>tspan <span class="op">=</span> (<span class="fl">0</span>., <span class="fl">40</span>.)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>δt <span class="op">=</span> <span class="fl">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sir_prob <span class="op">=</span> <span class="fu">ODEProblem</span>(sir_ode, u0, tspan, p)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sir_sol <span class="op">=</span> <span class="fu">solve</span>(sir_prob, solver, saveat <span class="op">=</span> δt);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="287">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sir_sol,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     xlabel <span class="op">=</span> <span class="st">"Time"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     ylabel <span class="op">=</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     labels <span class="op">=</span> [<span class="st">"S"</span> <span class="st">"I"</span> <span class="st">"R"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="287">
+<p><img src="ude_files/figure-html/cell-9-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="generating-the-measurement" class="level2">
+<h2 class="anchored" data-anchor-id="generating-the-measurement">Generating the measurement</h2>
+<ul>
+<li>The time series data is processed with Poisson noise</li>
+</ul>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>train_time <span class="op">=</span> <span class="fl">30.0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tsdata <span class="op">=</span> <span class="fu">Array</span>(<span class="fu">sir_sol</span>(<span class="fl">0</span><span class="op">:</span>δt<span class="op">:</span>train_time))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>cdata <span class="op">=</span> <span class="fu">diff</span>(tsdata[<span class="fl">3</span>,<span class="op">:</span>])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>noisy_data <span class="op">=</span> <span class="fu">rand</span>.(<span class="fu">Poisson</span>.(N <span class="op">.*</span> cdata));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fl">1</span><span class="op">:</span>δt<span class="op">:</span>train_time, N <span class="op">.*</span> cdata,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     xlabel <span class="op">=</span> <span class="st">"Time"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     ylabel <span class="op">=</span> <span class="st">"New cases per day"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>     label <span class="op">=</span> <span class="st">"True value"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter!</span>(<span class="fl">1</span><span class="op">:</span>δt<span class="op">:</span>train_time, noisy_data, label<span class="op">=</span><span class="st">"Data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<p><img src="ude_files/figure-html/cell-11-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="create-neural-network-to-approximate-unknown-mechanism" class="level2">
+<h2 class="anchored" data-anchor-id="create-neural-network-to-approximate-unknown-mechanism">Create neural network to approximate unknown mechanism</h2>
+<p><span class="math display">\[\begin{align}
+    \frac{dS}{dt} &amp;= -\lambda_{NN}(I(t), \beta, \gamma) S(t)\\
+    \frac{dI}{dt} &amp;= \lambda_{NN}(I(t), \beta, \gamma) S(t)-\gamma I(t)\\
+    \frac{dR}{dt} &amp;= \lambda_{NN}(I(t), \beta, \gamma)S(t)
+\end{align}\]</span></p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>foi1 <span class="op">=</span> Lux.<span class="fu">Dense</span>(<span class="fl">1</span>, <span class="fl">1</span>, relu, bias<span class="op">=</span><span class="cn">false</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p1_, st1 <span class="op">=</span> Lux.<span class="fu">setup</span>(rng, foi1)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p1_, <span class="fu">length</span>(p1_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>((weight = Float32[1.5860611;;],), 1)</code></pre>
+</div>
+</div>
+<p>Build universal differential equation with partly known SIR mechanism</p>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sir_ude</span>(u,p_,t,foi, st)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    S,I,R <span class="op">=</span> u</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    λ<span class="op">=</span> <span class="fu">foi</span>([I], p_, st)[<span class="fl">1</span>][<span class="fl">1</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> <span class="op">-</span>λ<span class="op">*</span>S</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    dI <span class="op">=</span> λ<span class="op">*</span>S <span class="op">-</span> γ<span class="op">*</span>I</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    dR <span class="op">=</span> λ<span class="op">*</span>S</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    [dS, dI, dR]</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tspan_train <span class="op">=</span> (<span class="fl">0</span>,train_time)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sir_ude1 <span class="op">=</span> (u,p_,t) <span class="op">-&gt;</span> <span class="fu">sir_ude</span>(u,p_,t,foi1, st1)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>prob_ude1 <span class="op">=</span> <span class="fu">ODEProblem</span>(sir_ude1,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                      u0,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                      tspan_train,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                      p1_);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To fit this model, we first need to define a function that predicts the outcome given a set of parameters.</p>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">predict</span>(θ, prob)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Array</span>(<span class="fu">solve</span>(prob,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                solver;</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                u0 <span class="op">=</span> u0,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                p <span class="op">=</span> θ,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                saveat <span class="op">=</span> δt,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                sensealg <span class="op">=</span> <span class="fu">InterpolatingAdjoint</span>(autojacvec<span class="op">=</span><span class="fu">ReverseDiffVJP</span>())))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Secondly, we define a loss function that uses this predict function to calculate the loss between the predicted data and the true data. We employ a Poisson loss, as we are comparing our model against counts of new cases.</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loss</span>(θ, prob)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> <span class="fu">predict</span>(θ, prob)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    cpred <span class="op">=</span> <span class="fu">abs</span>.(<span class="fu">N*diff</span>(pred[<span class="fl">3</span>,<span class="op">:</span>]))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    Flux.<span class="fu">poisson_loss</span>(cpred, <span class="fu">float</span>.(noisy_data)), cpred</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We run this function once to make sure it is precompiled.</p>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss</span>(prob_ude1.p, prob_ude1);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To keep track of the running of the model, we store the losses in a <code>Vector</code> and use a callback to report on the model fit every 10 epochs.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> losses1 <span class="op">=</span> []</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>callback1 <span class="op">=</span> <span class="kw">function</span> (p, l, pred)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(losses1, l)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    numloss <span class="op">=</span> <span class="fu">length</span>(losses1)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> numloss <span class="op">%</span> <span class="fl">10</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">display</span>(<span class="st">"Epoch: "</span> <span class="op">*</span> <span class="fu">string</span>(numloss) <span class="op">*</span> <span class="st">" Loss: "</span> <span class="op">*</span> <span class="fu">string</span>(l))</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">false</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>adtype <span class="op">=</span> Optimization.<span class="fu">AutoZygote</span>()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>optf <span class="op">=</span> Optimization.<span class="fu">OptimizationFunction</span>((x,p)<span class="fu">-&gt;loss</span>(x, prob_ude1), adtype)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>optprob <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf, <span class="fu">ComponentVector</span><span class="dt">{Float64}</span>(p1_))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>res_ude1 <span class="op">=</span> Optimization.<span class="fu">solve</span>(optprob, OptimizationPolyalgorithms.<span class="fu">PolyOpt</span>(), callback<span class="op">=</span>callback1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 620 Loss: 46.39434672449694"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 630 Loss: 36.43205697980578"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 640 Loss: 26.050977198038506"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 650 Loss: 15.114743579282198"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 660 Loss: 3.452580725344372"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 670 Loss: -8.98614732168986"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 680 Loss: -22.135178338988688"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 690 Loss: -35.43392650802868"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 700 Loss: -47.2600376516064"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 710 Loss: -54.69635846795701"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 720 Loss: -56.649457949317345"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 730 Loss: -56.45193738134048"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 740 Loss: -56.50212237569375"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 750 Loss: -56.63738424745975"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 760 Loss: -56.65655302525394"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 770 Loss: -56.65182872007104"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 780 Loss: -56.65572714612519"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 790 Loss: -56.657674602245805"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 800 Loss: -56.65750509696803"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 810 Loss: -56.65758482578167"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 820 Loss: -56.65768436524299"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 830 Loss: -56.657680560010775"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 840 Loss: -56.65768264189337"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 850 Loss: -56.65768700304816"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 860 Loss: -56.65768675117436"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 870 Loss: -56.65768689313232"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 880 Loss: -56.65768709669628"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 890 Loss: -56.65768708640462"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 900 Loss: -56.657687096188525"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 910 Loss: -56.657687098526715"</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div class="ansi-escaped-output">
+<pre>u: ComponentVector{Float64}(weight = [0.493602344646379;;])</pre>
+</div>
+</div>
+</div>
+<p>The fitted parameter in this model corresponds to the infectivity parameter, <code>β</code>.</p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>res_ude1.minimizer, losses1[<span class="kw">end</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<pre><code>((weight = [0.493602344646379;;]), -56.65768709902595)</code></pre>
+</div>
+</div>
+<p>This model is fast to converge to an optimum due to the small number of trainable parameters.</p>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>prob_ude1_fit <span class="op">=</span> <span class="fu">ODEProblem</span>(sir_ude1, u0, tspan, res_ude1.minimizer)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>sol_ude1_fit <span class="op">=</span> <span class="fu">solve</span>(prob_ude1_fit, solver, saveat <span class="op">=</span> δt)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(sir_sol, label<span class="op">=</span>[<span class="st">"True Susceptible"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>],title<span class="op">=</span><span class="st">"Fitted true model"</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(sol_ude1_fit, label<span class="op">=</span>[<span class="st">"Estimated Susceptible"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<p><img src="ude_files/figure-html/cell-21-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+<p>This plots the relationship between <code>i</code> and the force of infection, <code>λ</code>, which shows a good match.</p>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>Imax <span class="op">=</span> <span class="fu">maximum</span>(tsdata[<span class="fl">2</span>,<span class="op">:</span>])</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>Igrid <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">0.5</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> [<span class="fu">foi1</span>([I],res_ude1.minimizer, st1)[<span class="fl">1</span>][<span class="fl">1</span>] for I <span class="kw">in</span> Igrid]</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(Igrid,λ,xlabel<span class="op">=</span><span class="st">"Proportion of population infected, I"</span>,ylab<span class="op">=</span><span class="st">"Force of infection, λ"</span>,label<span class="op">=</span><span class="st">"Neural network prediction"</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">abline!</span>(p[<span class="fl">1</span>],<span class="fl">0</span>,label<span class="op">=</span><span class="st">"True value"</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">vline!</span>([Imax],label<span class="op">=</span><span class="st">"Upper bound of training data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<p><img src="ude_files/figure-html/cell-22-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="multiple-layer-network" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-layer-network">Multiple layer network</h2>
+<p>In the absence of prior knowledge, we use a neural network with multiple layers.</p>
+<div class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Random</span>.<span class="fu">seed!</span>(<span class="fl">1234</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>nhidden <span class="op">=</span> <span class="fl">4</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>foi2 <span class="op">=</span> Lux.<span class="fu">Chain</span>(Lux.<span class="fu">Dense</span>(<span class="fl">1</span>, nhidden, relu, init_weight<span class="op">=</span> Lux.glorot_uniform),</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                     Lux.<span class="fu">Dense</span>(nhidden, nhidden, relu),</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                     Lux.<span class="fu">Dense</span>(nhidden, <span class="fl">1</span>, relu))</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>p2_, st2 <span class="op">=</span> Lux.<span class="fu">setup</span>(rng, foi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="85">
+<pre><code>((layer_1 = (weight = Float32[0.49557778; -0.38126603; -0.42284605; 0.107465595;;], bias = Float32[0.0; 0.0; 0.0; 0.0;;]), layer_2 = (weight = Float32[-0.15969938 -0.25347877 0.49135512 0.78781974; 0.8177637 0.035255868 0.58824235 -0.5106646; -0.6919587 -0.16589832 -0.77170587 0.78050417; -0.8402026 0.24172777 0.809115 0.047083568], bias = Float32[0.0; 0.0; 0.0; 0.0;;]), layer_3 = (weight = Float32[0.20837806 0.16283458 -0.48723406 0.38921136], bias = Float32[0.0;;])), (layer_1 = NamedTuple(), layer_2 = NamedTuple(), layer_3 = NamedTuple()))</code></pre>
+</div>
+</div>
+<p>We wrap this neural network in a new <code>ODEProblem</code>.</p>
+<div class="cell" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sir_ude2 <span class="op">=</span> (u,p_,t) <span class="op">-&gt;</span> <span class="fu">sir_ude</span>(u,p_,t,foi2, st2)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>prob_ude2 <span class="op">=</span> <span class="fu">ODEProblem</span>(sir_ude2,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                      u0,</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>                      tspan_train,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>                      p2_);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We define a new data structure to store the losses from the fitting of this more complex model.</p>
+<div class="cell" data-execution_count="88">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> losses2 <span class="op">=</span> []</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>callback2 <span class="op">=</span> <span class="kw">function</span> (p, l, pred)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">push!</span>(losses2, l)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    numloss <span class="op">=</span> <span class="fu">length</span>(losses2)</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> numloss <span class="op">%</span> <span class="fl">10</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">display</span>(<span class="st">"Epoch: "</span> <span class="op">*</span> <span class="fu">string</span>(numloss) <span class="op">*</span> <span class="st">" Loss: "</span> <span class="op">*</span> <span class="fu">string</span>(l))</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">false</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>WARNING: redefinition of constant losses2. This may fail, cause incorrect answers, or produce other errors.</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="89">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>optf2 <span class="op">=</span> Optimization.<span class="fu">OptimizationFunction</span>((x,p)<span class="fu">-&gt;loss</span>(x, prob_ude2), adtype)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>optprob2 <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf2, <span class="fu">ComponentVector</span><span class="dt">{Float64}</span>(p2_))</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>res_ude2 <span class="op">=</span> Optimization.<span class="fu">solve</span>(optprob2, OptimizationPolyalgorithms.<span class="fu">PolyOpt</span>(), callback<span class="op">=</span>callback2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 10 Loss: -46.79926037468308"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 20 Loss: -51.4220018913606"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 30 Loss: -52.332849893124255"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 40 Loss: -52.681711889183276"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 50 Loss: -53.46893725489178"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 60 Loss: -54.76561455435265"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 70 Loss: -56.45966754507883"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 80 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 90 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 100 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 110 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 120 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 130 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 140 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 150 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 160 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 170 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 180 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 190 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 200 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 210 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 220 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 230 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 240 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 250 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 260 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 270 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 280 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 290 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496
+┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 300 Loss: Inf"</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>┌ Warning: Automatic dt set the starting dt as NaN, causing instability. Exiting.
+└ @ OrdinaryDiffEq /Users/stevenchiu/.julia/packages/OrdinaryDiffEq/4qO6L/src/solve.jl:548
+┌ Warning: NaN dt detected. Likely a NaN value in the state, parameters, or derivative value caused this outcome.
+└ @ SciMLBase /Users/stevenchiu/.julia/packages/SciMLBase/y9NOj/src/integrator_interface.jl:496</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 310 Loss: -56.66513928900252"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 320 Loss: -56.66513929888274"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>"Epoch: 330 Loss: -56.66513920833483"</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="89">
+<div class="ansi-escaped-output">
+<pre>u: ComponentVector{Float64}(layer_1 = (weight = [0.6991807797399039; -0.3812660276889801; -0.4228460490703583; -0.027000490333794425;;], bias = [0.05949681531213866; 0.0; 0.0; 0.060437624698914345;;]), layer_2 = (weight = [-0.10428855101675928 -0.2534787654876709 0.49135512113571167 0.7944243178790527; 0.8983483498141173 0.03525586798787117 0.5882423520088196 -0.4997345599895566; -0.738569450994832 -0.16589832305908203 -0.7717058658599854 0.8559028021833632; -0.8402026295661926 0.2417277693748474 0.8091149926185608 0.04708356782793999], bias = [0.05984993092264943; 0.05985722498659796; 0.12671031375124223; 0.0;;]), layer_3 = (weight = [0.09030682314780224 0.24263830743106182 -0.6599796052511395 0.38921135663986206], bias = [0.0591222441143055;;]))</pre>
+</div>
+</div>
+</div>
+<p>Overall, the ‘true’ model and the more flexible model give a comparable fit to the data in terms of the loss function.</p>
+<div class="cell" data-execution_count="92">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>losses1[<span class="kw">end</span>],losses2[<span class="kw">end</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="92">
+<pre><code>(-56.65768709902595, -56.66513921104841)</code></pre>
+</div>
+</div>
+<p>Consistent with this, the multilayer model gives a good fit when plotted alongside the data.</p>
+<div class="cell" data-execution_count="296">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>prob_ude2_fit <span class="op">=</span> <span class="fu">ODEProblem</span>(sir_ude2, u0, tspan, res_ude2.minimizer)</span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>sol_fit <span class="op">=</span> <span class="fu">solve</span>(prob_ude2_fit, solver)</span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>sol_ude2_fit <span class="op">=</span> <span class="fu">sol_fit</span>(tspan[<span class="fl">1</span>]<span class="op">:</span>δt<span class="op">:</span>tspan[<span class="fl">2</span>])</span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(sir_sol, label<span class="op">=</span>[<span class="st">"True Susceptible"</span> <span class="st">"True Infected"</span> <span class="st">"True Recovered"</span>],title<span class="op">=</span><span class="st">"Fitted UDE model"</span>, dpi<span class="op">=</span><span class="fl">300</span>)</span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot!</span>(sol_ude2_fit, label<span class="op">=</span>[<span class="st">"Estimated Susceptible"</span> <span class="st">"Estimated Infected"</span> <span class="st">"Estimated Recovered"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="296">
+<p><img src="ude_files/figure-html/cell-28-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+<p>This is the inferred functional relationship between the proportion of infected individuals and the force of infection.</p>
+<div class="cell" data-execution_count="298">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>λs <span class="op">=</span> [<span class="fu">foi2</span>([I],res_ude2.minimizer, st2)[<span class="fl">1</span>][<span class="fl">1</span>] for I <span class="kw">in</span> Igrid]</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(Igrid, λs, xlabel<span class="op">=</span><span class="st">"Proportion of population infected, i"</span>, ylab<span class="op">=</span><span class="st">"Force of infection, λ"</span>, label<span class="op">=</span><span class="st">"Neural network prediction"</span>, dpi<span class="op">=</span><span class="fl">300</span>)</span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">abline!</span>(p[<span class="fl">1</span>], <span class="fl">0</span>,label<span class="op">=</span><span class="st">"True value"</span>)</span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">vline!</span>([Imax], label<span class="op">=</span><span class="st">"Upper bound of training data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="298">
+<p><img src="ude_files/figure-html/cell-29-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="symbolic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="symbolic-regression">Symbolic Regression</h2>
+<div class="cell" data-execution_count="259">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>t_measure <span class="op">=</span> tspan[<span class="fl">1</span>]<span class="op">:</span>δt<span class="op">:</span>tspan[<span class="fl">2</span>]</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>X̂ <span class="op">=</span> Is <span class="op">=</span> <span class="fu">reshape</span>(<span class="fu">collect</span>(<span class="bu">Iterators</span>.<span class="fu">flatten</span>(<span class="fu">sol_fit</span>(t_measure, idxs<span class="op">=</span>[<span class="fl">2</span>]).u)), <span class="fl">1</span>, <span class="fu">length</span>(t_measure))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="259">
+<pre><code>1×41 Matrix{Float64}:
+ 0.01  0.0124666  0.0155792  0.0194809  …  0.0201414  0.0174064  0.0150216</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="260">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>Ŷ <span class="op">=</span> <span class="fu">reshape</span>([<span class="fu">foi2</span>([I],res_ude2.minimizer, st2)[<span class="fl">1</span>][<span class="fl">1</span>] for I <span class="kw">in</span> Is], <span class="fl">1</span>, <span class="fu">length</span>(Is))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="260">
+<pre><code>1×41 Matrix{Float64}:
+ 0.00473393  0.00597518  0.00754149  …  0.00983722  0.00846095  0.00726087</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="279">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Basis</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">1</span>]</span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the basis functions, multivariate polynomials up to deg 5</span></span>
+<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and sine</span></span>
+<span id="cb126-5"><a href="#cb126-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="fu">polynomial_basis</span>(u, <span class="fl">5</span>); <span class="fu">sin</span>.(u); <span class="fu">cos</span>.(u); <span class="fu">exp</span>.(u)]</span>
+<span id="cb126-6"><a href="#cb126-6" aria-hidden="true" tabindex="-1"></a>basis <span class="op">=</span> <span class="fu">Basis</span>(b,u);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="280">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>basis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="280">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bold">Model ##Basis#535 with 9 </span><span class="ansi-bold">equations</span>
+<span class="ansi-bold">States (1):</span>
+  u[1]
+<span class="ansi-bold">Parameters (0):</span></pre>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="281">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> <span class="fu">exp10</span>.(<span class="op">-</span><span class="fl">3</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">5</span>)</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an optimizer for the SINDy problem</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> <span class="fu">STLSQ</span>(λ)</span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define different problems for the recovery</span></span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>nn_problem <span class="op">=</span> <span class="fu">DirectDataDrivenProblem</span>(X̂, Ŷ)</span>
+<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test on ideal derivative data for unknown function ( not available )</span></span>
+<span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a>nn_res <span class="op">=</span> <span class="fu">solve</span>(nn_problem, basis, opt, maxiter <span class="op">=</span> <span class="fl">10000</span>, progress <span class="op">=</span> <span class="cn">true</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="281">
+<pre><code>Linear Solution</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="282">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">result</span>(nn_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="282">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bold">Model ##Basis#539 with 1 </span><span class="ansi-bold">equations</span>
+<span class="ansi-bold">States (1):</span>
+  u[1]
+<span class="ansi-bold">Parameters (1):</span>
+  p₁</pre>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="283">
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(nn_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="283">
+<pre><code>1-element Vector{Float64}:
+ 0.5</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="284">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(Igrid, [<span class="fu">nn_res</span>([I], <span class="fu">parameters</span>(nn_res))[<span class="fl">1</span>] for I <span class="kw">in</span> Igrid], xlabel<span class="op">=</span><span class="st">"Proportion of population infected, i"</span>, ylab<span class="op">=</span><span class="st">"Force of infection, λ"</span>, label<span class="op">=</span><span class="st">"Symbolic Regression"</span>)</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">abline!</span>(p[<span class="fl">1</span>], <span class="fl">0</span>,label<span class="op">=</span><span class="st">"True value"</span>)</span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">vline!</span>([Imax], label<span class="op">=</span><span class="st">"Upper bound of training data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="284">
+<p><img src="ude_files/figure-html/cell-37-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="stevengogogo/Julia-for-SciML-draft" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../hands-on/julia_basics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia Basics</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../apx.html" class="pagination-link">
+        <span class="nav-page-text">Appendix</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">TAMIDS Workshop Series, Steven Chiu (Oct.&nbsp;25th 2022)</div>
+  </div>
+</footer>
+
+
+
+</body></html>
