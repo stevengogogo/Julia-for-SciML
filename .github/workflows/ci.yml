@@ -53,7 +53,7 @@ jobs:
       - name: Run Notebooks
         run: |
           parallel -j2 jupyter nbconvert --to notebook --ExecutePreprocessor.timeout=1800 --execute --inplace {} ::: hands-on/*.ipynb
-          find  . -type f -name 'Manifest.toml' -delete
+          find  hands-on/ -type f -name 'Manifest.toml' -delete
       - name: Deploy at hands-on branch 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
