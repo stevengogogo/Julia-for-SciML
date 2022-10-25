@@ -123,7 +123,7 @@
     "href": "index.html#schedule",
     "title": "Session Info",
     "section": "Schedule",
-    "text": "Schedule\n\nSchedule (Total: 2hrs)\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with nerual differential equation\n\n\n30 min\nHands-on session with SciML application"
+    "text": "Schedule\n\nSchedule (Total: 2hrs)\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with Julia basics\n\n\n30 min\nHands-on session with SciML application"
   },
   {
     "objectID": "index.html#access-to-this-webpage",
@@ -235,7 +235,7 @@
     "href": "slides/SLIDE_julia-intro.html#session",
     "title": "Introduction to Julia Language",
     "section": "Session",
-    "text": "Session\n\n\n\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with nerual differential equation\n\n\n30 min\nHands-on session with SciML application\n\n\n\n\n\n\n\nFigure 1: Tutorial Website1\n\n\n\n\nhttps://stevengogogo.github.io/Julia-for-SciML"
+    "text": "Session\n\n\n\n\n\nTime\nContent\n\n\n\n\n25 min\nIntroduction to the Julia Programming Language\n\n\n25 min\nThe Julia SciML Ecosystem\n\n\n10 min\nBreak\n\n\n30 min\nHands-on session with Julia basics\n\n\n30 min\nHands-on session with SciML application\n\n\n\n\n\n\n\nFigure 1: Tutorial Website1\n\n\n\n\nhttps://stevengogogo.github.io/Julia-for-SciML"
   },
   {
     "objectID": "slides/SLIDE_julia-intro.html#what-is-julia",
