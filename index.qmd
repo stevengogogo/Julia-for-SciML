@@ -36,7 +36,7 @@ Both sessions will include presentations and hands-on sessions. Prior knowledge 
 |25 min|Introduction to the Julia Programming Language|
 |25 min|The Julia SciML Ecosystem|
 |10 min|Break|
-|30 min|Hands-on session with nerual differential equation|
+|30 min|Hands-on session with Julia basics|
 |30 min|Hands-on session with SciML application|
 : Schedule (Total: 2hrs)
 
