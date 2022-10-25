@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Applying Universal differential equation for discovering infectious disease model</title>
+<title>TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - UDE Example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,11 +156,11 @@ cookieconsent.run({
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Applying Universal differential equation for discovering infectious disease model">
-<meta property="og:description" content="SciML software provides functionality to mix physical laws and machine learning model.">
+<meta property="og:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - UDE Example">
+<meta property="og:description" content="">
 <meta property="og:site-name" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning">
-<meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - Applying Universal differential equation for discovering infectious disease model">
-<meta name="twitter:description" content="SciML software provides functionality to mix physical laws and machine learning model.">
+<meta name="twitter:title" content="TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning - UDE Example">
+<meta name="twitter:description" content="">
 <meta name="twitter:image" content="https://stevengogogo.github.io/Julia-for-SciML/img/TAM-LogoBox.png">
 <meta name="twitter:image-height" content="756">
 <meta name="twitter:image-width" content="756">
@@ -203,7 +203,7 @@ cookieconsent.run({
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Applying Universal differential equation for discovering infectious disease model</h1>
+      <h1 class="quarto-secondary-nav-title">UDE Example</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -310,7 +310,12 @@ cookieconsent.run({
   <li><a href="#generating-the-measurement" id="toc-generating-the-measurement" class="nav-link" data-scroll-target="#generating-the-measurement">Generating the measurement</a></li>
   <li><a href="#create-neural-network-to-approximate-unknown-mechanism" id="toc-create-neural-network-to-approximate-unknown-mechanism" class="nav-link" data-scroll-target="#create-neural-network-to-approximate-unknown-mechanism">Create neural network to approximate unknown mechanism</a></li>
   <li><a href="#multiple-layer-network" id="toc-multiple-layer-network" class="nav-link" data-scroll-target="#multiple-layer-network">Multiple layer network</a></li>
-  <li><a href="#symbolic-regression" id="toc-symbolic-regression" class="nav-link" data-scroll-target="#symbolic-regression">Symbolic Regression</a></li>
+  <li><a href="#training-ude" id="toc-training-ude" class="nav-link" data-scroll-target="#training-ude">Training UDE</a></li>
+  <li><a href="#compare-two-ude-models" id="toc-compare-two-ude-models" class="nav-link" data-scroll-target="#compare-two-ude-models">Compare two UDE models</a></li>
+  <li><a href="#extrapolation-is-errornous-for-trained-neural-network" id="toc-extrapolation-is-errornous-for-trained-neural-network" class="nav-link" data-scroll-target="#extrapolation-is-errornous-for-trained-neural-network">Extrapolation is errornous for trained neural network</a></li>
+  <li><a href="#model-discovery-via-symbolic-regression" id="toc-model-discovery-via-symbolic-regression" class="nav-link" data-scroll-target="#model-discovery-via-symbolic-regression">Model discovery via Symbolic Regression</a></li>
+  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks">Remarks</a></li>
+  <li><a href="#advanced-learning" id="toc-advanced-learning" class="nav-link" data-scroll-target="#advanced-learning">Advanced learning</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/stevengogogo/Julia-for-SciML/blob/main/hands-on/ude.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/stevengogogo/Julia-for-SciML/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -320,7 +325,7 @@ cookieconsent.run({
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Applying Universal differential equation for discovering infectious disease model</h1>
+<h1 class="title d-none d-lg-block">UDE Example</h1>
 </div>
 
 
@@ -337,6 +342,10 @@ cookieconsent.run({
 
 <section id="applying-universal-differential-equation-for-discovering-infectious-disease-model" class="level1">
 <h1>Applying Universal differential equation for discovering infectious disease model</h1>
+<p><a href="https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml"><img src="https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml/badge.svg" class="img-fluid"></a> <a href="https://mybinder.org/v2/gh/stevengogogo/Julia-for-SciML/hands-on"><img src="https://mybinder.org/badge_logo.svg" class="img-fluid" alt="Binder"></a></p>
+<blockquote class="blockquote">
+<p>The result is also display at <a href="https://stevengogogo.github.io/Julia-for-SciML/hands-on/ude.html">tutorial page</a></p>
+</blockquote>
 <p>SciML software provides functionality to mix physical laws and machine learning model. This approach integrate the two long separated fields: physical modeling and machine learning, and leverage the strengths from both sides.</p>
 <p>Specifically, the universal differential equation (UDE) is a unifying framework connecting physical modeling and data-driven approach, and SciML software provides state-of-art implementation and high-performance computing with Julia.</p>
 <p>In this session, we are going to investigate an infectious disease model, SIR model, as a demonstration of applying UDE approach. This method can be divided by three parts:</p>
@@ -353,6 +362,31 @@ cookieconsent.run({
 <li>Use Automatic Differentiation to achieve gradient descent</li>
 </ul>
 <p><strong>Part III: Model discovery</strong></p>
+<ul>
+<li>Use symbolic regression to recover the original model.</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sir_ode</code></td>
+<td>Ground truth model</td>
+</tr>
+<tr class="even">
+<td><code>sir_ude1</code></td>
+<td>UDE with correct functional structure</td>
+</tr>
+<tr class="odd">
+<td><code>sir_ude2</code></td>
+<td>UDE with multilayer CNN</td>
+</tr>
+</tbody>
+</table>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <blockquote class="blockquote">
@@ -706,6 +740,10 @@ cookieconsent.run({
 <pre><code>WARNING: redefinition of constant losses2. This may fail, cause incorrect answers, or produce other errors.</code></pre>
 </div>
 </div>
+</section>
+<section id="training-ude" class="level2">
+<h2 class="anchored" data-anchor-id="training-ude">Training UDE</h2>
+<p>Noted that UDE is a differntial equation, and unstability can occurs when the optimizer goes into the unstable region.</p>
 <div class="cell" data-execution_count="89">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>optf2 <span class="op">=</span> Optimization.<span class="fu">OptimizationFunction</span>((x,p)<span class="fu">-&gt;loss</span>(x, prob_ude2), adtype)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>optprob2 <span class="op">=</span> Optimization.<span class="fu">OptimizationProblem</span>(optf2, <span class="fu">ComponentVector</span><span class="dt">{Float64}</span>(p2_))</span>
@@ -1775,7 +1813,13 @@ cookieconsent.run({
 </div>
 </div>
 </div>
-<p>Overall, the ‘true’ model and the more flexible model give a comparable fit to the data in terms of the loss function.</p>
+</section>
+<section id="compare-two-ude-models" class="level2">
+<h2 class="anchored" data-anchor-id="compare-two-ude-models">Compare two UDE models</h2>
+<ul>
+<li>First one is linear CNN; Second one is multilayer</li>
+<li>Both of them have similar performance in training set</li>
+</ul>
 <div class="cell" data-execution_count="92">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>losses1[<span class="kw">end</span>],losses2[<span class="kw">end</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="92">
@@ -1793,7 +1837,10 @@ cookieconsent.run({
 <p><img src="ude_files/figure-html/cell-28-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
-<p>This is the inferred functional relationship between the proportion of infected individuals and the force of infection.</p>
+</section>
+<section id="extrapolation-is-errornous-for-trained-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="extrapolation-is-errornous-for-trained-neural-network">Extrapolation is errornous for trained neural network</h2>
+<p>To predict the future, the exptrapolation is needed. However, if the model is oversized, it may deviate from the truth model when exploring extrapolated data. On the other hand, neural network provides good interpolation in training set. The trained neural network can be a data generated model for model discovery.</p>
 <div class="cell" data-execution_count="298">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>λs <span class="op">=</span> [<span class="fu">foi2</span>([I],res_ude2.minimizer, st2)[<span class="fl">1</span>][<span class="fl">1</span>] for I <span class="kw">in</span> Igrid]</span>
 <span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(Igrid, λs, xlabel<span class="op">=</span><span class="st">"Proportion of population infected, i"</span>, ylab<span class="op">=</span><span class="st">"Force of infection, λ"</span>, label<span class="op">=</span><span class="st">"Neural network prediction"</span>, dpi<span class="op">=</span><span class="fl">300</span>)</span>
@@ -1804,8 +1851,12 @@ cookieconsent.run({
 </div>
 </div>
 </section>
-<section id="symbolic-regression" class="level2">
-<h2 class="anchored" data-anchor-id="symbolic-regression">Symbolic Regression</h2>
+<section id="model-discovery-via-symbolic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="model-discovery-via-symbolic-regression">Model discovery via Symbolic Regression</h2>
+<p>Use sparse identification to identify the physical laws.</p>
+<ul>
+<li>See <a href="https://www.pnas.org/doi/10.1073/pnas.1517384113">Discovering governing equations from data by sparse identification of nonlinear dynamical systems</a> for details about SINDY</li>
+</ul>
 <div class="cell" data-execution_count="259">
 <div class="sourceCode cell-code" id="cb122"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>t_measure <span class="op">=</span> tspan[<span class="fl">1</span>]<span class="op">:</span>δt<span class="op">:</span>tspan[<span class="fl">2</span>]</span>
 <span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>X̂ <span class="op">=</span> Is <span class="op">=</span> <span class="fu">reshape</span>(<span class="fu">collect</span>(<span class="bu">Iterators</span>.<span class="fu">flatten</span>(<span class="fu">sol_fit</span>(t_measure, idxs<span class="op">=</span>[<span class="fl">2</span>]).u)), <span class="fl">1</span>, <span class="fu">length</span>(t_measure))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1821,6 +1872,7 @@ cookieconsent.run({
  0.00473393  0.00597518  0.00754149  …  0.00983722  0.00846095  0.00726087</code></pre>
 </div>
 </div>
+<p>Setup basis of equations</p>
 <div class="cell" data-execution_count="279">
 <div class="sourceCode cell-code" id="cb126"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Basis</span></span>
 <span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> u[<span class="fl">1</span><span class="op">:</span><span class="fl">1</span>]</span>
@@ -1874,6 +1926,7 @@ cookieconsent.run({
  0.5</code></pre>
 </div>
 </div>
+<p>Recovered dynamics</p>
 <div class="cell" data-execution_count="284">
 <div class="sourceCode cell-code" id="cb133"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter</span>(Igrid, [<span class="fu">nn_res</span>([I], <span class="fu">parameters</span>(nn_res))[<span class="fl">1</span>] for I <span class="kw">in</span> Igrid], xlabel<span class="op">=</span><span class="st">"Proportion of population infected, i"</span>, ylab<span class="op">=</span><span class="st">"Force of infection, λ"</span>, label<span class="op">=</span><span class="st">"Symbolic Regression"</span>)</span>
 <span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>Plots.<span class="fu">abline!</span>(p[<span class="fl">1</span>], <span class="fl">0</span>,label<span class="op">=</span><span class="st">"True value"</span>)</span>
@@ -1882,6 +1935,21 @@ cookieconsent.run({
 <p><img src="ude_files/figure-html/cell-37-output-1.svg" class="img-fluid"></p>
 </div>
 </div>
+</section>
+<section id="remarks" class="level2">
+<h2 class="anchored" data-anchor-id="remarks">Remarks</h2>
+<p>SciML framework combines multiple individual packages. The UDE model is one of the example of the Scientific Machine Learning. Most of the scientic breakthrough comes from the novel integration between previously unrelated fields. Julia makes this integration possible for the following reasons:</p>
+<ol type="1">
+<li>Just-In-Time compiler: This provides interactive platform to manipulate scripts, but still generate machine code for high performance computing</li>
+<li>Type inference: This untackle the two language problem. As a high-level language, Julia leverages type inference to generate strong type code with precise type allocation, and make code faster.</li>
+<li>Multiple dispatch: The powerhouse of the functional programming that makes packages extensible.</li>
+</ol>
+</section>
+<section id="advanced-learning" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-learning">Advanced learning</h2>
+<ul>
+<li>Advanced topic and learning materials are located at <a href="https://stevengogogo.github.io/Julia-for-SciML/apx-resources.html">the tutorial appendix</a>.</li>
+</ul>
 
 
 </section>
