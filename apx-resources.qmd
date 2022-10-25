@@ -46,3 +46,13 @@ Introduction to Computational Thinking](https://computationalthinking.mit.edu/Sp
 
 - [SciML style](https://github.com/SciML/SciMLStyle#open-source-contributions-are-allowed-to-start-small-and-grow-over-time)
 - [Performance Tips](https://docs.julialang.org/en/v1/manual/performance-tips/)
+
+
+## Books
+
+- *Hands-On Design Patterns and Best Practices with Julia: Proven solutions to common problems in software design for Julia 1.x*
+    - Essential knowledge for developing packages
+- Kochenderfer, Mykel J., and Tim A. Wheeler. *Algorithms for optimization*. Mit Press, 2019. [[link](https://algorithmsbook.com/optimization/files/optimization.pdf)]
+    - Graduate-level optimization book with Julia examples
+- Kochenderfer, M. J., Wheeler, T. A., & Wray, K. H. (2022). *Algorithms for decision making*. MIT press. [[link](https://algorithmsbook.com/)]
+    - Markov process with Julia
