@@ -1,5 +1,7 @@
 # Julia-for-SciML
 
+Tutorial webpage: https://stevengogogo.github.io/Julia-for-SciML/
+
 [![Test Jupyter Notebooks](https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml/badge.svg)](https://github.com/stevengogogo/Julia-for-SciML/actions/workflows/ci.yml)
 
 Materials for the TAMIDS workshop: "TUTORIAL: JULIA FOR SCIENTIFIC MACHINE LEARNING". Session information can be found at https://sciml.tamids.tamu.edu/2022/10/12/tamids-sciml-lab-tutorial-julia-sciml/
