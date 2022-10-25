@@ -287,7 +287,7 @@ end;
 $$\lambda_{NN}(I, \beta, \gamma) \approx \beta I$$
 
 - However, the extrapolation of nerual network is errornous.
-- Sparsification of neural networks is needed (Occam's net). 
+- Sparsification of neural networks is needed (Occam's razor). 
     - Symbolic regressions[^sindy]
     - [DataDrivenDiffEq.jl](https://github.com/SciML/DataDrivenDiffEq.jl)
 :::
@@ -308,6 +308,14 @@ $$\lambda_{NN}(I, \beta, \gamma) \approx \beta I$$
 - Macroeconomics, climate, urban development
 
 [^case]: more cases are on https://juliacomputing.com/case-studies/
+
+---
+
+## Remarks
+
+1. Julia provides great compiler design for the extensiblity.
+2. With the state-out-art compiler design, many impactful application starts to outcompete old methods.
+3. Writing high-level script with efficient performance is the key feature of using Julia.
 
 
 ---

@@ -4,14 +4,17 @@ project:
 website: 
   title: "TAMIDS SciML Lab Workshop: Julia Softwares for Scientific Machine Learning"
   page-footer: "TAMIDS Workshop Series, Steven Chiu (Oct. 25th 2022)"
-  author: "Steen Shao-Ting Chiu (stchiu@email.tamu.edu)"
   repo-url: https://github.com/stevengogogo/Julia-for-SciML
   repo-actions: [edit, issue]
-  date: today
-  affiliation: "Department of Electrical Engineering, Texa A&M University"
   favicon: img/TAM-LogoBox.png
   twitter-card:
     image: "img/TAM-LogoBox.png"
+  cookie-consent: 
+    type: express
+    style: headline
+  google-analytics: 
+    tracking-id: "G-X84VXS8VLF"
+    anonymize-ip: true
   page-navigation: true
   reader-mode: true
   open-graph: true

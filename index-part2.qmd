@@ -2,3 +2,7 @@
 title: "Part II: Hands-on Session"
 comments: false
 ---
+
+
+- To setup Julia, follow the steps at [setup](setup.qmd)
+- Download the notebooks at [https://github.com/stevengogogo/Julia-for-SciML/tree/hands-on](https://github.com/stevengogogo/Julia-for-SciML/tree/hands-on)

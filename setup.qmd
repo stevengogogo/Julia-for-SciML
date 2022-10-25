@@ -87,6 +87,14 @@ jupyterlab()
 
 ![Jupyter Lab. Noted that the Julia kernel is installed.](img/jupyter.png){width=50% #fig-jupyter-front}
 
+{{< video https://user-images.githubusercontent.com/29009898/197649929-429f271a-2966-4ac4-822b-42c0d237fa5b.mp4 
+    title= 'Install IJulia and get Jupyter started'
+>}}
+
+> Install IJulia and get Jupyter started
+
+
+
 
 ### Done!
 

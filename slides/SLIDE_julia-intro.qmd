@@ -311,11 +311,12 @@ end
 
 ---
 
-## How can I get started with Julia?
+## How can I get started with Julia?[^apx]
 
 - [Think Julia: How to Think Like a Computer Scientist](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html#_copyright)
 - MIT’s 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course
-- 
+
+[^apx]: More on [https://stevengogogo.github.io/Julia-for-SciML/apx-resources.html](https://stevengogogo.github.io/Julia-for-SciML/apx-resources.html)
 
 ---
 
