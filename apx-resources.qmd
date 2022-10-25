@@ -7,14 +7,22 @@ title: "Resources"
 
 
 ## Basics
-- [Julia Documentaion (official doc also includes advanced topics)](https://docs.julialang.org/en/v1/)
-- [Think Julia](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html)
-- [MATLAB-Python-Julia cheatsheet](https://cheatsheets.quantecon.org/)
-- [Julia cheatsheet](https://cheatsheets.quantecon.org/julia-cheatsheet.html)
-- [The Julia Express](http://bogumilkaminski.pl/files/julia_express.pdf)
+
+- Have a glance
+    - [MATLAB-Python-Julia cheatsheet](https://cheatsheets.quantecon.org/)
+    - [Julia cheatsheet](https://cheatsheets.quantecon.org/julia-cheatsheet.html)
+    - [The Julia Express](http://bogumilkaminski.pl/files/julia_express.pdf)
+- Thoroughly understanding
+    - [Julia Documentaion (official doc also includes advanced topics)](https://docs.julialang.org/en/v1/)
+    - [Think Julia](https://benlauwens.github.io/ThinkJulia.jl/latest/book.html)
+
 
 ## Courses
+
+- [QuantEcon with Julia](https://julia.quantecon.org/getting_started_julia/introduction_to_types.html)
+    - This is a course to Quantitative Economics, and contains well-written tutorial for Julia beginners.
 - MIT's 18.337J/6.338J: Parallel Computing and Scientific Machine Learning course. ([videos](https://www.youtube.com/watch?v=3IoqyXmAAkU&list=PLCAl7tjCwWyGjdzOOnlbGnVNZk0kB8VSa), [book](https://github.com/SciML/SciMLBook))
+    - A technical Julia course for parallel computing and scientific machine learning. This couse can teach Julia developers to write efficient and parallelized code.
 - [ MIT 18.S191/6.S083/22.S092
 Introduction to Computational Thinking](https://computationalthinking.mit.edu/Spring21/)
 - [A Deep Introduction to Julia for Data Science and Scientific Computing](http://ucidatascienceinitiative.github.io/IntroToJulia/)
@@ -38,5 +46,3 @@ Introduction to Computational Thinking](https://computationalthinking.mit.edu/Sp
 
 - [SciML style](https://github.com/SciML/SciMLStyle#open-source-contributions-are-allowed-to-start-small-and-grow-over-time)
 - [Performance Tips](https://docs.julialang.org/en/v1/manual/performance-tips/)
-
-## Julia Platforms

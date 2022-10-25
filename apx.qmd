@@ -1,3 +1,5 @@
 ---
 title: "Appendix"
 ---
+
+The the following pages, I summarized advanced learning materials to master Julia programming. It is a great opportunity to review the computer architecture, algorithms and software development. 
