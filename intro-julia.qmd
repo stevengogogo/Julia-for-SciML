@@ -9,6 +9,12 @@ execute:
 ::: {.callout-note}
 ## Presentation
 - [Slides](slides/SLIDE_julia-intro.qmd)
+
+{{< video https://youtu.be/BDKQjydabno
+    title="Introduction to Julia Language?"
+    start="343"
+>}}
+
 :::
 
 ## Outline
